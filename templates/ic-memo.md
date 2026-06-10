@@ -30,6 +30,18 @@
 
 ## 8. Competitive landscape
 
+Summarize the dedicated competitor landscape; do not discard its evidence density.
+
+- Competitive job and buyer:
+- Direct competitors:
+- Platform/incumbent threats:
+- Customer-built/manual substitutes:
+- Target's observable lead:
+- Competitors' observable lead:
+- Valuation counterexample:
+- Same-task proof required:
+- Dedicated appendix: `[competitor-landscape file/link]`
+
 ## 9. Risk onion
 
 | Layer | Current evidence | Remaining risk | How to reduce / verify |

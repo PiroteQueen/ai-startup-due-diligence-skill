@@ -30,6 +30,16 @@
 
 ## Main risks
 
+## Competitive position
+
+- Competitive job / buyer:
+- Closest direct competitor:
+- Strongest platform or incumbent threat:
+- Most realistic substitute:
+- Target leads on:
+- Target is behind on:
+- Same-task evidence required:
+
 ## Risk onion summary
 
 - Founder/team:

@@ -2,6 +2,21 @@
 
 All notable changes to this skill are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.0] - 2026-06-10
+
+### Added
+
+- Mandatory external-research gate with source-group coverage, high-materiality claim audit, disconfirming-evidence search, and explicit incomplete/blocked behavior.
+- Dedicated competitor and substitute research protocol covering direct products, adjacent approaches, platforms, incumbents, customer-built alternatives, and manual/non-consumption.
+- `templates/external-research-log.md` for auditable active-research records.
+- `templates/competitor-landscape.md` for source-dated, same-dimension competitor evidence and valuation counterexamples.
+
+### Changed
+
+- Competition coverage now counts as answered only after the competitor gate passes.
+- IC Memo and OnePage templates retain competitor evidence and link to a dedicated landscape appendix.
+- Quality bar now prohibits completed-DD language when external research was possible but not attempted.
+
 ## [1.1.0] - 2026-06-10
 
 ### Changed
