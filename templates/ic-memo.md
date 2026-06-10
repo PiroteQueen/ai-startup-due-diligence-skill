@@ -2,10 +2,15 @@
 
 ## 1. Executive view
 
-- Recommendation:
+- Recommendation: Proceed / Watch / Pass / Need more evidence (per `references/decision-rules.md`)
+- Verdict basis: eligibility conditions met; verdict caps triggered (if any)
 - Confidence:
+- Weighted diligence coverage:
+- Decision readiness:
+- Recommendation-blocking P0 gates:
 - Main reason to invest:
 - Main reason not to invest:
+- This verdict reverses if:
 
 ## 2. Company thesis
 
@@ -20,13 +25,23 @@
 ## 7. VC-fit, stage, and capital path
 
 - VC-fit verdict:
-- Current stage and evidence:
 - Leverage mechanism:
 - Exit / return path:
 - What the current round buys:
 - Funding amount sanity check:
 - Dilution / liquidation preference / exit optionality risk:
 - Investor or partner fit:
+
+### Four-dimensional stage map
+
+| Dimension | Current state | Evidence | Confidence | Next gate |
+| --- | --- | --- | --- | --- |
+| Product maturity |  |  |  |  |
+| PMF status |  |  |  |  |
+| GTM maturity |  |  |  |  |
+| Financing stage |  |  |  |  |
+
+Do not use financing stage as evidence for product maturity, PMF, or GTM maturity.
 
 ## 8. Competitive landscape
 
@@ -75,3 +90,8 @@ Summarize the dedicated competitor landscape; do not discard its evidence densit
 ## 12. Key unanswered questions
 
 ## 13. Decision gates
+
+| Gate | Evidence threshold | Deadline | Owner | If missed |
+| --- | --- | --- | --- | --- |
+
+If the recommendation is Watch, list the re-engagement triggers here (evidence + time bound). A gate without an evidence threshold and an if-missed action is a wish, not a gate.

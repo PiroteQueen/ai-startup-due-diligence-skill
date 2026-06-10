@@ -15,8 +15,8 @@ Target company
   → evidence-backed answers
   → unanswered gaps
   → confidence / contradiction / red flags
-  → stage gate / VC-fit / capital path
-  → outputs: Q&A List, OnePage, IC memo, risk register, follow-up plan
+  → four-dimensional stage map / VC-fit / capital path
+  → outputs: Chinese Systematic DD, Q&A List, OnePage, IC memo, risk register, data-room request
 ```
 
 Diligence is question coverage management, not summarization. The skill is designed to prevent six common mistakes:
@@ -35,9 +35,19 @@ ai-startup-due-diligence/
 ├── SKILL.md                      # Agent-facing entry point (metadata + workflow)
 ├── references/
 │   ├── module-questions.md       # Full key-question bank for 7 diligence modules
-│   └── red-team-checks.md        # Nine contradiction checks, risk onion, post-raise risks
+│   ├── coverage-stage-model.md   # Weighted coverage + four-dimensional stage model
+│   ├── red-team-checks.md        # Nine contradiction checks, risk onion, post-raise risks
+│   ├── competitor-research.md    # Mandatory competitor/substitute research protocol
+│   ├── mega-round-sanity-check.md # Pre-revenue / stealth / mega-round valuation sanity checks
+│   ├── confidence-downgrade-rules.md # Caps verdict confidence when P0 evidence is missing
+│   ├── pattern-library.md        # Calibration patterns: false/true PMF, wrapper deaths, founder & funding red flags
+│   └── decision-rules.md         # Verdict eligibility, deal-breakers, red-flag caps, Watch triggers
 ├── templates/
 │   ├── evidence-ledger.yaml      # Per-claim evidence schema
+│   ├── external-research-log.md  # Active web/source research log
+│   ├── competitor-landscape.md   # Same-dimension competitor/substitute matrix
+│   ├── chinese-systematic-dd.md  # Chinese-facing narrative output: one question + five gates
+│   ├── data-room-request.md      # Source-document request list from risk-onion gaps
 │   ├── qa-gap-list.md            # Coverage table + answered/unanswered questions
 │   ├── onepage.md                # One-page investment summary
 │   ├── ic-memo.md                # Full IC memo skeleton
@@ -83,11 +93,11 @@ Recommended sequence (the skill enforces this):
 
 1. Intake provided materials; gather external evidence when the company is identifiable.
 2. Separate provided materials from externally verified evidence.
-3. Build module coverage across 7 modules (thesis, team, product/AI, traction, financials, legal, capital path).
-4. Map stage (BPMF/APMF), VC-fit, capital path, and the risk onion.
+3. Build weighted module coverage across 7 modules using P0/P1/P2 priority, evidence credit, and gating questions.
+4. Separately map product maturity, PMF status, GTM maturity, and financing stage; then assess VC-fit, capital path, and the risk onion.
 5. Produce the Q&A gap list.
 6. Red-team the thesis with nine contradiction checks.
-7. Only then generate OnePage, risk register, IC memo, or follow-up request list.
+7. Only then generate Chinese Systematic DD, OnePage, risk register, IC memo, data-room request, or follow-up request list.
 
 ## Validate locally
 

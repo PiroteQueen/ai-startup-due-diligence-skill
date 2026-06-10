@@ -22,11 +22,20 @@
 - What current financing buys:
 - Funding amount sanity check:
 
-## Stage and next evidence gate
+## Four-dimensional stage map
 
-- Current stage: Idea / MVP / Launch / Scale / BPMF / APMF
-- Evidence for stage:
-- Next proof point required:
+| Dimension | Current state | Evidence | Confidence | Next gate |
+| --- | --- | --- | --- | --- |
+| Product maturity | concept / prototype / mvp / production / scaled_product / unknown |  |  |  |
+| PMF status | untested / problem_validation / solution_validation / repeatable_pmf / expanding_pmf / unknown |  |  |  |
+| GTM maturity | no_motion / founder_led / emerging_repeatability / repeatable_motion / scalable_motion / unknown |  |  |  |
+| Financing stage | bootstrapped / pre_seed / seed / series_a / series_b_plus / profitable_or_self_funded / unknown |  |  |  |
+
+## Diligence readiness
+
+- Weighted coverage:
+- Unresolved P0 gates:
+- Decision readiness:
 
 ## Main risks
 
@@ -57,4 +66,7 @@
 
 ## Preliminary view
 
-Proceed / Watch / Pass / Need more evidence
+- Verdict: Proceed / Watch / Pass / Need more evidence (per `references/decision-rules.md` eligibility)
+- Basis: which eligibility conditions are met; any verdict caps triggered by pattern matches
+- If Watch — re-engagement triggers (evidence + time bound):
+- This verdict reverses if:

@@ -15,7 +15,10 @@
 - enterprise_trust
 - capital_path
 - vc_fit
-- stage_gate
+- product_maturity
+- pmf_status
+- gtm_maturity
+- financing_stage
 - funding_amount
 - post_raise_org
 - distribution_dependency
