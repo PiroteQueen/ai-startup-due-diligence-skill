@@ -9,6 +9,8 @@ Use this skill when the user is evaluating an AI startup, reviewing an investmen
 
 This skill is distilled from the DDyst project (`/Users/Hanxue/Desktop/Lucky5.org/DDyst` and `DDyst_admin`): modular diligence, key questions (`key_q`), evidence-backed answers (`key_q_answers`), completion status, AI-assisted gap detection, report export, OnePage, Q&A list, raw story, and co-analysis.
 
+It is also reinforced by the user's Obsidian `The Future` VC / AI-startup synthesis, especially `outputs/ai-startup-dd-skill-vc-ask-20260610.md`, `wiki/concepts/创业融资与 VC 风险分层.md`, `wiki/concepts/产品市场契合 PMF.md`, `wiki/concepts/AI 原生创业生命周期.md`, and raw pmarca / Andreessen articles on VC fundability, PMF, risk onion, and funding amount.
+
 ## Core mental model
 
 Do not start by writing a fluent memo. Start by building a **diligence evidence ledger**:
@@ -20,7 +22,8 @@ Target company
   → evidence-backed answers
   → unanswered gaps
   → confidence / contradiction / red flags
-  → outputs: Q&A List, OnePage, IC memo, follow-up plan
+  → stage gate / VC-fit / capital path
+  → outputs: Q&A List, OnePage, IC memo, risk register, follow-up plan
 ```
 
 DDyst’s reusable insight is that diligence is not “summarization”; it is **question coverage management**. A good DD result says which questions are answered, which are not, what evidence supports each answer, and what must be checked next.
@@ -138,19 +141,45 @@ Output:
 - must-check legal questions
 - procurement blockers
 
+### 7. Capital Path / VC Fit / Fundability
+
+Add this module whenever the diligence is for an investment decision, fundraising review, IC memo, or VC-style startup assessment. Do **not** assume every good business is a good VC investment.
+
+Key questions:
+- Is this company actually VC-fit, or merely a good smaller / slower / cash-flow business?
+- Is there credible potential for roughly 10x return on invested capital within a venture-relevant horizon, and what exit path could support that?
+- What is the leverage mechanism: software, data, network effects, workflow lock-in, marketplace liquidity, platform/runtime, distribution, or capital efficiency?
+- Is the company Before Product-Market Fit (BPMF), After Product-Market Fit (APMF), Launch, or Scale? What evidence proves that stage?
+- What is the current round supposed to buy: PMF experiments, growth scale, enterprise trust/compliance, GTM capacity, technical infrastructure, or merely more runway?
+- Is the raise too little to survive internal/external bad surprises, or too much for the current stage and likely to create cultural corrosion or headcount bloat?
+- What liquidation preference, dilution, valuation, and exit-optionality risks are created by the proposed financing?
+- What kind of investor/partner does the company need, and has the specific partner's value-add been reference-checked with founders they funded?
+- If multiple qualified investors said no, which risk layer are they really rejecting: founder, market, competition, timing, financing, marketing, distribution, technology, product, hiring, or location/ecosystem?
+
+Output:
+- VC-fit verdict: venture-scale / non-VC but good business / too early / not fundable yet / unclear
+- stage and next evidence gate
+- funding plan sanity check
+- investor fit and reference-check questions
+- risk onion summary
+- post-raise operating risk register
+
 ## Evidence ledger template
 
 For each claim, record:
 
 ```yaml
 claim: "..."
-module: basic_info | team | technology | traction_market | financials | legal_risk
+module: basic_info | team | technology | traction_market | financials | legal_risk | capital_path
 source: "deck / website / interview / product demo / code / customer call / public data"
 evidence_quote: "..."
 confidence: high | medium | low
 status: answered | partial | unanswered | contradicted
 red_flag: true | false
 next_check: "..."
+# Optional for capital/path claims:
+stage: idea | mvp | launch | scale | BPMF | APMF | unknown
+risk_layer: founder | market | competition | timing | financing | marketing | distribution | technology | product | hiring | location | ai_dependency | legal_compliance | none
 ```
 
 Never turn missing evidence into a confident conclusion. Use labels:
@@ -194,7 +223,17 @@ Create a module table:
 
 Coverage is not amount of text; it is `answered key questions / total key questions`.
 
-### Step 3 — Produce the Q&A List
+### Step 3 — Map stage, VC-fit, and the risk onion
+
+Before writing a memo, force the evidence into a stage-and-risk map:
+
+1. **Stage gate**: Idea / MVP / Launch / Scale, or BPMF / APMF. State the evidence for the stage; do not let a polished deck, prototype, or friendly pilot masquerade as PMF.
+2. **VC-fit**: Decide whether this can plausibly become a venture-scale outcome. A company can be a good business and still fail VC-fit if it lacks leverage, speed, market size, or exit optionality.
+3. **Capital path**: Explain what the current financing buys and what milestone must be achieved before the next financing or profitability path.
+4. **Risk onion**: Peel risks by layer: founder/team, market, competition, timing, financing, marketing/CAC, distribution/partner dependency, technology, product execution, hiring/org, location/ecosystem, and AI-specific dependency/compliance.
+5. **VC no diagnostics**: If qualified investors said no, treat that as evidence. One no may be noise; repeated no's should trigger a specific risk-layer diagnosis and plan revision.
+
+### Step 4 — Produce the Q&A List
 
 For each module, output:
 
@@ -213,16 +252,20 @@ Unanswered / follow-up:
   Best source to verify: founder / customer / data room / product demo / public source
 ```
 
-### Step 4 — Red-team the investment thesis
+### Step 5 — Red-team the investment thesis
 
-Run five contradiction checks:
+Run nine contradiction checks:
 1. **Pain vs willingness to pay**: Is there budget and urgency?
 2. **Demo vs workflow**: Does the product enter real operations, or just impress in a demo?
 3. **AI wrapper vs compounding system**: Is there a durable data/workflow/distribution advantage?
 4. **Market size vs entry wedge**: Is there a narrow beachhead with credible expansion?
 5. **Team story vs execution evidence**: Do past actions prove the claimed capability?
+6. **VC-fit vs good business**: Is this venture-scale, or a good non-VC business being forced into a VC narrative?
+7. **Plan vs market evolution**: Is the initial business plan treated as a fixed promise even though the real job is finding product-market fit?
+8. **Funding amount vs stage**: Does the raise buy the next evidence gate, or does it create survival risk / cultural corrosion / liquidation-preference overhang?
+9. **Platform/runtime dependency vs moat**: Does the AI/cloud/platform layer transfer costs and risk to the company, the customer, or the platform; and can the company defend value if the platform changes?
 
-### Step 5 — Generate outputs
+### Step 6 — Generate outputs
 
 Pick the smallest useful output first:
 
@@ -253,6 +296,10 @@ Pick the smallest useful output first:
 
 ## Business model / financials
 
+## VC-fit / capital path
+
+## Stage and next evidence gate
+
 ## Main risks
 
 ## Follow-up questions
@@ -282,16 +329,22 @@ Proceed / Watch / Pass / Need more evidence
 
 ## 6. Business model and financials
 
-## 7. Competitive landscape
+## 7. VC-fit, stage, and capital path
 
-## 8. Risk register
+## 8. Competitive landscape
+
+## 9. Risk onion
+
+## 10. Post-raise operating risks
+
+## 11. Risk register
 
 | Risk | Severity | Evidence | Mitigation / next check |
 | --- | --- | --- | --- |
 
-## 9. Key unanswered questions
+## 12. Key unanswered questions
 
-## 10. Decision gates
+## 13. Decision gates
 ```
 
 ### Follow-up data request list
@@ -310,6 +363,8 @@ A good answer must:
 - separate evidence from inference;
 - show missing questions, not hide them;
 - include AI-specific moat and dependency analysis;
+- include VC-fit, stage, capital path, and risk-onion analysis when the context is investment or fundraising;
+- separate good-business potential from venture-scale potential;
 - include both why it can work and why it may fail;
 - give next verification actions, not just a narrative.
 
@@ -317,5 +372,8 @@ Avoid:
 - generic market-size optimism;
 - unverified AI moat claims;
 - treating a polished deck as proof;
+- treating fundraising as an accomplishment by itself;
+- assuming VC money is right for every startup;
+- ignoring repeated investor no's instead of diagnosing the risk layer;
 - converting unknowns into assumptions;
 - writing an IC memo before making a Q&A gap list.
