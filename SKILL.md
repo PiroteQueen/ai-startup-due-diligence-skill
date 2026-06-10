@@ -192,6 +192,10 @@ Then pick the smallest useful output first:
 
 For follow-up data requests, group asks by owner: Founder/CEO, CTO/product lead, Finance, Customers, Legal/compliance, Public research. Risk-onion output should point to the next evidence request, interview, or external verification action, not just list abstract risks.
 
+## Multi-agent execution (optional)
+
+If the host environment supports subagents or parallel tasks, follow the topology in [references/orchestration.md](references/orchestration.md): fan out module research to parallel agents (each producing only evidence-ledger entries), run red-teaming in an independent context that sees the ledger but never the draft narrative, and keep the verdict single-threaded in the orchestrator. If subagents are unavailable, run the workflow above sequentially — the artifacts and rules are identical.
+
 ## Quality bar
 
 A good answer must:
