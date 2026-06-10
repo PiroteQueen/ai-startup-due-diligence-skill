@@ -4,7 +4,7 @@ description: "Structured due diligence for AI startups: build an evidence ledger
 license: MIT
 metadata:
   author: PiroteQueen
-  version: "1.3.0"
+  version: "1.3.1"
 ---
 
 # AI Startup Due Diligence
@@ -23,7 +23,7 @@ Target company
   → unanswered gaps
   → confidence / contradiction / red flags
   → four-dimensional stage map / VC-fit / capital path
-  → outputs: Q&A List, OnePage, IC memo, risk register, follow-up plan
+  → outputs: output package (Chinese Systematic DD, OnePage, Q&A gap list, IC memo, risk register, data-room request, research appendices)
 ```
 
 Diligence is not "summarization"; it is **question coverage management**. A good DD result says which questions are answered, which are not, what evidence supports each answer, and what must be checked next.
@@ -160,6 +160,23 @@ Run the nine contradiction checks in [references/red-team-checks.md](references/
 Derive the verdict (Proceed / Watch / Pass / Need more evidence) from the rules in [references/decision-rules.md](references/decision-rules.md) — eligibility thresholds, deal-breakers, red-flag caps, Watch triggers, and the falsifiability statement. Apply [references/confidence-downgrade-rules.md](references/confidence-downgrade-rules.md) whenever material claims remain unverified, externally inaccessible, second-hand, or contradicted. Do not improvise a verdict: the same evidence must always produce the same verdict.
 
 For pre-revenue, stealth, pre-product, unusually large financing, or unusually high valuation cases, run [references/mega-round-sanity-check.md](references/mega-round-sanity-check.md) before recommending any investment action.
+
+### Output package behavior
+
+When the user asks for a full diligence run, a project folder, or durable deliverables, generate a multi-file output package instead of one long chat response. Use safe, human-readable filenames and keep the decision narrative separate from evidence appendices:
+
+| File | Purpose | Template |
+| --- | --- | --- |
+| `01-chinese-systematic-dd.md` | Chinese-facing investment judgment: one core question, verdict, five gates, evidence status, next actions | [templates/chinese-systematic-dd.md](templates/chinese-systematic-dd.md) |
+| `02-onepage.md` | One-page decision summary for quick discussion | [templates/onepage.md](templates/onepage.md) |
+| `03-qa-gap-list.md` | Answered/unanswered diligence questions with owner and source | [templates/qa-gap-list.md](templates/qa-gap-list.md) |
+| `04-data-room-request.md` | Source-document request list generated from unresolved P0 gates and risk-onion layers | [templates/data-room-request.md](templates/data-room-request.md) |
+| `05-ic-memo.md` | Full investment committee memo when decision-making depth is needed | [templates/ic-memo.md](templates/ic-memo.md) |
+| `06-risk-register.md` | Legal, technical, commercial, AI, financing, and execution risk register | [templates/risk-register.md](templates/risk-register.md) |
+| `07-competitor-landscape.md` | Same-dimension competitor/substitute landscape appendix | [templates/competitor-landscape.md](templates/competitor-landscape.md) |
+| `08-external-research-log.md` | Auditable search/source log including access failures and unverified claims | [templates/external-research-log.md](templates/external-research-log.md) |
+
+If the user only asks for a lightweight answer, produce the smallest useful subset, but always say which appendices were omitted. For Chinese users, make `01-chinese-systematic-dd.md` the primary deliverable and keep internal coverage details in appendices.
 
 Then pick the smallest useful output first:
 

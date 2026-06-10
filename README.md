@@ -1,6 +1,6 @@
 # AI Startup Due Diligence Skill
 
-An open-source [Agent Skill](https://agentskills.io) for AI startup due diligence. It turns scattered evidence — decks, interviews, demos, public research — into a structured evidence ledger, Q&A gap list, OnePage, IC memo, risk register, and follow-up diligence plan.
+An open-source [Agent Skill](https://agentskills.io) for AI startup due diligence. It turns scattered evidence — decks, interviews, demos, public research — into a structured evidence ledger and, when requested, a durable multi-file output package: Chinese Systematic DD, OnePage, Q&A gap list, IC memo, risk register, data-room request, competitor landscape, and external research log.
 
 Works with any agent that supports the Agent Skills standard (Claude Code, Claude API, Cursor, Codex, and others).
 
@@ -98,6 +98,23 @@ Recommended sequence (the skill enforces this):
 5. Produce the Q&A gap list.
 6. Red-team the thesis with nine contradiction checks.
 7. Only then generate Chinese Systematic DD, OnePage, risk register, IC memo, data-room request, or follow-up request list.
+
+## Output package
+
+For a full diligence run or project-folder workflow, the skill should create a durable multi-file package rather than hiding everything in one memo:
+
+| File | Purpose |
+| --- | --- |
+| `01-chinese-systematic-dd.md` | Primary Chinese decision narrative: one core question, verdict, five gates, evidence status, next actions |
+| `02-onepage.md` | One-page summary for quick investment discussion |
+| `03-qa-gap-list.md` | Answered/unanswered questions and evidence gaps |
+| `04-data-room-request.md` | Source-document request list tied to unresolved P0 gates |
+| `05-ic-memo.md` | Full IC memo when deeper committee decision-making is needed |
+| `06-risk-register.md` | Risk register with mitigation and next checks |
+| `07-competitor-landscape.md` | Competitor/substitute appendix with same-dimension evidence |
+| `08-external-research-log.md` | Auditable research log and failed-source/access notes |
+
+For lightweight usage, generate the smallest useful subset and explicitly say which appendices were omitted.
 
 ## Validate locally
 

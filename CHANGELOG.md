@@ -2,6 +2,13 @@
 
 All notable changes to this skill are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.3.1] - 2026-06-10
+
+### Changed
+
+- Documented full multi-file output package behavior in `SKILL.md` and `README.md`, including Chinese Systematic DD, OnePage, Q&A gap list, data-room request, IC memo, risk register, competitor landscape, and external research log.
+- Clarified that full diligence runs or project-folder workflows should create durable files, while lightweight requests should generate the smallest useful subset and explicitly state omitted appendices.
+
 ## [1.3.0] - 2026-06-10
 
 ### Added
