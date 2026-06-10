@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the AI startup due diligence skill package."""
+"""Validate the skill package against the Agent Skills spec (agentskills.io)."""
 from __future__ import annotations
 
 import re
@@ -17,6 +17,10 @@ REQUIRED = [
     "SKILL.md",
     "README.md",
     "LICENSE",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md",
+    "references/module-questions.md",
+    "references/red-team-checks.md",
     "templates/evidence-ledger.yaml",
     "templates/qa-gap-list.md",
     "templates/onepage.md",
@@ -24,56 +28,84 @@ REQUIRED = [
     "templates/risk-register.md",
     "examples/sample-ai-company/brief.md",
 ]
+# Spec: lowercase alphanumerics and hyphens, no leading/trailing/double hyphen.
+NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+MD_LINK_RE = re.compile(r"\]\((?!https?://|#)([^)]+)\)")
 SECRET_PATTERNS = [
     re.compile(r"sk-[A-Za-z0-9_-]{20,}"),
     re.compile(r"gh[oprsu]_[A-Za-z0-9_]{20,}"),
     re.compile(r"(?i)(api[_-]?key|secret|token|password)\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{16,}"),
 ]
 
+ERRORS: list[str] = []
 
-def fail(message: str) -> None:
-    print(f"ERROR: {message}", file=sys.stderr)
-    sys.exit(1)
+
+def error(message: str) -> None:
+    ERRORS.append(message)
+
+
+def split_skill_md() -> tuple[dict, str]:
+    content = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+    if not content.startswith("---\n"):
+        error("SKILL.md must start with YAML frontmatter")
+        return {}, ""
+    match = re.search(r"\n---\s*\n", content[4:])
+    if not match:
+        error("SKILL.md frontmatter is not closed")
+        return {}, ""
+    fm = yaml.safe_load(content[4 : match.start() + 4])
+    body = content[match.end() + 4 :]
+    if not isinstance(fm, dict):
+        error("SKILL.md frontmatter must parse to a mapping")
+        return {}, body
+    return fm, body
 
 
 def check_required_files() -> None:
     missing = [p for p in REQUIRED if not (ROOT / p).exists()]
     if missing:
-        fail(f"Missing required files: {missing}")
+        error(f"Missing required files: {missing}")
 
 
-def check_skill_frontmatter() -> None:
-    content = (ROOT / "SKILL.md").read_text(encoding="utf-8")
-    if not content.startswith("---\n"):
-        fail("SKILL.md must start with YAML frontmatter")
-    match = re.search(r"\n---\s*\n", content[4:])
-    if not match:
-        fail("SKILL.md frontmatter is not closed")
-    fm_text = content[4 : match.start() + 4]
-    fm = yaml.safe_load(fm_text)
-    if not isinstance(fm, dict):
-        fail("SKILL.md frontmatter must parse to a mapping")
-    if fm.get("name") != "ai-startup-due-diligence":
-        fail("SKILL.md name must be ai-startup-due-diligence")
-    desc = fm.get("description")
-    if not desc or len(desc) > 1024:
-        fail("SKILL.md description is missing or too long")
-    body = content[match.end() + 4 :].strip()
-    if not body:
-        fail("SKILL.md body is empty")
+def check_frontmatter(fm: dict) -> None:
+    name = fm.get("name", "")
+    if not name or len(name) > 64 or not NAME_RE.match(name):
+        error(f"Invalid skill name {name!r}: must be 1-64 chars, lowercase alphanumerics "
+              "and single hyphens, no leading/trailing hyphen")
+    desc = fm.get("description", "")
+    if not desc or not (1 <= len(desc) <= 1024):
+        error("description must be 1-1024 characters")
+    compat = fm.get("compatibility")
+    if compat is not None and not (1 <= len(str(compat)) <= 500):
+        error("compatibility must be 1-500 characters when present")
+    metadata = fm.get("metadata")
+    if metadata is not None and not isinstance(metadata, dict):
+        error("metadata must be a key-value mapping when present")
+
+
+def check_body(body: str) -> None:
+    if not body.strip():
+        error("SKILL.md body is empty")
+    lines = body.count("\n") + 1
+    if lines > 500:
+        error(f"SKILL.md body is {lines} lines; spec recommends under 500")
+    for ref in MD_LINK_RE.findall(body):
+        if not (ROOT / ref).exists():
+            error(f"SKILL.md references missing file: {ref}")
 
 
 def check_templates() -> None:
     onepage = (ROOT / "templates/onepage.md").read_text(encoding="utf-8")
     for section in ["AI moat hypothesis", "Follow-up questions", "Preliminary view"]:
         if section not in onepage:
-            fail(f"onepage.md missing section: {section}")
+            error(f"onepage.md missing section: {section}")
     ledger = yaml.safe_load((ROOT / "templates/evidence-ledger.yaml").read_text(encoding="utf-8"))
     if not isinstance(ledger, list) or not ledger:
-        fail("evidence-ledger.yaml must be a non-empty list")
+        error("evidence-ledger.yaml must be a non-empty list")
+        return
     for key in ["claim", "module", "source_type", "confidence", "next_check"]:
         if key not in ledger[0]:
-            fail(f"evidence-ledger.yaml missing key: {key}")
+            error(f"evidence-ledger.yaml missing key: {key}")
 
 
 def check_no_obvious_secrets() -> None:
@@ -85,14 +117,21 @@ def check_no_obvious_secrets() -> None:
         text = path.read_text(encoding="utf-8", errors="ignore")
         for pattern in SECRET_PATTERNS:
             if pattern.search(text):
-                fail(f"Potential secret-like string found in {path.relative_to(ROOT)}")
+                error(f"Potential secret-like string found in {path.relative_to(ROOT)}")
 
 
 def main() -> None:
     check_required_files()
-    check_skill_frontmatter()
+    fm, body = split_skill_md()
+    if fm:
+        check_frontmatter(fm)
+    check_body(body)
     check_templates()
     check_no_obvious_secrets()
+    if ERRORS:
+        for message in ERRORS:
+            print(f"ERROR: {message}", file=sys.stderr)
+        sys.exit(1)
     print("Skill package validation passed.")
 
 
