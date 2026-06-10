@@ -49,6 +49,7 @@ All notable changes to this skill are documented here. The format follows [Keep 
 
 - Added `references/coverage-stage-model.md` as the canonical scoring and stage-classification reference.
 - Added `references/decision-rules.md` — deterministic verdict mapping: eligibility thresholds for Proceed/Watch/Pass/Need-more-evidence, a confirmed deal-breaker list, red-flag arithmetic that caps verdicts on pattern-library matches, mandatory Watch re-engagement triggers, a falsifiability statement for every verdict, and a decision-gates table format. Wired into Step 6, the quality bar, and the OnePage / IC memo templates.
+- Added `references/orchestration.md` — optional multi-agent topology: parallel module-research agents constrained to evidence-ledger output, an independent red-team agent that sees the ledger but never the draft narrative, single-threaded verdict in the orchestrator, merge/dedup rules, and sequential fallback when subagents are unavailable.
 - Added `references/pattern-library.md` — calibration examples: nine false-PMF patterns, six AI-wrapper death patterns, six true-PMF signals plus absent-PMF texture and the Sean Ellis cross-check, seven founder/team red flags, five fundraising red flags, and four market reality checks, each with a concrete verification test. Sourced from the pmarca startup guides (PMF, risk onion, funding amount), Munger/Andreessen misjudgment biases, and AI-native stage-gate playbooks. Wired into the stage-gate (Step 3) and red-team (Step 5) workflow so pattern matches force evidence-ledger downgrades.
 
 ### Fixed

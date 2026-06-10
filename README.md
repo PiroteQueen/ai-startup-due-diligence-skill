@@ -41,7 +41,8 @@ ai-startup-due-diligence/
 │   ├── mega-round-sanity-check.md # Pre-revenue / stealth / mega-round valuation sanity checks
 │   ├── confidence-downgrade-rules.md # Caps verdict confidence when P0 evidence is missing
 │   ├── pattern-library.md        # Calibration patterns: false/true PMF, wrapper deaths, founder & funding red flags
-│   └── decision-rules.md         # Verdict eligibility, deal-breakers, red-flag caps, Watch triggers
+│   ├── decision-rules.md         # Verdict eligibility, deal-breakers, red-flag caps, Watch triggers
+│   └── orchestration.md          # Optional multi-agent topology: parallel research, independent red-team
 ├── templates/
 │   ├── evidence-ledger.yaml      # Per-claim evidence schema
 │   ├── external-research-log.md  # Active web/source research log

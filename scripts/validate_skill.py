@@ -24,6 +24,7 @@ REQUIRED = [
     "references/red-team-checks.md",
     "references/pattern-library.md",
     "references/decision-rules.md",
+    "references/orchestration.md",
     "templates/evidence-ledger.yaml",
     "templates/qa-gap-list.md",
     "templates/onepage.md",
