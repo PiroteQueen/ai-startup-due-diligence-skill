@@ -61,25 +61,52 @@ ai-startup-due-diligence/
 
 ## Installation
 
-The skill directory name should match the skill name (`ai-startup-due-diligence`), per the Agent Skills spec.
+### One command (recommended)
 
-### Claude Code
+The [Skills CLI](https://github.com/vercel-labs/skills) installs to any supported agent (Claude Code, Cursor, Codex, Gemini CLI, OpenCode, Windsurf, and 50+ more) and lets you choose scope and agents interactively:
+
+```bash
+# Project-level (interactive: pick agents, scope, symlink/copy)
+npx skills add PiroteQueen/ai-startup-due-diligence-skill
+
+# Global, non-interactive, e.g. for Claude Code + Cursor
+npx skills add PiroteQueen/ai-startup-due-diligence-skill -g -a claude-code -a cursor -y
+```
+
+### Manual install (git clone)
+
+The skill directory name should match the skill name (`ai-startup-due-diligence`), per the Agent Skills spec:
 
 ```bash
 git clone https://github.com/PiroteQueen/ai-startup-due-diligence-skill.git \
-  ~/.claude/skills/ai-startup-due-diligence
+  <skills-dir>/ai-startup-due-diligence
 ```
 
-### Cursor
+Where `<skills-dir>` depends on your agent and scope:
+
+| Agent | Personal (all projects) | Project (committed to repo) |
+| --- | --- | --- |
+| Claude Code | `~/.claude/skills/` | `.claude/skills/` |
+| Cursor | `~/.cursor/skills/` | `.cursor/skills/` or `.agents/skills/` |
+| Codex CLI / IDE | `~/.agents/skills/` | `.agents/skills/` |
+| Gemini CLI | `~/.gemini/skills/` or `~/.agents/skills/` | `.gemini/skills/` or `.agents/skills/` |
+| OpenCode | `~/.config/opencode/skills/` | `.opencode/skills/` |
+| Windsurf | `~/.codeium/windsurf/skills/` | `.windsurf/skills/` |
+
+Tip: `.agents/skills/` is the emerging cross-agent convention — Cursor, Codex, and Gemini CLI all read it, so one project-level copy can serve several tools.
+
+### As a team default (git submodule)
+
+Pin a version inside your repo so everyone who clones gets the same skill:
 
 ```bash
-git clone https://github.com/PiroteQueen/ai-startup-due-diligence-skill.git \
-  ~/.cursor/skills/ai-startup-due-diligence
+git submodule add https://github.com/PiroteQueen/ai-startup-due-diligence-skill.git \
+  .agents/skills/ai-startup-due-diligence
 ```
 
-### Claude API / other agents
+### Claude API / Claude.ai / other agents
 
-Bundle the directory as a skill per your platform's docs, or just paste `SKILL.md` (plus the relevant `references/` and `templates/` files) into context.
+For the Claude API, bundle the directory as a skill per the [Agent Skills docs](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview); for Claude.ai, zip the directory and upload it under Settings → Capabilities. On platforms without skill support, paste `SKILL.md` (plus the relevant `references/` and `templates/` files) into context.
 
 ## Usage
 
