@@ -20,7 +20,10 @@ REQUIRED = [
     "CONTRIBUTING.md",
     "CHANGELOG.md",
     "references/module-questions.md",
+    "references/coverage-stage-model.md",
     "references/red-team-checks.md",
+    "references/pattern-library.md",
+    "references/decision-rules.md",
     "templates/evidence-ledger.yaml",
     "templates/qa-gap-list.md",
     "templates/onepage.md",
@@ -96,16 +99,101 @@ def check_body(body: str) -> None:
 
 def check_templates() -> None:
     onepage = (ROOT / "templates/onepage.md").read_text(encoding="utf-8")
-    for section in ["AI moat hypothesis", "Follow-up questions", "Preliminary view"]:
+    for section in [
+        "AI moat hypothesis",
+        "Four-dimensional stage map",
+        "Diligence readiness",
+        "Follow-up questions",
+        "Preliminary view",
+    ]:
         if section not in onepage:
             error(f"onepage.md missing section: {section}")
+    qa_gap_list = (ROOT / "templates/qa-gap-list.md").read_text(encoding="utf-8")
+    qa_modules = [
+        "Basic Info / Thesis",
+        "Team",
+        "Product / Technology / AI",
+        "Traction / Market",
+        "Financials / Business Model",
+        "Legal / Compliance / Data Risk",
+        "Capital Path / VC Fit / Fundability",
+    ]
+    for module in qa_modules:
+        if f"| {module} |" not in qa_gap_list:
+            error(f"qa-gap-list.md coverage summary missing module: {module}")
+    for term in ["Weighted coverage", "P0 resolved / total", "Unresolved P0 gates", "Decision readiness"]:
+        if term not in qa_gap_list:
+            error(f"qa-gap-list.md missing weighted coverage field: {term}")
     ledger = yaml.safe_load((ROOT / "templates/evidence-ledger.yaml").read_text(encoding="utf-8"))
     if not isinstance(ledger, list) or not ledger:
         error("evidence-ledger.yaml must be a non-empty list")
         return
-    for key in ["claim", "module", "source_type", "confidence", "next_check"]:
+    for key in [
+        "claim",
+        "module",
+        "question_priority",
+        "gating_question",
+        "source_type",
+        "evidence_status",
+        "evidence_strength",
+        "coverage_credit",
+        "confidence",
+        "next_check",
+        "product_maturity",
+        "pmf_status",
+        "gtm_maturity",
+        "financing_stage",
+    ]:
         if key not in ledger[0]:
             error(f"evidence-ledger.yaml missing key: {key}")
+    if "stage" in ledger[0]:
+        error("evidence-ledger.yaml must use four stage dimensions instead of mixed 'stage'")
+    allowed_defaults = {
+        "question_priority": {"P0", "P1", "P2"},
+        "evidence_strength": {"strong", "limited", "none"},
+        "coverage_credit": {0.0, 0.5, 1.0},
+        "product_maturity": {"concept", "prototype", "mvp", "production", "scaled_product", "unknown"},
+        "pmf_status": {
+            "untested",
+            "problem_validation",
+            "solution_validation",
+            "repeatable_pmf",
+            "expanding_pmf",
+            "unknown",
+        },
+        "gtm_maturity": {
+            "no_motion",
+            "founder_led",
+            "emerging_repeatability",
+            "repeatable_motion",
+            "scalable_motion",
+            "unknown",
+        },
+        "financing_stage": {
+            "bootstrapped",
+            "pre_seed",
+            "seed",
+            "series_a",
+            "series_b_plus",
+            "profitable_or_self_funded",
+            "unknown",
+        },
+    }
+    for key, allowed in allowed_defaults.items():
+        if ledger[0].get(key) not in allowed:
+            error(f"evidence-ledger.yaml has invalid default for {key}: {ledger[0].get(key)!r}")
+
+    coverage_stage = (ROOT / "references/coverage-stage-model.md").read_text(encoding="utf-8")
+    for section in [
+        "Weighted coverage",
+        "Gating rule",
+        "Product maturity",
+        "PMF status",
+        "GTM maturity",
+        "Financing stage",
+    ]:
+        if section not in coverage_stage:
+            error(f"coverage-stage-model.md missing section: {section}")
 
 
 def check_no_obvious_secrets() -> None:

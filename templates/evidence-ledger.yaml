@@ -2,6 +2,8 @@
 - claim: ""
   module: basic_info # basic_info | team | technology | traction_market | financials | legal_risk | capital_path
   question: ""
+  question_priority: P1 # P0 | P1 | P2
+  gating_question: false
   answer: ""
   source_type: provided_material # provided_material | external_research | interview | customer_call | product_demo | data_room
   source_title: ""
@@ -9,12 +11,21 @@
   source_date: ""
   evidence_quote: ""
   evidence_status: unknown # known | inferred | unknown | contradiction
+  evidence_strength: none # strong | limited | none
+  coverage_credit: 0.0 # 1.0 | 0.5 | 0.0
   confidence: low # high | medium | low
   red_flag: false
   next_check: ""
 
+  # Optional four-dimensional stage classification:
+  product_maturity: unknown # concept | prototype | mvp | production | scaled_product | unknown
+  pmf_status: unknown # untested | problem_validation | solution_validation | repeatable_pmf | expanding_pmf | unknown
+  gtm_maturity: unknown # no_motion | founder_led | emerging_repeatability | repeatable_motion | scalable_motion | unknown
+  financing_stage: unknown # bootstrapped | pre_seed | seed | series_a | series_b_plus | profitable_or_self_funded | unknown
+  stage_evidence: ""
+  stage_next_gate: ""
+
   # Optional for VC-fit / capital path claims:
-  stage: unknown # idea | mvp | launch | scale | BPMF | APMF | unknown
   risk_layer: none # founder | market | competition | timing | financing | marketing | distribution | technology | product | hiring | location | ai_dependency | legal_compliance | none
   vc_fit: unknown # venture_scale | good_non_vc_business | too_early | not_fundable_yet | unclear | unknown
   next_evidence_gate: ""

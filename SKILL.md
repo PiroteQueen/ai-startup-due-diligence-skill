@@ -1,10 +1,10 @@
 ---
 name: ai-startup-due-diligence
-description: "Structured due diligence for AI startups: build an evidence ledger and module coverage map, then produce a Q&A gap list, OnePage, IC memo, risk register, and follow-up diligence plan. Use when evaluating an AI startup or investment target, reviewing a pitch deck or data room, preparing investor or founder questions, writing a DD memo or IC note, or assessing VC-fit, stage (BPMF/APMF), fundability, and red flags."
+description: "Structured due diligence for AI startups: build an evidence ledger and weighted module coverage map, then produce a Q&A gap list, OnePage, IC memo, risk register, and follow-up diligence plan. Use when evaluating an AI startup or investment target, reviewing a pitch deck or data room, preparing investor or founder questions, writing a DD memo or IC note, or assessing VC-fit, product maturity, PMF, GTM maturity, fundability, and red flags."
 license: MIT
 metadata:
   author: PiroteQueen
-  version: "1.2.0"
+  version: "1.3.0"
 ---
 
 # AI Startup Due Diligence
@@ -22,7 +22,7 @@ Target company
   → evidence-backed answers
   → unanswered gaps
   → confidence / contradiction / red flags
-  → stage gate / VC-fit / capital path
+  → four-dimensional stage map / VC-fit / capital path
   → outputs: Q&A List, OnePage, IC memo, risk register, follow-up plan
 ```
 
@@ -30,7 +30,7 @@ Diligence is not "summarization"; it is **question coverage management**. A good
 
 ## Modules
 
-Cover these seven modules. The full key-question bank and per-module outputs are in [references/module-questions.md](references/module-questions.md) — read it when building coverage.
+Cover these seven modules. The full key-question bank and per-module outputs are in [references/module-questions.md](references/module-questions.md). Use [references/coverage-stage-model.md](references/coverage-stage-model.md) for coverage scoring and stage classification.
 
 1. **Basic Info / Thesis** — one-liner, why now, milestones, use of funds.
 2. **Team** — founder-market fit, execution evidence, missing capabilities.
@@ -38,7 +38,7 @@ Cover these seven modules. The full key-question bank and per-module outputs are
 4. **Traction / Market** — ICP, wedge, retention/revenue evidence, competition.
 5. **Financials / Business Model** — unit economics, burn, runway, pricing.
 6. **Legal / Compliance / Data Risk** — data rights, IP, licenses, procurement readiness.
-7. **Capital Path / VC Fit / Fundability** — venture-scale vs good non-VC business, stage gate, funding plan sanity, risk onion. Add this module whenever the context is an investment decision or fundraising review. Do **not** assume every good business is a good VC investment.
+7. **Capital Path / VC Fit / Fundability** — venture-scale vs good non-VC business, four-dimensional stage map, funding plan sanity, risk onion. Add this module whenever the context is an investment decision or fundraising review. Do **not** assume every good business is a good VC investment.
 
 ## Evidence ledger
 
@@ -124,14 +124,16 @@ If public evidence is sparse, preserve the empty cells as `Unknown`; do not repl
 
 ### Step 2 — Build module coverage
 
+Follow the weighted scoring and gating rules in [references/coverage-stage-model.md](references/coverage-stage-model.md). Assign each question P0/P1/P2 priority, then award evidence credit of 1.0, 0.5, or 0.0. Round coverage to the nearest 5%.
+
 Create a module table:
 
-| Module | Coverage | Key answered questions | Key gaps | Confidence |
-| --- | --- | --- | --- | --- |
-| Basic Info | 0–100% | ... | ... | high/medium/low |
+| Module | Weighted coverage | Unresolved P0 gates | Readiness | Confidence |
+| --- | ---: | --- | --- | --- |
+| Basic Info | 0–100% | ... | decision-ready / directional / incomplete / sparse | high/medium/low |
 | Team | ... | ... | ... | ... |
 
-Coverage is not amount of text; it is `answered key questions / total key questions`.
+Coverage is not amount of text or a raw answered-question count. Never let answered P2 context hide an unresolved P0 question. If a P0 unknown or contradiction could reverse the recommendation, mark the diligence **Not decision-ready** regardless of the numeric score.
 
 Competitor evidence does not count as complete merely because competitors are named. Count the competition question as answered only after the competitor gate passes.
 
@@ -139,7 +141,7 @@ Competitor evidence does not count as complete merely because competitors are na
 
 Before writing a memo, force the evidence into a stage-and-risk map:
 
-1. **Stage gate**: Idea / MVP / Launch / Scale, or BPMF / APMF. State the evidence for the stage; do not let a polished deck, prototype, or friendly pilot masquerade as PMF.
+1. **Four-dimensional stage map**: Separately classify product maturity, PMF status, GTM maturity, and financing stage using [references/coverage-stage-model.md](references/coverage-stage-model.md). Give evidence and a next gate for each dimension. A financing round, polished prototype, friendly pilot, LOI, or customer logo is not proof of PMF — check traction evidence against the false-PMF and true-PMF patterns in [references/pattern-library.md](references/pattern-library.md) before classifying the PMF dimension.
 2. **VC-fit**: Decide whether this can plausibly become a venture-scale outcome. A company can be a good business and still fail VC-fit if it lacks leverage, speed, market size, or exit optionality.
 3. **Capital path**: Explain what the current financing buys and what milestone must be achieved before the next financing or profitability path.
 4. **Risk onion**: Peel risks by layer: founder/team, market, competition, timing, financing, marketing/CAC, distribution/partner dependency, technology, product execution, hiring/org, location/ecosystem, and AI-specific dependency/compliance.
@@ -151,21 +153,27 @@ Use [templates/qa-gap-list.md](templates/qa-gap-list.md). For each module, list 
 
 ### Step 5 — Red-team the investment thesis
 
-Run the nine contradiction checks in [references/red-team-checks.md](references/red-team-checks.md) before finalizing any recommendation.
+Run the nine contradiction checks in [references/red-team-checks.md](references/red-team-checks.md) before finalizing any recommendation. When testing AI moat claims (check 3) and traction claims (checks 1–2), match the evidence against the concrete patterns in [references/pattern-library.md](references/pattern-library.md) — a claim matching a false-PMF or wrapper-death pattern must be downgraded in the evidence ledger with a specific next check, not merely noted.
 
-### Step 6 — Generate outputs
+### Step 6 — Derive the verdict and generate outputs
 
-Pick the smallest useful output first:
+Derive the verdict (Proceed / Watch / Pass / Need more evidence) from the rules in [references/decision-rules.md](references/decision-rules.md) — eligibility thresholds, deal-breakers, red-flag caps, Watch triggers, and the falsifiability statement. Apply [references/confidence-downgrade-rules.md](references/confidence-downgrade-rules.md) whenever material claims remain unverified, externally inaccessible, second-hand, or contradicted. Do not improvise a verdict: the same evidence must always produce the same verdict.
 
-1. **OnePage** — for quick investment conversation. Template: [templates/onepage.md](templates/onepage.md)
-2. **Q&A List** — for founder follow-up and data room requests. Template: [templates/qa-gap-list.md](templates/qa-gap-list.md)
-3. **IC Memo** — for decision-making. Template: [templates/ic-memo.md](templates/ic-memo.md)
-4. **Risk Register** — for legal/technical/commercial red flags. Template: [templates/risk-register.md](templates/risk-register.md)
-5. **Competitor Landscape** — for investment decisions where differentiation, moat, valuation, or market entry matters. Template: [templates/competitor-landscape.md](templates/competitor-landscape.md)
-6. **External Research Log** — evidence of what was actively searched and what remained inaccessible. Template: [templates/external-research-log.md](templates/external-research-log.md)
-7. **BP / Slide critique** — if reviewing fundraising materials.
+For pre-revenue, stealth, pre-product, unusually large financing, or unusually high valuation cases, run [references/mega-round-sanity-check.md](references/mega-round-sanity-check.md) before recommending any investment action.
 
-For follow-up data requests, group asks by owner: Founder/CEO, CTO/product lead, Finance, Customers, Legal/compliance, Public research.
+Then pick the smallest useful output first:
+
+1. **Chinese Systematic DD** — for Chinese-facing investor/founder discussion where the user needs a coherent decision narrative instead of internal module sprawl. Template: [templates/chinese-systematic-dd.md](templates/chinese-systematic-dd.md)
+2. **OnePage** — for quick investment conversation. Template: [templates/onepage.md](templates/onepage.md)
+3. **Q&A List** — for founder follow-up and data room requests. Template: [templates/qa-gap-list.md](templates/qa-gap-list.md)
+4. **Data Room Request** — when risk-onion layers or P0 gates require source documents before a verdict can improve. Template: [templates/data-room-request.md](templates/data-room-request.md)
+5. **IC Memo** — for decision-making. Template: [templates/ic-memo.md](templates/ic-memo.md)
+6. **Risk Register** — for legal/technical/commercial red flags. Template: [templates/risk-register.md](templates/risk-register.md)
+7. **Competitor Landscape** — for investment decisions where differentiation, moat, valuation, or market entry matters. Template: [templates/competitor-landscape.md](templates/competitor-landscape.md)
+8. **External Research Log** — evidence of what was actively searched and what remained inaccessible. Template: [templates/external-research-log.md](templates/external-research-log.md)
+9. **BP / Slide critique** — if reviewing fundraising materials.
+
+For follow-up data requests, group asks by owner: Founder/CEO, CTO/product lead, Finance, Customers, Legal/compliance, Public research. Risk-onion output should point to the next evidence request, interview, or external verification action, not just list abstract risks.
 
 ## Quality bar
 
@@ -173,10 +181,12 @@ A good answer must:
 
 - separate evidence from inference;
 - show missing questions, not hide them;
+- use weighted coverage and surface unresolved P0 gates;
 - include AI-specific moat and dependency analysis;
-- include VC-fit, stage, capital path, and risk-onion analysis when the context is investment or fundraising;
+- include VC-fit, the four-dimensional stage map, capital path, and risk-onion analysis when the context is investment or fundraising;
 - separate good-business potential from venture-scale potential;
 - include both why it can work and why it may fail;
+- derive the verdict from the decision rules and state what evidence would reverse it;
 - give next verification actions, not just a narrative.
 - show that external research was actively attempted when the target is identifiable;
 - keep a source-dated competitor matrix with comparable evidence dimensions;

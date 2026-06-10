@@ -1,6 +1,6 @@
 # Module Question Bank
 
-Full key-question bank for the seven diligence modules. Coverage per module is `answered key questions / total key questions`.
+Full key-question bank for the seven diligence modules. Score coverage using the priorities, evidence credits, and gating rules in [coverage-stage-model.md](coverage-stage-model.md), not a raw answered-question count.
 
 ## 1. Basic Info / Thesis
 
@@ -139,7 +139,7 @@ Key questions:
 - Is this company actually VC-fit, or merely a good smaller / slower / cash-flow business?
 - Is there credible potential for roughly 10x return on invested capital within a venture-relevant horizon, and what exit path could support that?
 - What is the leverage mechanism: software, data, network effects, workflow lock-in, marketplace liquidity, platform/runtime, distribution, or capital efficiency?
-- Is the company Before Product-Market Fit (BPMF), After Product-Market Fit (APMF), Launch, or Scale? What evidence proves that stage?
+- What are the independently supported product maturity, PMF status, GTM maturity, and financing stage? What evidence and next gate apply to each dimension?
 - What is the current round supposed to buy: PMF experiments, growth scale, enterprise trust/compliance, GTM capacity, technical infrastructure, or merely more runway?
 - Is the raise too little to survive internal/external bad surprises, or too much for the current stage and likely to create cultural corrosion or headcount bloat?
 - What liquidation preference, dilution, valuation, and exit-optionality risks are created by the proposed financing?
@@ -149,7 +149,7 @@ Key questions:
 Output:
 
 - VC-fit verdict: venture-scale / non-VC but good business / too early / not fundable yet / unclear
-- stage and next evidence gate
+- four-dimensional stage map and next evidence gates
 - funding plan sanity check
 - investor fit and reference-check questions
 - risk onion summary
