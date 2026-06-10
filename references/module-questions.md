@@ -87,6 +87,12 @@ Output:
 - market sizing with assumptions
 - adoption friction list
 - competitor / substitute map
+- source-dated competitor evidence matrix
+- direct / adjacent / platform / incumbent / customer-build / manual-substitute layers
+- same-dimension comparison of product, technology, data, workflow, traction, business model, distribution, and valuation
+- target win/loss conditions and same-task diligence questions
+
+Competition coverage is complete only after the mandatory competitor gate in `SKILL.md` passes. Naming competitors without primary-source product or deployment evidence is partial coverage.
 
 ## 5. Financials / Business Model
 
