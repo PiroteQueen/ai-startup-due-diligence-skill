@@ -1,0 +1,14 @@
+# Copy one item per claim. Keep evidence separate from inference.
+- claim: ""
+  module: basic_info # basic_info | team | technology | traction_market | financials | legal_risk
+  question: ""
+  answer: ""
+  source_type: provided_material # provided_material | external_research | interview | customer_call | product_demo | data_room
+  source_title: ""
+  source_url: ""
+  source_date: ""
+  evidence_quote: ""
+  evidence_status: unknown # known | inferred | unknown | contradiction
+  confidence: low # high | medium | low
+  red_flag: false
+  next_check: ""
