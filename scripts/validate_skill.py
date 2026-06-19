@@ -237,6 +237,29 @@ def option_tokens(text: str, marker: str) -> set[str]:
     return set()
 
 
+def bold_tokens(segment: str) -> set[str]:
+    """Snake/word tokens defined in bold (e.g. ``- **concept** — …``)."""
+    return set(re.findall(r"\*\*([A-Za-z_]+)\*\*", segment))
+
+
+def backtick_tokens(text: str, anchor: str) -> set[str]:
+    """Backtick-wrapped tokens from the first line containing `anchor`."""
+    for line in text.splitlines():
+        if anchor in line:
+            return set(re.findall(r"`([^`]+)`", line))
+    return set()
+
+
+def report_drift(where: str, label: str, found: set[str], allowed) -> None:
+    allowed_str = {str(a) for a in allowed}
+    extra = sorted(found - allowed_str)
+    missing = sorted(allowed_str - found)
+    if extra:
+        error(f"{where}: {label} defines values outside the controlled vocab: {extra}")
+    if missing:
+        error(f"{where}: {label} omits controlled-vocab values: {missing}")
+
+
 def check_template_vocab_alignment() -> None:
     """Every option list spelled out in a template must equal the controlled
     vocabulary in vocab.py — neither extra nor missing values — so the two can
@@ -246,13 +269,37 @@ def check_template_vocab_alignment() -> None:
         if not tokens:
             error(f"{rel}: {label} option line (marker '{marker}') not found")
             continue
-        allowed_str = {str(a) for a in allowed}
-        extra = sorted(tokens - allowed_str)
-        missing = sorted(allowed_str - tokens)
-        if extra:
-            error(f"{rel}: {label} options not in controlled vocab: {extra}")
-        if missing:
-            error(f"{rel}: {label} omits controlled-vocab options: {missing}")
+        report_drift(rel, f"{label} options", tokens, allowed)
+
+
+def check_reference_vocab_alignment() -> None:
+    """Reference rule docs that *define* a controlled vocabulary must equal
+    vocab.py, so the authoritative protocol prose cannot drift from the code.
+    (Failure types in source-access-strategy.md stay human prose by design —
+    their machine contract is enforced via the template + fixtures.)"""
+    stage_doc = "references/diligence/coverage-stage-model.md"
+    text = (ROOT / stage_doc).read_text(encoding="utf-8")
+    sections = [
+        ("### 1. Product maturity", "### 2.", "product_maturity"),
+        ("### 2. PMF status", "### 3.", "pmf_status"),
+        ("### 3. GTM maturity", "### 4.", "gtm_maturity"),
+        ("### 4. Financing stage", "## Stage output", "financing_stage"),
+    ]
+    for start, end, dim in sections:
+        s = text.find(start)
+        if s == -1:
+            error(f"{stage_doc}: section {start!r} not found")
+            continue
+        e = text.find(end, s + len(start))
+        segment = text[s : e if e != -1 else len(text)]
+        report_drift(stage_doc, f"{dim} values", bold_tokens(segment), vocab.STAGE[dim])
+
+    ai_doc = "references/research/ai-product-strategy.md"
+    ai_tokens = backtick_tokens((ROOT / ai_doc).read_text(encoding="utf-8"), "`beta/pilot`")
+    if not ai_tokens:
+        error(f"{ai_doc}: AI status definition line not found")
+    else:
+        report_drift(ai_doc, "AI status values", ai_tokens, vocab.AI_STATUS)
 
 
 def check_no_obvious_secrets() -> None:
@@ -320,6 +367,7 @@ def main() -> None:
     check_body(body)
     check_templates()
     check_template_vocab_alignment()
+    check_reference_vocab_alignment()
     check_no_obvious_secrets()
     check_protocol_headers()
     check_worked_examples_for_identifier_leaks()

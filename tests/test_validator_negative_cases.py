@@ -94,6 +94,21 @@ class ValidatorNegativeCases(unittest.TestCase):
         )
         self.assertEqual(real, set(vocab.AI_STATUS))
 
+    def test_reference_docs_define_vocab_in_sync(self) -> None:
+        # Bold-token extraction surfaces a stage value that drifts from vocab.
+        drifted = validate_skill.bold_tokens("- **concept** —\n- **bogus_x** —")
+        self.assertEqual(sorted(drifted - vocab.STAGE["product_maturity"]), ["bogus_x"])
+        # The reference stage doc still defines exactly the vocab tokens.
+        stage = (ROOT / "references/diligence/coverage-stage-model.md").read_text(encoding="utf-8")
+        for dim, allowed in vocab.STAGE.items():
+            self.assertTrue(allowed <= validate_skill.bold_tokens(stage), f"{dim} missing from reference")
+        # The AI-status reference line equals the controlled vocab exactly.
+        ai_tokens = validate_skill.backtick_tokens(
+            (ROOT / "references/research/ai-product-strategy.md").read_text(encoding="utf-8"),
+            "`beta/pilot`",
+        )
+        self.assertEqual(ai_tokens, set(vocab.AI_STATUS))
+
 
 if __name__ == "__main__":
     unittest.main()
