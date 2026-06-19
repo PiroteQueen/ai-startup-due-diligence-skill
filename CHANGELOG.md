@@ -15,6 +15,8 @@ All notable changes to this skill are documented here. The format follows [Keep 
 
 - Slimmed `SKILL.md` toward progressive disclosure: the external-research, competitor, and AI-strategy gates now state only their trigger, a one-line pass criterion, and a link, with the full pass checklists living solely in their reference files (`source-access-strategy.md` §6, `competitor-research.md` §10, `ai-product-strategy.md` §8). Numeric thresholds are no longer duplicated between `SKILL.md` and the references.
 - Tightened the skill `description` to a what-plus-when trigger, removing internal jargon while preserving the use-case cues.
+- Made the smallest useful output the default and the full multi-file package an explicit opt-in, and de-enumerated the deliverable list in both mental-model blocks so the output-package table is its single source of truth.
+- Added a README pointer to `test-runs/harvey-2026-06-19/` as a worked run, clarifying that `examples/` holds input-only briefs while worked outputs live under `test-runs/`.
 
 ### Fixed
 

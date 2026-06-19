@@ -30,7 +30,7 @@ Target company
   → unanswered gaps
   → confidence / contradiction / red flags
   → four-dimensional stage map / VC-fit / capital path
-  → outputs: output package (Chinese Systematic DD, OnePage, Q&A gap list, IC memo, risk register, data-room request, research appendices)
+  → outputs: smallest useful subset by default, full output package on request
 ```
 
 Diligence is not "summarization"; it is **question coverage management**. A good DD result says which questions are answered, which are not, what evidence supports each answer, and what must be checked next.
@@ -139,7 +139,7 @@ For pre-revenue, stealth, pre-product, unusually large financing, or unusually h
 
 ### Output package behavior
 
-When the user asks for a full diligence run, a project folder, or durable deliverables, generate a multi-file output package instead of one long chat response. Use safe, human-readable filenames and keep the decision narrative separate from evidence appendices:
+Default to the smallest useful output for the question asked. Generate the full multi-file package only when the user asks for a full diligence run, a project folder, or durable deliverables — then use safe, human-readable filenames and keep the decision narrative separate from evidence appendices:
 
 | File | Purpose | Template |
 | --- | --- | --- |
@@ -153,7 +153,7 @@ When the user asks for a full diligence run, a project folder, or durable delive
 | `08-ai-product-strategy.md` | Standalone target-and-competitor AI feature, product, adoption, monetization, moat, and dependency analysis | [templates/appendices/ai-product-strategy.md](templates/appendices/ai-product-strategy.md) |
 | `09-external-research-log.md` | Auditable search/source log including fallback paths, access failures, and unverified claims | [templates/appendices/external-research-log.md](templates/appendices/external-research-log.md) |
 
-If the user only asks for a lightweight answer, produce the smallest useful subset, but always say which appendices were omitted. For Chinese users, make `01-chinese-systematic-dd.md` the primary deliverable and keep internal coverage details in appendices.
+Whenever you produce less than the full package, say which appendices were omitted. For Chinese users, make `01-chinese-systematic-dd.md` the primary deliverable and keep internal coverage details in appendices.
 
 When the derived verdict is `Need more evidence`, do not write a final recommendation memo. If a full durable package was explicitly requested, `05-ic-memo.md` may exist only as a prominently labeled **Conditional IC Pre-read — Not decision-ready**. It must preserve the `Need more evidence` verdict, list blocking P0 gates, and contain no investment recommendation beyond the next diligence action.
 

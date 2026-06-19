@@ -45,3 +45,4 @@ README.md - 面向使用者的能力说明与安装入口。
 - 2026-06-18：新增来源替代路由与独立 AI 产品战略模块；尽调由七模块升级为八模块。
 - 2026-06-19：Harvey 真实公司前向测试；修复 NME/IC memo 冲突和不可复算覆盖率。
 - 2026-06-19：SKILL.md 三个 gate 收敛为触发+判据+链接，完整判据下沉至 reference（单一事实源）；压缩 description；修复 README 计数与目录树。
+- 2026-06-19：默认产出最小集、全包改 explicit opt-in；mental-model 块去枚举（交付清单单源于 output package 表）；README 增 test-runs worked-run 指针，重申 examples/ 纯输入边界。

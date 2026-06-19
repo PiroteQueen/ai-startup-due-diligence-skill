@@ -23,7 +23,7 @@ Target company
   → unanswered gaps
   → confidence / contradiction / red flags
   → four-dimensional stage map / VC-fit / capital path
-  → outputs: Chinese Systematic DD, Q&A List, OnePage, IC memo, risk register, data-room request
+  → outputs: smallest useful subset by default; full multi-file package on request
 ```
 
 Diligence is question coverage management, not summarization. The skill is designed to prevent eight common mistakes:
@@ -56,6 +56,8 @@ ai-startup-due-diligence/
 └── test-runs/
     └── <company>-<date>/         # Real-company forward tests and regression evidence
 ```
+
+By design, `examples/` holds input-only briefs while complete worked outputs live under `test-runs/`. To see what a full run produces, browse [`test-runs/harvey-2026-06-19/`](test-runs/harvey-2026-06-19/) — a real-company package with all nine files and the assertions a test run must satisfy.
 
 ## Installation
 
