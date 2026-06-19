@@ -12,6 +12,6 @@
 | Product / feature | User + workflow | Status | Version / date | Source + limitation |
 |---|---|---|---|---|
 | Assistant | analyst Q&A | live |  | product docs |
-| Agent workflow | task automation | beta-pilot |  | pilot note |
+| Agent workflow | task automation | beta/pilot |  | pilot note |
 | Model route | multi-model | announced |  | roadmap post |
 | Unit economics | inference cost | unknown |  | not disclosed |

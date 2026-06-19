@@ -11,5 +11,5 @@
 
 | Source / query | Claim sought | Failure type | Impact on DD | Fallback route attempted | Recovery status |
 |---|---|---|---|---|---|
-| Commercial database | funding history | robots.txt blocked | medium | official filing | recovered |
+| Commercial database | funding history | robots | medium | official filing | recovered |
 | Paywalled reporting | revenue corroboration | paywall | low | accessible reporting | partial |

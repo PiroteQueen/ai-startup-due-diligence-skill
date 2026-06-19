@@ -15,3 +15,4 @@ jobs:
       - run: python -m pip install pyyaml
       - run: python scripts/validate_skill.py
       - run: for scenario in tests/fixtures/*/; do python scripts/validate_test_run.py "$scenario"; done
+      - run: python -m unittest tests/test_validator_negative_cases.py

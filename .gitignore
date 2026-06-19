@@ -10,3 +10,6 @@ reports/
 
 # Local real-company diligence runs — keep private; de-identify into worked-examples/ before committing
 test-runs/
+
+# Local promo / preview artifacts — not part of the installable skill
+*.html

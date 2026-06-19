@@ -27,6 +27,7 @@ Thanks for helping improve this skill. Contributions that make the diligence met
    python3 -m pip install pyyaml
    python3 scripts/validate_skill.py
    for scenario in tests/fixtures/*/; do python3 scripts/validate_test_run.py "$scenario"; done
+   python3 -m unittest tests/test_validator_negative_cases.py
    ```
 
 4. Update `CHANGELOG.md` under an `Unreleased` heading.

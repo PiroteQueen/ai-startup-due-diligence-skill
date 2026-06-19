@@ -14,9 +14,13 @@ from typing import Optional
 
 import yaml
 
-WEIGHTS = {"P0": 3, "P1": 2, "P2": 1}
-CREDITS = {0.0, 0.5, 1.0}
-EVIDENCE_STATUSES = {"known", "inferred", "unknown", "contradiction"}
+from vocab import (
+    APPLICABLE as APPLICABLE_VALUES,
+    COVERAGE_CREDIT as CREDITS,
+    EVIDENCE_STATUS as EVIDENCE_STATUSES,
+    FAILURE_TYPES,
+    WEIGHTS,
+)
 
 
 class ValidationInputError(ValueError):
@@ -256,7 +260,7 @@ def validate_research(root: Path, research: Optional[dict], errors: list[str]) -
             "research log",
         )
         recovered = any(
-            row["Failure type"].strip()
+            row["Failure type"].strip().lower() in FAILURE_TYPES
             and row["Fallback route attempted"].strip()
             and row["Recovery status"].strip().lower() == "recovered"
             for row in rows
@@ -278,7 +282,11 @@ def validate_competition(root: Path, competition: Optional[dict], errors: list[s
         return
     text = read(root, competition["file"])
     rows = table_with(text, {"Layer", "Applicable?"}, "competitor landscape")
-    addressed = [row["Layer"] for row in rows if row.get("Applicable?", "").strip()]
+    addressed = [
+        row["Layer"]
+        for row in rows
+        if row.get("Applicable?", "").strip().lower() in APPLICABLE_VALUES
+    ]
     for layer in string_list(competition, "required_layers", "competition"):
         needle = layer.lower()
         hit = any(needle in cell.lower() for cell in addressed)

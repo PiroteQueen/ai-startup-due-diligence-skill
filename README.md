@@ -154,6 +154,7 @@ For lightweight usage, generate the smallest useful subset and explicitly say wh
 python3 -m pip install pyyaml
 python3 scripts/validate_skill.py
 for scenario in tests/fixtures/*/; do python3 scripts/validate_test_run.py "$scenario"; done
+python3 -m unittest tests/test_validator_negative_cases.py
 ```
 
 This checks package structure plus every declared behavioral scenario. CI runs the same checks on every push and PR.

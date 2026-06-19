@@ -25,6 +25,8 @@ All notable changes to this skill are documented here. The format follows [Keep 
 - Aligned the structured validator with the real template output contract so it verifies what the skill actually produces: it now reads the competitor "Competition layers" table, the `Product / feature` AI inventory column, the "Failed or blocked research" table, and the coverage `Readiness` column, and accepts a bulleted `- This verdict reverses if:` line. Added `- Verdict:` / falsifiability anchors to the Chinese DD and IC memo templates and an `Omitted appendices:` line to OnePage.
 - Made OnePage the default minimal decision output (it carries verdict, falsifiability, and the omitted-appendices notice); the Q&A gap list is the accompanying coverage/gap inventory.
 - Expanded worked-example leak checks beyond URLs to email addresses, exact calendar dates, and currency amounts.
+- Unified the AI lifecycle status as `beta/pilot`, rejected fake blocked-source recoveries with invalid failure types, and stopped treating `Applicable? = no` competitor layers as covered.
+- Centralized every controlled vocabulary (failure types, AI status, evidence status, stage dimensions, verdicts, weights/credits) in a single `scripts/vocab.py`; both validators import it instead of hardcoding their own copies, and a new `validate_skill` check fails if any template's spelled-out option list drifts outside the vocab.
 - Gitignored `test-runs/` as a private scratch area so real-company runs are never committed; de-identify into `worked-examples/` before sharing.
 
 ### Fixed

@@ -17,6 +17,8 @@ except Exception as exc:  # pragma: no cover
     print(f"Missing PyYAML: {exc}", file=sys.stderr)
     sys.exit(2)
 
+import vocab
+
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = [
     "SKILL.md",
@@ -173,48 +175,16 @@ def check_templates() -> None:
             error(f"evidence-ledger.yaml missing key: {key}")
     if "stage" in ledger[0]:
         error("evidence-ledger.yaml must use four stage dimensions instead of mixed 'stage'")
-    allowed_modules = {
-        "basic_info",
-        "team",
-        "product_technology",
-        "ai_strategy",
-        "traction_market",
-        "financials",
-        "legal_risk",
-        "capital_path",
-    }
-    if ledger[0].get("module") not in allowed_modules:
+    if ledger[0].get("module") not in vocab.MODULES:
         error(f"evidence-ledger.yaml has invalid default module: {ledger[0].get('module')!r}")
     allowed_defaults = {
-        "question_priority": {"P0", "P1", "P2"},
-        "evidence_strength": {"strong", "limited", "none"},
-        "coverage_credit": {0.0, 0.5, 1.0},
-        "product_maturity": {"concept", "prototype", "mvp", "production", "scaled_product", "unknown"},
-        "pmf_status": {
-            "untested",
-            "problem_validation",
-            "solution_validation",
-            "repeatable_pmf",
-            "expanding_pmf",
-            "unknown",
-        },
-        "gtm_maturity": {
-            "no_motion",
-            "founder_led",
-            "emerging_repeatability",
-            "repeatable_motion",
-            "scalable_motion",
-            "unknown",
-        },
-        "financing_stage": {
-            "bootstrapped",
-            "pre_seed",
-            "seed",
-            "series_a",
-            "series_b_plus",
-            "profitable_or_self_funded",
-            "unknown",
-        },
+        "question_priority": vocab.QUESTION_PRIORITY,
+        "evidence_strength": vocab.EVIDENCE_STRENGTH,
+        "coverage_credit": vocab.COVERAGE_CREDIT,
+        "product_maturity": vocab.STAGE["product_maturity"],
+        "pmf_status": vocab.STAGE["pmf_status"],
+        "gtm_maturity": vocab.STAGE["gtm_maturity"],
+        "financing_stage": vocab.STAGE["financing_stage"],
     }
     for key, allowed in allowed_defaults.items():
         if ledger[0].get(key) not in allowed:
@@ -243,6 +213,44 @@ def check_templates() -> None:
             error(f"ai-product-strategy.md missing section: {term}")
 
 
+# Options in a template are separated by " / "; an internal slash (e.g. "beta/pilot")
+# carries no surrounding spaces, so it is preserved as one token.
+OPTION_SEP = re.compile(r"\s+/\s+")
+
+# (template path, a distinctive marker inside the option cell, the controlled vocab it must match)
+TEMPLATE_VOCAB_CHECKS = [
+    ("templates/appendices/external-research-log.md", "paywall / login", vocab.FAILURE_TYPES, "failure type"),
+    ("templates/appendices/ai-product-strategy.md", "beta/pilot / announced", vocab.AI_STATUS, "AI status"),
+    ("templates/decisions/onepage.md", "concept / prototype", vocab.STAGE["product_maturity"], "product maturity"),
+    ("templates/decisions/onepage.md", "untested / problem_validation", vocab.STAGE["pmf_status"], "PMF status"),
+    ("templates/decisions/onepage.md", "no_motion / founder_led", vocab.STAGE["gtm_maturity"], "GTM maturity"),
+    ("templates/decisions/onepage.md", "bootstrapped / pre_seed", vocab.STAGE["financing_stage"], "financing stage"),
+]
+
+
+def option_tokens(text: str, marker: str) -> set[str]:
+    """Extract the slash-delimited option tokens from the cell/line holding `marker`."""
+    for line in text.splitlines():
+        if marker in line:
+            cell = next((c for c in line.split("|") if marker in c), line)
+            return {t.strip() for t in OPTION_SEP.split(cell.strip()) if t.strip()}
+    return set()
+
+
+def check_template_vocab_alignment() -> None:
+    """Every option list spelled out in a template must be a subset of the controlled
+    vocabulary in vocab.py — so the two can never drift apart silently."""
+    for rel, marker, allowed, label in TEMPLATE_VOCAB_CHECKS:
+        tokens = option_tokens((ROOT / rel).read_text(encoding="utf-8"), marker)
+        if not tokens:
+            error(f"{rel}: {label} option line (marker '{marker}') not found")
+            continue
+        allowed_str = {str(a) for a in allowed}
+        extra = sorted(t for t in tokens if t not in allowed_str)
+        if extra:
+            error(f"{rel}: {label} options not in controlled vocab: {extra}")
+
+
 def check_no_obvious_secrets() -> None:
     for path in ROOT.rglob("*"):
         if path.is_dir() or ".git" in path.parts:
@@ -269,6 +277,7 @@ def check_protocol_headers() -> None:
         *sorted((ROOT / "examples").rglob("*.md")),
         *sorted((ROOT / "tests").rglob("*.md")),
         *sorted((ROOT / "tests").rglob("*.yaml")),
+        *sorted((ROOT / "tests").rglob("*.py")),
         *sorted((ROOT / "worked-examples").rglob("*.md")),
         *sorted((ROOT / "worked-examples").rglob("*.yaml")),
     ]
@@ -306,6 +315,7 @@ def main() -> None:
         check_frontmatter(fm)
     check_body(body)
     check_templates()
+    check_template_vocab_alignment()
     check_no_obvious_secrets()
     check_protocol_headers()
     check_worked_examples_for_identifier_leaks()

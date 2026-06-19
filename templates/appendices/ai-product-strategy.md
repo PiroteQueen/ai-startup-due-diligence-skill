@@ -20,7 +20,7 @@
 
 | Product / feature | User + workflow | Status | Version / date | Access / packaging | Model / data / infrastructure | Claimed value | Adoption / outcome evidence | Source + limitation |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-|  |  | live / beta-pilot / announced / retired / unknown |  |  |  |  |  |  |
+|  |  | live / beta/pilot / announced / retired / unknown |  |  |  |  |  |  |
 
 ## Strategy choices
 
