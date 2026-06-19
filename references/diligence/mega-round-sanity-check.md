@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖融资规模、估值、阶段、交易结构、用途与经营证据
+[OUTPUT]: 对外提供超大融资和高估值项目的专项计算、门禁与反证
+[POS]: references/diligence 的异常交易校验器，阻止融资规模冒充业务去风险
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Mega-Round Sanity Check
 
 Use this reference when an AI startup is raising or has raised an unusually large round before clear revenue, PMF, product maturity, or public deployment evidence. This check prevents "large financing" from being mistaken for de-risking.

@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖覆盖率、P0 门禁、红队结果、阶段、VC-fit 与置信度降级
+[OUTPUT]: 对外提供 Proceed、Watch、Pass、Need more evidence 的确定性映射
+[POS]: references/diligence 的最终裁决规则，保证同一证据导出同一结论
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Decision Rules
 
 Rules for mapping evidence state to a verdict: **Proceed / Watch / Pass / Need more evidence**. Apply after coverage scoring ([coverage-stage-model.md](coverage-stage-model.md)) and red-teaming ([red-team-checks.md](red-team-checks.md), [pattern-library.md](pattern-library.md)). A verdict is derived from these rules, not improvised — the same evidence must always produce the same verdict.
@@ -13,9 +20,9 @@ Saying **Proceed** requires broad, strong evidence. Saying **Pass** requires onl
 | **Proceed** | Thesis-critical modules decision-ready (≥80% weighted coverage); zero unresolved P0 questions; zero unresolved contradictions; no confirmed deal-breaker; VC-fit = venture_scale (when the mandate is venture investing); PMF dimension consistent with the claimed stage after pattern-library checks. |
 | **Watch** | Overall coverage ≥60% (directional); at most 2 unresolved P0 questions, each with a defined re-engagement trigger; no confirmed deal-breaker. |
 | **Pass** | At least one deal-breaker confirmed with strong evidence (1.0-credit quality), at any coverage level; **or** VC-fit assessed as good_non_vc_business / not_fundable_yet under a venture mandate with decision-ready evidence on that assessment. |
-| **Need more evidence** | Default verdict whenever coverage <60%, or any P0 question that could reverse the verdict is Unknown or Contradicted. Output is the Q&A gap list and follow-up plan — do not write a recommendation memo. |
+| **Need more evidence** | Default verdict whenever coverage <60%, or any P0 question that could reverse the verdict is Unknown or Contradicted. Output is the Q&A gap list and follow-up plan. A full-package IC file, if explicitly required, must be labeled `Conditional IC Pre-read — Not decision-ready` and must not recommend investing. |
 
-Thesis-critical modules are the modules the investment thesis actually rests on (typically Product/Technology/AI, Traction/Market, and Capital Path; adjust per deal and say which ones you chose).
+Thesis-critical modules are the modules the investment thesis actually rests on (typically Product/Technology, AI Product & Capability Strategy, Traction/Market, and Capital Path; adjust per deal and say which ones you chose).
 
 ## Deal-breakers (confirmed = Pass, regardless of everything else)
 

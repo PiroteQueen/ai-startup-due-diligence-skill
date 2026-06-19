@@ -1,6 +1,41 @@
+<!--
+[INPUT]: 依赖已完成且可验证的技能能力变化
+[OUTPUT]: 对外提供版本化的新增、变更与修复记录
+[POS]: 项目发布记忆，连接技能版本与可观察行为
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Changelog
 
 All notable changes to this skill are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## [Unreleased]
+
+### Changed
+
+- Slimmed `SKILL.md` toward progressive disclosure: the external-research, competitor, and AI-strategy gates now state only their trigger, a one-line pass criterion, and a link, with the full pass checklists living solely in their reference files (`source-access-strategy.md` §6, `competitor-research.md` §10, `ai-product-strategy.md` §8). Numeric thresholds are no longer duplicated between `SKILL.md` and the references.
+- Tightened the skill `description` to a what-plus-when trigger, removing internal jargon while preserving the use-case cues.
+
+### Fixed
+
+- Corrected the README to say it prevents "eight" common mistakes (the list already had eight) and updated the project tree to include `scripts/validate_test_run.py` and `test-runs/`.
+
+## [1.4.0] - 2026-06-18
+
+### Added
+
+- Added `references/research/source-access-strategy.md` with claim-specific source ladders, one-attempt blocked-source handling, fallback routes, origin-aware corroboration, and a completion test that does not depend on Crunchbase or any single commercial database.
+- Added `references/research/ai-product-strategy.md` and `templates/appendices/ai-product-strategy.md` for standalone, dated analysis of AI feature portfolios, user value, build/buy/model choices, adoption, monetization, economics, moat, and platform dependency.
+- Added L1/L2/L3 architecture documentation and validation coverage for the new research and AI strategy contracts.
+
+### Changed
+
+- Expanded diligence from seven to eight modules by separating Product / Technology from AI Product & Capability Strategy.
+- Split flat rule and template folders into `diligence/`, `research/`, `decisions/`, and `appendices/` responsibility boundaries.
+- Expanded the output package with `08-ai-product-strategy.md` and renumbered the external research log to `09-external-research-log.md`.
+- Upgraded the research log and evidence ledger to retain access failures, fallback sources, shared evidence origins, and source-diversity limits.
+- Updated the OnePage, IC memo, Chinese systematic DD, competitor landscape, Q&A list, data-room request, risk register, orchestration, and public README to preserve the new module boundaries.
+- Forward-tested on Harvey and fixed two discovered rule gaps: `Need more evidence` now permits only a conditional, non-recommendation IC pre-read, and coverage tables must expose weighted points earned / possible.
 
 ## [1.3.1] - 2026-06-10
 
@@ -38,7 +73,7 @@ All notable changes to this skill are documented here. The format follows [Keep 
 - IC Memo and OnePage templates retain competitor evidence and link to a dedicated landscape appendix.
 - Quality bar now prohibits completed-DD language when external research was possible but not attempted.
 
-## [Unreleased]
+## [1.3.2] - 2026-06-10
 
 ### Changed
 

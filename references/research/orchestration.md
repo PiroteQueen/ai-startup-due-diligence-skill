@@ -1,10 +1,17 @@
+<!--
+[INPUT]: 依赖 SKILL.md 的工作流、模块问题库与证据台账结构
+[OUTPUT]: 对外提供可选的多代理研究、红队、合并与裁决职责拓扑
+[POS]: references/research 的执行编排规则，保证并行研究不污染最终判断
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Multi-Agent Orchestration (Optional)
 
 Use this topology when the host environment supports spawning subagents or parallel tasks (e.g. Claude Code tasks, Cursor subagents). If it does not, run the standard workflow in `SKILL.md` sequentially — every step works single-agent; this file only changes who executes it.
 
 ## Why split this way
 
-- Module research is parallel because the seven modules are independent at evidence-gathering time.
+- Module research is parallel because the eight modules are independent at evidence-gathering time.
 - Red-teaming runs in a **separate context** because the agent that drafted the narrative has sunk cost in it (the same doubt-avoidance bias the pattern library flags in founders applies to analysts, including AI ones). The red-team agent must see only the evidence ledger, never the draft narrative.
 - The verdict is **never delegated**: decision rules require the full merged ledger and global caps.
 
@@ -21,20 +28,20 @@ Orchestrator (main agent)
 
 ### Orchestrator
 
-- Loads: `SKILL.md`, [coverage-stage-model.md](coverage-stage-model.md), [decision-rules.md](decision-rules.md).
+- Loads: `SKILL.md`, [coverage-stage-model.md](../diligence/coverage-stage-model.md), [decision-rules.md](../diligence/decision-rules.md).
 - Does: Step 1 intake; assigns modules to research agents; merges ledgers; scores coverage; applies decision rules; writes final outputs (Step 6).
 - Never: outsources the verdict or lets a subagent's prose bypass the ledger.
 
 ### Research agents
 
-- Each owns 1–2 modules. Suggested split for 4 agents: (1) Basic Info + Team, (2) Product/Technology/AI, (3) Traction/Market + Financials, (4) Legal/Compliance + Capital Path.
-- Loads: its module sections from [module-questions.md](module-questions.md), plus the schema in `templates/evidence-ledger.yaml`.
+- Each owns 1–2 modules. Suggested split for 4 agents: (1) Basic Info + Team, (2) Product/Technology + AI Product & Capability Strategy, (3) Traction/Market + Financials, (4) Legal/Compliance + Capital Path.
+- Loads: its module sections from [module-questions.md](../diligence/module-questions.md), plus the schema in `templates/appendices/evidence-ledger.yaml`.
 - Input: the intake materials plus the module assignment and P0/P1/P2 priorities from the orchestrator.
 - Output: **evidence ledger entries only**, in the `evidence-ledger.yaml` schema — no narrative, no recommendations, no stage claims. External research follows the Step 1 source list; every entry carries `source_type`, `source_url`/`source_title`, and `source_date`.
 
 ### Red-team agent
 
-- Loads: [pattern-library.md](pattern-library.md), [red-team-checks.md](red-team-checks.md).
+- Loads: [pattern-library.md](../diligence/pattern-library.md), [red-team-checks.md](../diligence/red-team-checks.md).
 - Input: the merged evidence ledger **only** — never the draft narrative, OnePage, or memo.
 - Output: per-claim findings — pattern matches, the nine contradiction-check results, and proposed downgrades (`evidence_status`, `confidence`, `red_flag`, `next_check`) with one-line reasons. No verdict.
 

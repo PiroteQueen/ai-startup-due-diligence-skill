@@ -1,8 +1,19 @@
+<!--
+[INPUT]: 依赖完整证据台账、模块覆盖、AI 战略、竞品、风险与决策规则
+[OUTPUT]: 对外提供可供投资委员会决策的完整尽调备忘录
+[POS]: templates/decisions 的深度决策主文档，引用而不吞并高密度证据附录
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # [Company] Due Diligence Memo
+
+> Memo status: Final IC memo / Conditional IC Pre-read — Not decision-ready
+>
+> If the verdict is `Need more evidence`, use the conditional label and do not recommend investing.
 
 ## 1. Executive view
 
-- Recommendation: Proceed / Watch / Pass / Need more evidence (per `references/decision-rules.md`)
+- Recommendation: Proceed / Watch / Pass / Need more evidence (per `references/diligence/decision-rules.md`)
 - Verdict basis: eligibility conditions met; verdict caps triggered (if any)
 - Confidence:
 - Weighted diligence coverage:
@@ -14,15 +25,28 @@
 
 ## 2. Company thesis
 
-## 3. Product and AI system
+## 3. Product and technology
 
-## 4. Market and customer pull
+## 4. AI product and capability strategy
 
-## 5. Team
+- Strategic role of AI:
+- Live / beta / announced portfolio:
+- User value and adoption wedge:
+- Build / buy / partner and model route:
+- Adoption and monetization evidence:
+- AI economics:
+- Differentiation and compounding advantage:
+- Platform/provider dependency:
+- Target-versus-competitor position:
+- Dedicated appendix: `[ai-product-strategy file/link]`
 
-## 6. Business model and financials
+## 5. Market and customer pull
 
-## 7. VC-fit, stage, and capital path
+## 6. Team
+
+## 7. Business model and financials
+
+## 8. VC-fit, stage, and capital path
 
 - VC-fit verdict:
 - Leverage mechanism:
@@ -43,7 +67,7 @@
 
 Do not use financing stage as evidence for product maturity, PMF, or GTM maturity.
 
-## 8. Competitive landscape
+## 9. Competitive landscape
 
 Summarize the dedicated competitor landscape; do not discard its evidence density.
 
@@ -57,7 +81,7 @@ Summarize the dedicated competitor landscape; do not discard its evidence densit
 - Same-task proof required:
 - Dedicated appendix: `[competitor-landscape file/link]`
 
-## 9. Risk onion
+## 10. Risk onion
 
 | Layer | Current evidence | Remaining risk | How to reduce / verify |
 | --- | --- | --- | --- |
@@ -72,7 +96,7 @@ Summarize the dedicated competitor landscape; do not discard its evidence densit
 | Hiring/org |  |  |  |
 | AI/platform dependency |  |  |  |
 
-## 10. Post-raise operating risks
+## 11. Post-raise operating risks
 
 - Hiring too many people:
 - Too many salespeople before PMF:
@@ -82,14 +106,14 @@ Summarize the dedicated competitor landscape; do not discard its evidence densit
 - Liquidation preference / exit optionality risk:
 - Investor-help dependency:
 
-## 11. Risk register
+## 12. Risk register
 
 | Risk | Severity | Evidence | Mitigation / next check |
 | --- | --- | --- | --- |
 
-## 12. Key unanswered questions
+## 13. Key unanswered questions
 
-## 13. Decision gates
+## 14. Decision gates
 
 | Gate | Evidence threshold | Deadline | Owner | If missed |
 | --- | --- | --- | --- | --- |

@@ -1,6 +1,11 @@
+# [INPUT]: 依赖用户材料、外部研究、访谈、产品验证与资料室证据
+# [OUTPUT]: 对外提供逐 claim 的证据状态、来源、覆盖率、风险与下一步
+# [POS]: templates/appendices 的单一事实源，所有判断与报告必须从此台账派生
+# [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+
 # Copy one item per claim. Keep evidence separate from inference.
 - claim: ""
-  module: basic_info # basic_info | team | technology | traction_market | financials | legal_risk | capital_path
+  module: basic_info # basic_info | team | product_technology | ai_strategy | traction_market | financials | legal_risk | capital_path
   question: ""
   question_priority: P1 # P0 | P1 | P2
   gating_question: false
@@ -9,6 +14,9 @@
   source_title: ""
   source_url: ""
   source_date: ""
+  source_access: opened # opened | snippet_only | blocked | paywalled | login_required | unavailable
+  fallback_source: ""
+  evidence_origin: "" # identify shared press-release/reporting origin when relevant
   evidence_quote: ""
   evidence_status: unknown # known | inferred | unknown | contradiction
   evidence_strength: none # strong | limited | none

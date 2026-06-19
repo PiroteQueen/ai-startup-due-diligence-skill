@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖未解决的 P0 门禁、风险洋葱、AI 战略与交易结构缺口
+[OUTPUT]: 对外提供按优先级、责任和结论影响组织的资料室请求
+[POS]: templates/decisions 的证据补全入口，把未知项转换为可执行文件请求
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # 资料室请求模板
 
 > Purpose: convert evidence gaps and risk-onion layers into a concrete data-room request list. Use when the current materials are pitch decks, teasers, memos, or second-hand introductions and the next step is evidence verification.
@@ -60,7 +67,17 @@
 | P1 | data rights / licensing | 数据是否合法、可持续 | 合规和 moat 风险 |
 | P1 | compute contracts / infrastructure plan | 成本与规模化能力 | 资本强度无法判断 |
 
-## 6. 客户、部署、收入
+## 6. AI 产品与能力战略
+
+| 优先级 | 文件/证据 | 要验证的问题 | 缺失时的结论影响 |
+|---|---|---|---|
+| P0 | AI 产品/功能清单，含 live、beta、announced、retired 状态与日期 | 实际能力与路线图是否混淆 | AI 战略 coverage incomplete |
+| P0 | AI 功能使用、留存、付费 attach、客户结果数据 | AI 是否产生真实采用与商业价值 | 不能声称 AI 产品已验证 |
+| P0 | build/buy/partner、模型供应商、数据与 eval 架构 | 差异化和供应商依赖 | moat 与依赖无法判断 |
+| P1 | AI 定价、推理成本、人工审核、毛利影响 | AI 商业化与单位经济 | AI 盈利能力未知 |
+| P1 | AI roadmap 与 feature retirement 记录 | 战略方向和执行纪律 | 只能判断当前快照 |
+
+## 7. 客户、部署、收入
 
 | 优先级 | 文件/证据 | 要验证的问题 | 缺失时的结论影响 |
 |---|---|---|---|
@@ -69,7 +86,7 @@
 | P1 | LOI / design partner agreements | 是否有需求线索 | 只能算弱证据 |
 | P1 | customer references | 客户痛点与替代方案 | 市场判断不稳 |
 
-## 7. 竞品与替代方案
+## 8. 竞品与替代方案
 
 | 优先级 | 文件/证据 | 要验证的问题 | 缺失时的结论影响 |
 |---|---|---|---|
@@ -78,7 +95,7 @@
 | P1 | win/loss notes | 真实胜负原因 | GTM 判断不稳 |
 | P1 | pricing comparison | 价值捕获是否合理 | 商业模式待核验 |
 
-## 8. 融资用途与里程碑
+## 9. 融资用途与里程碑
 
 | 优先级 | 文件/证据 | 要验证的问题 | 缺失时的结论影响 |
 |---|---|---|---|
@@ -87,7 +104,7 @@
 | P1 | hiring plan and burn forecast | 是否有组织腐蚀风险 | post-raise 风险升高 |
 | P1 | downside plan | 资金不顺时能否收缩 | 生存风险不清 |
 
-## 9. 输出要求
+## 10. 输出要求
 
 在 DD 报告中把请求结果写成：
 

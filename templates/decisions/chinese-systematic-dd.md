@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖内部证据台账、研究日志、AI 战略、竞品、覆盖率与决策规则
+[OUTPUT]: 对外提供面向中文投资人和创始人的体系化尽调主报告
+[POS]: templates/decisions 的中文主交付物，将后台模块压缩为可执行判断
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # 中文体系化尽调输出模板
 
 > Purpose: final Chinese-facing DD report for investors/founders. Use this after the internal evidence ledger, external research log, competitor landscape, module coverage, red-team checks, and decision rules are complete. Do not expose every internal module unless the user asks for the appendix.
@@ -25,13 +32,13 @@
 
 ## 2. 五道门判断
 
-七模块 coverage 用于后台检查完整性；中文正式输出只保留五道门。
+八模块 coverage 用于后台检查完整性；中文正式输出只保留五道门。
 
 | 门 | 当前判断 | 已验证证据 | 关键未知 | 下一步动作 |
 |---|---|---|---|---|
 | 1. 交易真实性 | 真实 / 待核验 / 不成立 | term sheet、cap table、allocation、SPV/直投结构 | ... | ... |
 | 2. 团队与组织能力 | 强 / 中 / 弱 / 待核验 | 创始人角色、核心团队、招聘、执行记录 | ... | ... |
-| 3. 技术与产品证据 | 已产品化 / 原型 / 演示 / 叙事 | demo、benchmark、eval、架构、数据权利 | ... | ... |
+| 3. 产品技术与 AI 战略 | 已产品化 / 原型 / 演示 / 叙事 | 产品工作流、AI 功能状态、采用度、benchmark、eval、架构、数据权利、模型依赖 | ... | ... |
 | 4. 市场与部署证据 | 有 PMF / 有试点 / 有需求线索 / 未证实 | 客户、收入、留存、LOI、部署 | ... | ... |
 | 5. 估值与回报空间 | 合理 / 偏贵 / 透支 / 无法判断 | 融资额、投前投后、退出可选性 | ... | ... |
 
@@ -60,8 +67,16 @@
 5. 估值是否已经提前透支成功；
 6. 什么证据会改变结论。
 
+另设“AI 产品与能力战略”小节，单独说明：
+
+- 当前已上线、测试中、仅宣布和已下线的 AI 功能；
+- AI 在公司战略中的角色；
+- 自研、采购、开源与合作边界；
+- 采用度、商业化和单位经济；
+- 相对竞品的真实差异与平台依赖。
+
 避免：
-- 直接粘贴七模块表；
+- 直接粘贴八模块表；
 - 中英文术语混排；
 - 模板堆叠；
 - 只有风险没有下一步；

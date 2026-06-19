@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖 competitor-research.md 与目标公司、竞品、替代方案的同维度证据
+[OUTPUT]: 对外提供竞争层级、优先竞品矩阵、胜负条件与估值反例
+[POS]: templates/appendices 的竞争研究附录，与 AI 战略附录互相引用但职责分离
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # [Company] — Competitor and Substitute Landscape
 
 ## Competitive job
@@ -40,6 +47,7 @@
 | Workflow / distribution |  |  |  |  |  |
 | Economics / pricing |  |  |  |  |  |
 | Platform dependency |  |  |  |  |  |
+| AI portfolio / status |  |  |  |  |  |
 | Valuation evidence |  |  |  |  |  |
 
 ## Valuation comparables

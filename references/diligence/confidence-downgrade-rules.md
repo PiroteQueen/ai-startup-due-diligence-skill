@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖证据台账中的缺失、二手、冲突、访问失败与门禁状态
+[OUTPUT]: 对外提供 claim、模块、总体置信度和 verdict 的强制降级上限
+[POS]: references/diligence 的审慎约束，阻止叙事强度超过证据强度
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Confidence Downgrade Rules
 
 Use these rules whenever evidence is incomplete, externally unverifiable, second-hand, or contradicted. The goal is to stop a polished memo from producing an overconfident verdict.
@@ -24,6 +31,7 @@ Do not average away missing critical evidence. A long deck with many P2 details 
 |---|---|---|
 | Identifiable company but no external research attempted | Cannot call DD complete | Run external research log |
 | External research attempted but blocked/incomplete | Overall confidence max medium; affected claims max low-to-medium | Record blocked searches and next sources |
+| Material claim depends on one blocked/paywalled database | Affected claim remains Unknown or max low | Use claim-specific fallback ladder; do not retry the same source repeatedly |
 | Financing terms only in memo, no term sheet/cap table | Verdict max Need more evidence | Request transaction docs |
 | Lead investor claim unverified | Financing quality max low-to-medium | Request allocation / lead confirmation |
 | Founder role unverified | Team confidence max medium | Role confirmation / interview / filings |
@@ -31,6 +39,7 @@ Do not average away missing critical evidence. A long deck with many P2 details 
 | Benchmark/eval absent for AI performance claim | Technical confidence max low | Request eval methodology and reproducible benchmark |
 | Customer contracts or paid pilots absent | PMF cannot be claimed | Request contracts, usage, retention, references |
 | Competitor research only lists names | Competition coverage incomplete | Build same-dimension competitor landscape |
+| AI strategy lists features without status/adoption/economics | AI strategy coverage incomplete | Build dated AI inventory and request usage, packaging, cost, and customer-outcome evidence |
 | Data rights unclear | Legal/data risk high | Request licenses, consents, provenance, DPA |
 | Indirect SPV/secondary structure unclear | Proceed blocked | Request SPV docs and underlying rights |
 

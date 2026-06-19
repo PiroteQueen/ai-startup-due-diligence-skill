@@ -1,0 +1,244 @@
+# [INPUT]: 依赖 Harvey 的公开公司、客户、融资、产品和竞品来源
+# [OUTPUT]: 对外提供本测试 verdict 的结构化证据
+# [POS]: appendices 的单一事实源
+# [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+
+- claim: "Harvey announced a $200m round at an $11b valuation"
+  module: capital_path
+  question: "Is the financing publicly verified and investable?"
+  question_priority: P0
+  gating_question: true
+  answer: "Public round and headline valuation are verified; transaction terms are not."
+  source_type: external_research
+  source_title: "Harvey Raises at $11 Billion Valuation"
+  source_url: "https://www.harvey.ai/blog/harvey-raises-at-dollar11-billion-valuation-to-scale-agents-across-law-firms-and-enterprises"
+  source_date: "2026-03-25"
+  source_access: opened
+  fallback_source: "Crunchbase blocked by robots.txt; official announcement used"
+  evidence_origin: "Harvey company announcement"
+  evidence_quote: ""
+  evidence_status: known
+  evidence_strength: limited
+  coverage_credit: 0.5
+  confidence: medium
+  red_flag: false
+  next_check: "Review term sheet, cap table, preferences and allocation"
+  product_maturity: unknown
+  pmf_status: unknown
+  gtm_maturity: unknown
+  financing_stage: series_b_plus
+  stage_evidence: "Official financing announcement"
+  stage_next_gate: "Transaction documents"
+  risk_layer: financing
+  vc_fit: venture_scale
+  next_evidence_gate: "Deal economics"
+
+- claim: "Harvey has a broad, live legal AI product portfolio"
+  module: ai_strategy
+  question: "Are material AI products live rather than announced?"
+  question_priority: P0
+  gating_question: true
+  answer: "Assistant, Vault, Knowledge, Agents and Command Center are publicly documented."
+  source_type: external_research
+  source_title: "Harvey platform pages"
+  source_url: "https://www.harvey.ai/"
+  source_date: "2026-06-19"
+  source_access: opened
+  fallback_source: ""
+  evidence_origin: "Harvey product documentation"
+  evidence_quote: ""
+  evidence_status: known
+  evidence_strength: strong
+  coverage_credit: 1.0
+  confidence: high
+  red_flag: false
+  next_check: "Product demo and reliability data"
+  product_maturity: scaled_product
+  pmf_status: unknown
+  gtm_maturity: unknown
+  financing_stage: unknown
+  stage_evidence: "Live product documentation and deployments"
+  stage_next_gate: "Reliability telemetry"
+  risk_layer: product
+  vc_fit: unknown
+  next_evidence_gate: "Independent product evaluation"
+
+- claim: "Mistral is available through Harvey in EU Early Access"
+  module: ai_strategy
+  question: "Does Harvey operate a multi-model route?"
+  question_priority: P1
+  gating_question: false
+  answer: "Harvey describes a multi-model architecture; Mistral is opt-in Early Access for eligible EU customers."
+  source_type: external_research
+  source_title: "Mistral, Now Live in Harvey"
+  source_url: "https://www.harvey.ai/blog/mistral-now-live-in-harvey"
+  source_date: "2026-05-26"
+  source_access: opened
+  fallback_source: ""
+  evidence_origin: "Harvey partnership announcement"
+  evidence_quote: ""
+  evidence_status: known
+  evidence_strength: strong
+  coverage_credit: 1.0
+  confidence: high
+  red_flag: false
+  next_check: "Inspect routing, cost, eval and provider agreements"
+  product_maturity: unknown
+  pmf_status: unknown
+  gtm_maturity: unknown
+  financing_stage: unknown
+  stage_evidence: ""
+  stage_next_gate: ""
+  risk_layer: ai_dependency
+  vc_fit: unknown
+  next_evidence_gate: "Provider economics"
+
+- claim: "Harvey has substantial customer adoption"
+  module: traction_market
+  question: "Is the product deployed at material scale?"
+  question_priority: P0
+  gating_question: true
+  answer: "Harvey reports 100,000+ lawyers across 1,300+ organizations and multiple firmwide deployments."
+  source_type: external_research
+  source_title: "Harvey funding announcement and customer pages"
+  source_url: "https://www.harvey.ai/customers"
+  source_date: "2026-06-19"
+  source_access: opened
+  fallback_source: ""
+  evidence_origin: "Harvey self-reported customer data"
+  evidence_quote: ""
+  evidence_status: known
+  evidence_strength: limited
+  coverage_credit: 0.5
+  confidence: medium
+  red_flag: false
+  next_check: "Verify contracts, NRR, usage cohorts and customer references"
+  product_maturity: scaled_product
+  pmf_status: expanding_pmf
+  gtm_maturity: scalable_motion
+  financing_stage: unknown
+  stage_evidence: "Self-reported scale and named deployments"
+  stage_next_gate: "Cohort retention and contracts"
+  risk_layer: market
+  vc_fit: venture_scale
+  next_evidence_gate: "Independent customer verification"
+
+- claim: "Harvey customer ROI is repeatable and financially measurable"
+  module: traction_market
+  question: "Does adoption produce repeatable budget-level ROI?"
+  question_priority: P0
+  gating_question: true
+  answer: "Customer cases report adoption and time savings, but repeatable financial ROI is not publicly verified."
+  source_type: external_research
+  source_title: "Harvey customer stories"
+  source_url: "https://www.harvey.ai/customers"
+  source_date: "2026-06-19"
+  source_access: opened
+  fallback_source: ""
+  evidence_origin: "Company customer cases"
+  evidence_quote: ""
+  evidence_status: unknown
+  evidence_strength: none
+  coverage_credit: 0.0
+  confidence: low
+  red_flag: true
+  next_check: "Interview customers and review renewal/ROI analyses"
+  product_maturity: unknown
+  pmf_status: unknown
+  gtm_maturity: unknown
+  financing_stage: unknown
+  stage_evidence: ""
+  stage_next_gate: "Independent ROI"
+  risk_layer: market
+  vc_fit: unclear
+  next_evidence_gate: "Renewal and budget reallocation proof"
+
+- claim: "Harvey has durable AI unit economics"
+  module: financials
+  question: "Are gross margin and AI COGS compatible with the valuation?"
+  question_priority: P0
+  gating_question: true
+  answer: "Inference, legal-engineering, support cost and gross margin are not public."
+  source_type: external_research
+  source_title: "Public research"
+  source_url: ""
+  source_date: "2026-06-19"
+  source_access: unavailable
+  fallback_source: "Data room required"
+  evidence_origin: ""
+  evidence_quote: ""
+  evidence_status: unknown
+  evidence_strength: none
+  coverage_credit: 0.0
+  confidence: low
+  red_flag: true
+  next_check: "Request gross margin and COGS decomposition"
+  product_maturity: unknown
+  pmf_status: unknown
+  gtm_maturity: unknown
+  financing_stage: unknown
+  stage_evidence: ""
+  stage_next_gate: ""
+  risk_layer: ai_dependency
+  vc_fit: unclear
+  next_evidence_gate: "Unit economics"
+
+- claim: "Harvey faces credible direct and incumbent competition"
+  module: traction_market
+  question: "Does competitor research cover material layers?"
+  question_priority: P0
+  gating_question: true
+  answer: "Legora competes on agentic legal workflows; Thomson Reuters and LexisNexis combine AI with proprietary content and distribution."
+  source_type: external_research
+  source_title: "Competitor official product pages"
+  source_url: "https://legora.com/"
+  source_date: "2026-06-19"
+  source_access: opened
+  fallback_source: ""
+  evidence_origin: "Multiple competitor official sources"
+  evidence_quote: ""
+  evidence_status: known
+  evidence_strength: strong
+  coverage_credit: 1.0
+  confidence: high
+  red_flag: true
+  next_check: "Run same-task benchmark and review win/loss data"
+  product_maturity: unknown
+  pmf_status: unknown
+  gtm_maturity: unknown
+  financing_stage: unknown
+  stage_evidence: ""
+  stage_next_gate: ""
+  risk_layer: competition
+  vc_fit: unknown
+  next_evidence_gate: "Win/loss and migration evidence"
+
+- claim: "Harvey's legal content and data rights are sufficient and durable"
+  module: legal_risk
+  question: "Are core data, content and model rights verified?"
+  question_priority: P0
+  gating_question: true
+  answer: "Public sources show integrations and security claims, but complete licenses and training/data rights are not public."
+  source_type: external_research
+  source_title: "Harvey security and ecosystem pages"
+  source_url: "https://www.harvey.ai/security"
+  source_date: "2026-06-19"
+  source_access: opened
+  fallback_source: "Data room required"
+  evidence_origin: "Harvey documentation"
+  evidence_quote: ""
+  evidence_status: unknown
+  evidence_strength: none
+  coverage_credit: 0.0
+  confidence: low
+  red_flag: true
+  next_check: "Review licenses, DPAs, subprocessors and provider agreements"
+  product_maturity: unknown
+  pmf_status: unknown
+  gtm_maturity: unknown
+  financing_stage: unknown
+  stage_evidence: ""
+  stage_next_gate: ""
+  risk_layer: legal_compliance
+  vc_fit: unclear
+  next_evidence_gate: "Legal rights review"

@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖公司行为、PMF、AI 产品、团队、融资与市场证据
+[OUTPUT]: 对外提供可复用的失败/成功模式及对应验证测试
+[POS]: references/diligence 的校准模式库，为阶段判断和红队降级提供实例
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Pattern Library: Calibration Examples
 
 Concrete patterns for calibrating judgment. Use during Step 3 (stage gate) and Step 5 (red-team). When evidence matches a pattern below, do not just note it — downgrade the claim's `evidence_status`, set `red_flag` where indicated, and write a specific `next_check` in the evidence ledger.

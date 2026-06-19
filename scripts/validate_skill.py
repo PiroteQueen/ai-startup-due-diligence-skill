@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Validate the skill package against the Agent Skills spec (agentskills.io)."""
+"""
+[INPUT]: 依赖项目文件、YAML 解析器与技能结构约束
+[OUTPUT]: 对外提供技能包结构、链接、模板字段和文档契约验证结果
+[POS]: scripts 的质量门禁，阻止技能规则与交付模板发生结构漂移
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+"""
 from __future__ import annotations
 
 import re
@@ -19,17 +24,20 @@ REQUIRED = [
     "LICENSE",
     "CONTRIBUTING.md",
     "CHANGELOG.md",
-    "references/module-questions.md",
-    "references/coverage-stage-model.md",
-    "references/red-team-checks.md",
-    "references/pattern-library.md",
-    "references/decision-rules.md",
-    "references/orchestration.md",
-    "templates/evidence-ledger.yaml",
-    "templates/qa-gap-list.md",
-    "templates/onepage.md",
-    "templates/ic-memo.md",
-    "templates/risk-register.md",
+    "references/diligence/module-questions.md",
+    "references/research/source-access-strategy.md",
+    "references/research/ai-product-strategy.md",
+    "references/diligence/coverage-stage-model.md",
+    "references/diligence/red-team-checks.md",
+    "references/diligence/pattern-library.md",
+    "references/diligence/decision-rules.md",
+    "references/research/orchestration.md",
+    "templates/appendices/evidence-ledger.yaml",
+    "templates/decisions/qa-gap-list.md",
+    "templates/decisions/onepage.md",
+    "templates/decisions/ic-memo.md",
+    "templates/decisions/risk-register.md",
+    "templates/appendices/ai-product-strategy.md",
     "examples/sample-ai-company/brief.md",
 ]
 # Spec: lowercase alphanumerics and hyphens, no leading/trailing/double hyphen.
@@ -99,7 +107,7 @@ def check_body(body: str) -> None:
 
 
 def check_templates() -> None:
-    onepage = (ROOT / "templates/onepage.md").read_text(encoding="utf-8")
+    onepage = (ROOT / "templates/decisions/onepage.md").read_text(encoding="utf-8")
     for section in [
         "AI moat hypothesis",
         "Four-dimensional stage map",
@@ -109,11 +117,12 @@ def check_templates() -> None:
     ]:
         if section not in onepage:
             error(f"onepage.md missing section: {section}")
-    qa_gap_list = (ROOT / "templates/qa-gap-list.md").read_text(encoding="utf-8")
+    qa_gap_list = (ROOT / "templates/decisions/qa-gap-list.md").read_text(encoding="utf-8")
     qa_modules = [
         "Basic Info / Thesis",
         "Team",
-        "Product / Technology / AI",
+        "Product / Technology",
+        "AI Product & Capability Strategy",
         "Traction / Market",
         "Financials / Business Model",
         "Legal / Compliance / Data Risk",
@@ -122,10 +131,19 @@ def check_templates() -> None:
     for module in qa_modules:
         if f"| {module} |" not in qa_gap_list:
             error(f"qa-gap-list.md coverage summary missing module: {module}")
-    for term in ["Weighted coverage", "P0 resolved / total", "Unresolved P0 gates", "Decision readiness"]:
+    for term in [
+        "Weighted points earned / possible",
+        "Weighted coverage",
+        "P0 resolved / total",
+        "Unresolved P0 gates",
+        "Decision readiness",
+    ]:
         if term not in qa_gap_list:
             error(f"qa-gap-list.md missing weighted coverage field: {term}")
-    ledger = yaml.safe_load((ROOT / "templates/evidence-ledger.yaml").read_text(encoding="utf-8"))
+    ic_memo = (ROOT / "templates/decisions/ic-memo.md").read_text(encoding="utf-8")
+    if "Conditional IC Pre-read — Not decision-ready" not in ic_memo:
+        error("ic-memo.md must distinguish a conditional pre-read from a final IC memo")
+    ledger = yaml.safe_load((ROOT / "templates/appendices/evidence-ledger.yaml").read_text(encoding="utf-8"))
     if not isinstance(ledger, list) or not ledger:
         error("evidence-ledger.yaml must be a non-empty list")
         return
@@ -140,6 +158,8 @@ def check_templates() -> None:
         "coverage_credit",
         "confidence",
         "next_check",
+        "source_access",
+        "fallback_source",
         "product_maturity",
         "pmf_status",
         "gtm_maturity",
@@ -149,6 +169,18 @@ def check_templates() -> None:
             error(f"evidence-ledger.yaml missing key: {key}")
     if "stage" in ledger[0]:
         error("evidence-ledger.yaml must use four stage dimensions instead of mixed 'stage'")
+    allowed_modules = {
+        "basic_info",
+        "team",
+        "product_technology",
+        "ai_strategy",
+        "traction_market",
+        "financials",
+        "legal_risk",
+        "capital_path",
+    }
+    if ledger[0].get("module") not in allowed_modules:
+        error(f"evidence-ledger.yaml has invalid default module: {ledger[0].get('module')!r}")
     allowed_defaults = {
         "question_priority": {"P0", "P1", "P2"},
         "evidence_strength": {"strong", "limited", "none"},
@@ -184,7 +216,7 @@ def check_templates() -> None:
         if ledger[0].get(key) not in allowed:
             error(f"evidence-ledger.yaml has invalid default for {key}: {ledger[0].get(key)!r}")
 
-    coverage_stage = (ROOT / "references/coverage-stage-model.md").read_text(encoding="utf-8")
+    coverage_stage = (ROOT / "references/diligence/coverage-stage-model.md").read_text(encoding="utf-8")
     for section in [
         "Weighted coverage",
         "Gating rule",
@@ -195,6 +227,16 @@ def check_templates() -> None:
     ]:
         if section not in coverage_stage:
             error(f"coverage-stage-model.md missing section: {section}")
+
+    research_log = (ROOT / "templates/appendices/external-research-log.md").read_text(encoding="utf-8")
+    for term in ["Fallback route attempted", "Source diversity audit", "AI products/capabilities"]:
+        if term not in research_log:
+            error(f"external-research-log.md missing access-strategy field: {term}")
+
+    ai_strategy = (ROOT / "templates/appendices/ai-product-strategy.md").read_text(encoding="utf-8")
+    for term in ["Target AI product inventory", "Strategy choices", "Adoption and economics", "Same-dimension company comparison"]:
+        if term not in ai_strategy:
+            error(f"ai-product-strategy.md missing section: {term}")
 
 
 def check_no_obvious_secrets() -> None:
@@ -209,6 +251,28 @@ def check_no_obvious_secrets() -> None:
                 error(f"Potential secret-like string found in {path.relative_to(ROOT)}")
 
 
+def check_protocol_headers() -> None:
+    protocol = "[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md"
+    scoped = [
+        ROOT / "SKILL.md",
+        ROOT / "README.md",
+        ROOT / "CONTRIBUTING.md",
+        ROOT / "CHANGELOG.md",
+        *sorted((ROOT / "references").rglob("*.md")),
+        *sorted((ROOT / "templates").rglob("*.md")),
+        *sorted((ROOT / "templates").rglob("*.yaml")),
+        *sorted((ROOT / "scripts").glob("*.py")),
+        *sorted((ROOT / "examples").rglob("*.md")),
+        *sorted((ROOT / "test-runs").rglob("*.md")),
+        *sorted((ROOT / "test-runs").rglob("*.yaml")),
+    ]
+    for path in scoped:
+        if path.name == "CLAUDE.md":
+            continue
+        if protocol not in path.read_text(encoding="utf-8"):
+            error(f"Missing L3 protocol header: {path.relative_to(ROOT)}")
+
+
 def main() -> None:
     check_required_files()
     fm, body = split_skill_md()
@@ -217,6 +281,7 @@ def main() -> None:
     check_body(body)
     check_templates()
     check_no_obvious_secrets()
+    check_protocol_headers()
     if ERRORS:
         for message in ERRORS:
             print(f"ERROR: {message}", file=sys.stderr)

@@ -1,6 +1,13 @@
+<!--
+[INPUT]: 依赖 SKILL.md 的八模块工作流与 coverage-stage-model.md 的评分规则
+[OUTPUT]: 对外提供各尽调模块的关键问题、AI 战略门禁与预期产物
+[POS]: references/diligence 的问题库，驱动证据台账、覆盖率与 Q&A 缺口
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Module Question Bank
 
-Full key-question bank for the seven diligence modules. Score coverage using the priorities, evidence credits, and gating rules in [coverage-stage-model.md](coverage-stage-model.md), not a raw answered-question count.
+Full key-question bank for the eight diligence modules. Score coverage using the priorities, evidence credits, and gating rules in [coverage-stage-model.md](coverage-stage-model.md), not a raw answered-question count.
 
 ## 1. Basic Info / Thesis
 
@@ -41,17 +48,40 @@ Output:
 - missing capability map
 - reference-check questions
 
-## 3. Product / Technology / AI
+## 3. Product / Technology
 
 Key questions:
 
 - How does the product work in detail?
-- Is the AI core workflow infrastructure or just a feature wrapper?
-- What data, model, workflow, integration, or distribution advantage can compound?
-- Is there proprietary data or a repeatable feedback loop?
 - What part is technically difficult or non-obvious?
+- What architecture, integrations, and operational dependencies matter?
 - What is the roadmap?
-- What are the security, privacy, reliability, and eval risks?
+- What are the performance, security, privacy, reliability, and delivery risks?
+
+Output:
+
+- product workflow diagram
+- architecture and integration assessment
+- technical delivery risk
+- reliability and product-evidence gaps
+
+## 4. AI Product & Capability Strategy
+
+Read [../research/ai-product-strategy.md](../research/ai-product-strategy.md).
+
+Key questions:
+
+- Which AI products, features, agents, copilots, models, or infrastructure capabilities exist?
+- Which are live, beta/pilot, announced, retired, or unknown, and as of what date/version?
+- What user workflow and measurable outcome does each capability improve?
+- Is AI a feature, product line, platform, control point, or company-wide operating layer?
+- What is built internally versus bought, licensed, open-source, or provided through partners?
+- What model, data, retrieval, orchestration, eval, and infrastructure strategy is used?
+- How are AI capabilities packaged, priced, adopted, retained, and expanded?
+- What are inference cost, gross-margin, human-review, reliability, and liability implications?
+- What data, workflow, integration, distribution, trust, or evaluation advantage can compound?
+- Could a model provider, incumbent, or customer-built stack commoditize the capability?
+- How does the target compare with each priority competitor on the same dated dimensions?
 
 AI-specific moat tests:
 
@@ -63,12 +93,17 @@ AI-specific moat tests:
 
 Output:
 
-- product workflow diagram
+- dated AI product and feature inventory
+- company-level AI strategy
+- target-versus-competitor same-dimension matrix
+- adoption and monetization evidence
 - technical moat assessment
 - dependency map
 - AI evaluation gaps
 
-## 4. Traction / Market
+AI strategy coverage is complete only after the dedicated gate in `SKILL.md` passes. A launch announcement or demo does not prove general availability, adoption, monetization, or strategic advantage.
+
+## 5. Traction / Market
 
 Key questions:
 
@@ -94,7 +129,7 @@ Output:
 
 Competition coverage is complete only after the mandatory competitor gate in `SKILL.md` passes. Naming competitors without primary-source product or deployment evidence is partial coverage.
 
-## 5. Financials / Business Model
+## 6. Financials / Business Model
 
 Key questions:
 
@@ -112,7 +147,7 @@ Output:
 - pricing logic
 - sensitivity cases
 
-## 6. Legal / Compliance / Data Risk
+## 7. Legal / Compliance / Data Risk
 
 Check for AI companies even when not raised by the materials:
 
@@ -130,7 +165,7 @@ Output:
 - must-check legal questions
 - procurement blockers
 
-## 7. Capital Path / VC Fit / Fundability
+## 8. Capital Path / VC Fit / Fundability
 
 Add this module whenever the diligence is for an investment decision, fundraising review, IC memo, or VC-style startup assessment.
 

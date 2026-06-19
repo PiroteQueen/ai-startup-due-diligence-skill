@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖合并后的证据台账、模式库与投资论点
+[OUTPUT]: 对外提供九项矛盾检查、风险洋葱和投后组织风险
+[POS]: references/diligence 的独立反证层，在最终裁决前破坏脆弱叙事
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Red-Team Checks
 
 Run all nine contradiction checks before finalizing any recommendation. Each check pits the pitch narrative against the evidence ledger; record the verdict and supporting/contradicting evidence.

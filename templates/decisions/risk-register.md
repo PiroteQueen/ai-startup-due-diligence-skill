@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖证据台账、红队检查、AI 战略、竞品与风险洋葱
+[OUTPUT]: 对外提供风险类别、严重度、证据状态与缓解动作登记表
+[POS]: templates/decisions 的风险单一视图，被 OnePage 与 IC memo 汇总引用
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # [Company] — Risk Register
 
 | Risk | Category | Severity | Evidence | Status | Mitigation / next check |
@@ -12,6 +19,9 @@
 - financial
 - legal_data
 - model_dependency
+- ai_product_strategy
+- ai_adoption
+- ai_unit_economics
 - enterprise_trust
 - capital_path
 - vc_fit

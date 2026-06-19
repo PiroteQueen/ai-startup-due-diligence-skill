@@ -1,11 +1,19 @@
+<!--
+[INPUT]: 依赖项目架构、Agent Skills 规范与本地验证流程
+[OUTPUT]: 对外提供贡献边界、修改流程、质量标准与拒绝条件
+[POS]: 项目协作契约，约束贡献保持证据纪律与文档同构
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Contributing
 
 Thanks for helping improve this skill. Contributions that make the diligence methodology sharper, the question banks more complete, or the templates more usable are all welcome.
 
 ## Ground rules
 
-- `SKILL.md` must stay compliant with the [Agent Skills spec](https://agentskills.io/specification): valid frontmatter, body under 500 lines, file references one level deep using relative paths.
+- `SKILL.md` must stay compliant with the [Agent Skills spec](https://agentskills.io/specification): valid frontmatter, body under 500 lines, and direct relative links to required resources.
 - Keep `SKILL.md` lean. Detailed material belongs in `references/`; reusable output formats belong in `templates/`.
+- Keep L1/L2/L3 documentation aligned: file or module changes require the corresponding `CLAUDE.md` and file contract updates.
 - The skill must never encourage turning unknowns into confident conclusions. Any new guidance should preserve the evidence/inference/unknown/contradiction discipline.
 - No real company data, personal data, or secrets in examples. Examples must be clearly fictional.
 

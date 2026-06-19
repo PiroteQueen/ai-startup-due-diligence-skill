@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖证据台账、覆盖率、阶段图、AI 战略与决策规则
+[OUTPUT]: 对外提供一页式投资判断、风险、门禁与反转条件
+[POS]: templates/decisions 的快速决策摘要，压缩完整尽调但不替代证据附录
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # [Company] — AI Startup DD OnePage
 
 ## One-liner
@@ -5,6 +12,15 @@
 ## Why this could matter
 
 ## Product / Workflow
+
+## AI product and capability strategy
+
+- Strategic role of AI:
+- Live portfolio and adoption wedge:
+- Build / buy / partner and model route:
+- Monetization and economics:
+- Differentiation vs commodity:
+- Dedicated appendix: `[ai-product-strategy file/link]`
 
 ## AI moat hypothesis
 
@@ -66,7 +82,7 @@
 
 ## Preliminary view
 
-- Verdict: Proceed / Watch / Pass / Need more evidence (per `references/decision-rules.md` eligibility)
+- Verdict: Proceed / Watch / Pass / Need more evidence (per `references/diligence/decision-rules.md` eligibility)
 - Basis: which eligibility conditions are met; any verdict caps triggered by pattern matches
 - If Watch — re-engagement triggers (evidence + time bound):
 - This verdict reverses if:

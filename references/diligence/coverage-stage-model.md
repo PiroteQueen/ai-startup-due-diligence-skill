@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖模块问题优先级、证据状态与四维阶段事实
+[OUTPUT]: 对外提供加权覆盖率、门禁、就绪度和阶段分类规则
+[POS]: references/diligence 的量化模型，连接证据台账与决策规则
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Coverage and Stage Model
 
 Use this model whenever reporting diligence coverage or company stage. It prevents low-value answers from inflating coverage and prevents financing labels from masquerading as product or PMF evidence.
@@ -38,6 +45,8 @@ weighted coverage =
 ```
 
 Round to the nearest 5%. Always show the score inputs or at least the P0/P1/P2 status counts; do not present an unexplained precise percentage.
+
+For every module and the overall score, show `weighted points earned / weighted points possible`. A percentage without this denominator is invalid. The overall score must be recomputed from all underlying questions, not averaged from already-rounded module percentages.
 
 Use these interpretation bands:
 

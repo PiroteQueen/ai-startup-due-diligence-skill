@@ -1,11 +1,18 @@
 ---
 name: ai-startup-due-diligence
-description: "Structured due diligence for AI startups: build an evidence ledger and weighted module coverage map, then produce a Q&A gap list, OnePage, IC memo, risk register, and follow-up diligence plan. Use when evaluating an AI startup or investment target, reviewing a pitch deck or data room, preparing investor or founder questions, writing a DD memo or IC note, or assessing VC-fit, product maturity, PMF, GTM maturity, fundability, and red flags."
+description: "Evidence-driven due diligence for AI startups: turns decks, interviews, demos, and public research into an auditable evidence ledger, then derives a verdict and decision documents. Use when evaluating an AI startup or investment target, reviewing a pitch deck or data room, comparing companies' AI products, preparing investor or founder questions, writing a DD memo or IC note, or assessing VC-fit, PMF, GTM maturity, fundability, and red flags."
 license: MIT
 metadata:
   author: PiroteQueen
-  version: "1.3.1"
+  version: "1.4.0"
 ---
+
+<!--
+[INPUT]: 依赖 references/ 的尽调规则与 templates/ 的输出契约
+[OUTPUT]: 对外提供 AI 创业公司尽调的完整工作流、门禁与交付物导航
+[POS]: 项目核心技能入口，统领证据研究、模块覆盖、判断与输出
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
 
 # AI Startup Due Diligence
 
@@ -30,19 +37,20 @@ Diligence is not "summarization"; it is **question coverage management**. A good
 
 ## Modules
 
-Cover these seven modules. The full key-question bank and per-module outputs are in [references/module-questions.md](references/module-questions.md). Use [references/coverage-stage-model.md](references/coverage-stage-model.md) for coverage scoring and stage classification.
+Cover these eight modules. The full key-question bank and per-module outputs are in [references/diligence/module-questions.md](references/diligence/module-questions.md). Use [references/diligence/coverage-stage-model.md](references/diligence/coverage-stage-model.md) for coverage scoring and stage classification.
 
 1. **Basic Info / Thesis** — one-liner, why now, milestones, use of funds.
 2. **Team** — founder-market fit, execution evidence, missing capabilities.
-3. **Product / Technology / AI** — workflow depth, AI moat tests, model dependency risk.
-4. **Traction / Market** — ICP, wedge, retention/revenue evidence, competition.
-5. **Financials / Business Model** — unit economics, burn, runway, pricing.
-6. **Legal / Compliance / Data Risk** — data rights, IP, licenses, procurement readiness.
-7. **Capital Path / VC Fit / Fundability** — venture-scale vs good non-VC business, four-dimensional stage map, funding plan sanity, risk onion. Add this module whenever the context is an investment decision or fundraising review. Do **not** assume every good business is a good VC investment.
+3. **Product / Technology** — workflow depth, architecture, integrations, reliability, delivery risk.
+4. **AI Product & Capability Strategy** — AI feature portfolio, user value, build/buy/model choices, adoption, monetization, moat, and model/platform dependency.
+5. **Traction / Market** — ICP, wedge, retention/revenue evidence, competition.
+6. **Financials / Business Model** — unit economics, burn, runway, pricing.
+7. **Legal / Compliance / Data Risk** — data rights, IP, licenses, procurement readiness.
+8. **Capital Path / VC Fit / Fundability** — venture-scale vs good non-VC business, four-dimensional stage map, funding plan sanity, risk onion. Add this module whenever the context is an investment decision or fundraising review. Do **not** assume every good business is a good VC investment.
 
 ## Evidence ledger
 
-Record every claim using the schema in [templates/evidence-ledger.yaml](templates/evidence-ledger.yaml).
+Record every claim using the schema in [templates/appendices/evidence-ledger.yaml](templates/appendices/evidence-ledger.yaml).
 
 Never turn missing evidence into a confident conclusion. Use labels:
 
@@ -62,69 +70,36 @@ Then, when the target company, founders, product name, or market is identifiable
 - company website, docs, blog, changelog, pricing, terms, privacy policy, security page
 - founder/team LinkedIn, GitHub, Google Scholar, personal sites, prior companies, interviews
 - Product Hunt, G2, app stores, Chrome extension store, Hugging Face, GitHub repos, package registries
-- funding databases/news, press releases, Crunchbase/PitchBook/CB Insights if accessible
+- financing announcements, regulatory filings, investor portfolio pages, reputable reporting, and funding databases if accessible
 - customer logos, case studies, reviews, traffic/SEO signals, job postings, procurement/security docs
 - competitors and substitutes, incumbent product launches, model-provider announcements
 - patents, papers, open-source licenses, regulatory/compliance signals
 
 Important: clearly separate **provided materials** from **externally verified evidence**. Cite source URLs/titles/dates where possible. If live web access is unavailable or a source cannot be accessed, say so and mark the claim as Unknown or Needs verification.
 
+Read [references/research/source-access-strategy.md](references/research/source-access-strategy.md) before external research. Select sources by the claim being tested, not by database habit. Crunchbase, PitchBook, CB Insights, LinkedIn, and other blocked/paywalled sources are optional leads, never mandatory evidence gates. After one failed access attempt, record the failure and switch to the prescribed fallback ladder; do not spend the research budget repeatedly retrying one domain.
+
 If only sparse material exists, still proceed, but mark confidence as low and produce a Q&A gap list plus an external research checklist.
 
 #### Mandatory external-research gate
 
-When the company, founders, product, market, or financing is identifiable, external research is **required**, not optional. Do not finalize a full IC memo from provided materials alone unless the user explicitly prohibits external research or live research tools are unavailable.
+When the company, founders, product, market, or financing is identifiable, external research is **required**, not optional. Do not finalize a full IC memo from provided materials alone unless the user explicitly prohibits external research or live tools are unavailable.
 
-Before moving to module coverage:
+Before module coverage: create a research log ([templates/appendices/external-research-log.md](templates/appendices/external-research-log.md)), then route every material claim through the claim-specific ladders and the completion test in [references/research/source-access-strategy.md](references/research/source-access-strategy.md). Prefer primary sources for product, technical, customer, pricing, legal, and competitor claims; search for disconfirming evidence, not only corroboration.
 
-1. Create a research log using [templates/external-research-log.md](templates/external-research-log.md).
-2. Attempt research across the applicable source groups:
-   - company-owned sources;
-   - founder/team sources;
-   - product/technical sources;
-   - customer/traction sources;
-   - financing/legal sources;
-   - competitor and substitute sources.
-3. Record queries attempted, sources opened, publication/source dates, access failures, and what each source proves or fails to prove.
-4. Prefer primary sources for product, technical, customer, pricing, legal, and competitor claims. Use media reporting for financing or stealth-company facts when primary sources are unavailable, and label the limitation.
-5. Search for disconfirming evidence, not only corroboration of the pitch.
-
-The external-research gate passes only when:
-
-- at least three applicable source groups have been searched;
-- every high-materiality provided claim has either an external source, a documented failed search, or an explicit `Unknown` label;
-- competitor research passes the dedicated gate below.
-
-If the gate cannot pass, state `External research incomplete` prominently, lower confidence, and do not describe the output as a completed investment DD.
+The gate passes only when the source-strategy completion test and the competitor gate below both pass. If it cannot, state `External research incomplete` prominently, lower confidence, and do not describe the output as a completed investment DD.
 
 #### Mandatory competitor and substitute investigation
 
-Read [references/competitor-research.md](references/competitor-research.md) and produce [templates/competitor-landscape.md](templates/competitor-landscape.md) whenever competition can materially affect product differentiation, market entry, pricing, moat, valuation, or exit outcomes.
+Whenever competition can materially affect differentiation, market entry, pricing, moat, valuation, or exit, follow [references/research/competitor-research.md](references/research/competitor-research.md) and produce [templates/appendices/competitor-landscape.md](templates/appendices/competitor-landscape.md). Cover the six competitor/substitute layers — do not reduce competition to a list of similar startups — and pass the gate defined in that reference (§10: layers covered, 4–8 comparables including an incumbent/platform and a substitute, two evidence points each, same-dimension matrix, a valuation counterexample, and stated win/lose evidence). If public evidence is sparse, keep cells `Unknown`; do not replace the matrix with prose.
 
-Do not treat the competitor section as a list of similar startups. Cover the relevant layers:
+#### Mandatory AI product and capability strategy
 
-- direct product competitors;
-- adjacent technical approaches;
-- platform/model/infrastructure providers;
-- incumbent workflow or distribution owners;
-- customer-built/internal alternatives;
-- manual or non-consumption substitutes.
-
-The competitor gate passes only when the analysis:
-
-- identifies at least three competitor/substitute layers, or explains why fewer apply;
-- selects 4–8 material comparables, including at least one incumbent/platform and one substitute where applicable;
-- uses at least two evidence points per priority competitor, ideally one product/technical and one traction/deployment/commercial point;
-- records product/version/date, benchmark or capability, customer/deployment evidence, data advantage, business model, and valuation/funding only where decision-relevant;
-- compares the target and competitors on the same dimensions;
-- includes at least one valuation counterexample or explains why no valid comparable exists;
-- states what evidence would prove the target wins or loses.
-
-If public evidence is sparse, preserve the empty cells as `Unknown`; do not replace the matrix with generic prose.
+Whenever the target or a material competitor offers AI functionality, products, models, agents, copilots, automation, or infrastructure, treat AI product/capability strategy as a **standalone analysis**, not a paragraph hidden inside Product / Technology. Follow [references/research/ai-product-strategy.md](references/research/ai-product-strategy.md) and produce [templates/appendices/ai-product-strategy.md](templates/appendices/ai-product-strategy.md): separate announced from generally available, workflow value from capability claims, in-house from third-party, adoption from demos, and feature parity from strategic advantage. Pass the gate in that reference (§8: same dated dimensions for target and each priority competitor, every material feature labeled `live`/`beta/pilot`/`announced`/`retired`/`unknown`, access failures visible).
 
 ### Step 2 — Build module coverage
 
-Follow the weighted scoring and gating rules in [references/coverage-stage-model.md](references/coverage-stage-model.md). Assign each question P0/P1/P2 priority, then award evidence credit of 1.0, 0.5, or 0.0. Round coverage to the nearest 5%.
+Follow the weighted scoring and gating rules in [references/diligence/coverage-stage-model.md](references/diligence/coverage-stage-model.md). Assign each question P0/P1/P2 priority, then award evidence credit of 1.0, 0.5, or 0.0. Round coverage to the nearest 5%.
 
 Create a module table:
 
@@ -132,6 +107,7 @@ Create a module table:
 | --- | ---: | --- | --- | --- |
 | Basic Info | 0–100% | ... | decision-ready / directional / incomplete / sparse | high/medium/low |
 | Team | ... | ... | ... | ... |
+| AI Product & Capability Strategy | ... | ... | ... | ... |
 
 Coverage is not amount of text or a raw answered-question count. Never let answered P2 context hide an unresolved P0 question. If a P0 unknown or contradiction could reverse the recommendation, mark the diligence **Not decision-ready** regardless of the numeric score.
 
@@ -141,7 +117,7 @@ Competitor evidence does not count as complete merely because competitors are na
 
 Before writing a memo, force the evidence into a stage-and-risk map:
 
-1. **Four-dimensional stage map**: Separately classify product maturity, PMF status, GTM maturity, and financing stage using [references/coverage-stage-model.md](references/coverage-stage-model.md). Give evidence and a next gate for each dimension. A financing round, polished prototype, friendly pilot, LOI, or customer logo is not proof of PMF — check traction evidence against the false-PMF and true-PMF patterns in [references/pattern-library.md](references/pattern-library.md) before classifying the PMF dimension.
+1. **Four-dimensional stage map**: Separately classify product maturity, PMF status, GTM maturity, and financing stage using [references/diligence/coverage-stage-model.md](references/diligence/coverage-stage-model.md). Give evidence and a next gate for each dimension. A financing round, polished prototype, friendly pilot, LOI, or customer logo is not proof of PMF — check traction evidence against the false-PMF and true-PMF patterns in [references/diligence/pattern-library.md](references/diligence/pattern-library.md) before classifying the PMF dimension.
 2. **VC-fit**: Decide whether this can plausibly become a venture-scale outcome. A company can be a good business and still fail VC-fit if it lacks leverage, speed, market size, or exit optionality.
 3. **Capital path**: Explain what the current financing buys and what milestone must be achieved before the next financing or profitability path.
 4. **Risk onion**: Peel risks by layer: founder/team, market, competition, timing, financing, marketing/CAC, distribution/partner dependency, technology, product execution, hiring/org, location/ecosystem, and AI-specific dependency/compliance.
@@ -149,17 +125,17 @@ Before writing a memo, force the evidence into a stage-and-risk map:
 
 ### Step 4 — Produce the Q&A List
 
-Use [templates/qa-gap-list.md](templates/qa-gap-list.md). For each module, list answered questions (with evidence and confidence) and unanswered follow-ups (with why it matters and the best source to verify).
+Use [templates/decisions/qa-gap-list.md](templates/decisions/qa-gap-list.md). For each module, list answered questions (with evidence and confidence) and unanswered follow-ups (with why it matters and the best source to verify).
 
 ### Step 5 — Red-team the investment thesis
 
-Run the nine contradiction checks in [references/red-team-checks.md](references/red-team-checks.md) before finalizing any recommendation. When testing AI moat claims (check 3) and traction claims (checks 1–2), match the evidence against the concrete patterns in [references/pattern-library.md](references/pattern-library.md) — a claim matching a false-PMF or wrapper-death pattern must be downgraded in the evidence ledger with a specific next check, not merely noted.
+Run the nine contradiction checks in [references/diligence/red-team-checks.md](references/diligence/red-team-checks.md) before finalizing any recommendation. When testing AI moat claims (check 3) and traction claims (checks 1–2), match the evidence against the concrete patterns in [references/diligence/pattern-library.md](references/diligence/pattern-library.md) — a claim matching a false-PMF or wrapper-death pattern must be downgraded in the evidence ledger with a specific next check, not merely noted.
 
 ### Step 6 — Derive the verdict and generate outputs
 
-Derive the verdict (Proceed / Watch / Pass / Need more evidence) from the rules in [references/decision-rules.md](references/decision-rules.md) — eligibility thresholds, deal-breakers, red-flag caps, Watch triggers, and the falsifiability statement. Apply [references/confidence-downgrade-rules.md](references/confidence-downgrade-rules.md) whenever material claims remain unverified, externally inaccessible, second-hand, or contradicted. Do not improvise a verdict: the same evidence must always produce the same verdict.
+Derive the verdict (Proceed / Watch / Pass / Need more evidence) from the rules in [references/diligence/decision-rules.md](references/diligence/decision-rules.md) — eligibility thresholds, deal-breakers, red-flag caps, Watch triggers, and the falsifiability statement. Apply [references/diligence/confidence-downgrade-rules.md](references/diligence/confidence-downgrade-rules.md) whenever material claims remain unverified, externally inaccessible, second-hand, or contradicted. Do not improvise a verdict: the same evidence must always produce the same verdict.
 
-For pre-revenue, stealth, pre-product, unusually large financing, or unusually high valuation cases, run [references/mega-round-sanity-check.md](references/mega-round-sanity-check.md) before recommending any investment action.
+For pre-revenue, stealth, pre-product, unusually large financing, or unusually high valuation cases, run [references/diligence/mega-round-sanity-check.md](references/diligence/mega-round-sanity-check.md) before recommending any investment action.
 
 ### Output package behavior
 
@@ -167,34 +143,38 @@ When the user asks for a full diligence run, a project folder, or durable delive
 
 | File | Purpose | Template |
 | --- | --- | --- |
-| `01-chinese-systematic-dd.md` | Chinese-facing investment judgment: one core question, verdict, five gates, evidence status, next actions | [templates/chinese-systematic-dd.md](templates/chinese-systematic-dd.md) |
-| `02-onepage.md` | One-page decision summary for quick discussion | [templates/onepage.md](templates/onepage.md) |
-| `03-qa-gap-list.md` | Answered/unanswered diligence questions with owner and source | [templates/qa-gap-list.md](templates/qa-gap-list.md) |
-| `04-data-room-request.md` | Source-document request list generated from unresolved P0 gates and risk-onion layers | [templates/data-room-request.md](templates/data-room-request.md) |
-| `05-ic-memo.md` | Full investment committee memo when decision-making depth is needed | [templates/ic-memo.md](templates/ic-memo.md) |
-| `06-risk-register.md` | Legal, technical, commercial, AI, financing, and execution risk register | [templates/risk-register.md](templates/risk-register.md) |
-| `07-competitor-landscape.md` | Same-dimension competitor/substitute landscape appendix | [templates/competitor-landscape.md](templates/competitor-landscape.md) |
-| `08-external-research-log.md` | Auditable search/source log including access failures and unverified claims | [templates/external-research-log.md](templates/external-research-log.md) |
+| `01-chinese-systematic-dd.md` | Chinese-facing investment judgment: one core question, verdict, five gates, evidence status, next actions | [templates/decisions/chinese-systematic-dd.md](templates/decisions/chinese-systematic-dd.md) |
+| `02-onepage.md` | One-page decision summary for quick discussion | [templates/decisions/onepage.md](templates/decisions/onepage.md) |
+| `03-qa-gap-list.md` | Answered/unanswered diligence questions with owner and source | [templates/decisions/qa-gap-list.md](templates/decisions/qa-gap-list.md) |
+| `04-data-room-request.md` | Source-document request list generated from unresolved P0 gates and risk-onion layers | [templates/decisions/data-room-request.md](templates/decisions/data-room-request.md) |
+| `05-ic-memo.md` | Full IC memo only for Proceed/Watch/Pass; conditional IC pre-read for Need more evidence | [templates/decisions/ic-memo.md](templates/decisions/ic-memo.md) |
+| `06-risk-register.md` | Legal, technical, commercial, AI, financing, and execution risk register | [templates/decisions/risk-register.md](templates/decisions/risk-register.md) |
+| `07-competitor-landscape.md` | Same-dimension competitor/substitute landscape appendix | [templates/appendices/competitor-landscape.md](templates/appendices/competitor-landscape.md) |
+| `08-ai-product-strategy.md` | Standalone target-and-competitor AI feature, product, adoption, monetization, moat, and dependency analysis | [templates/appendices/ai-product-strategy.md](templates/appendices/ai-product-strategy.md) |
+| `09-external-research-log.md` | Auditable search/source log including fallback paths, access failures, and unverified claims | [templates/appendices/external-research-log.md](templates/appendices/external-research-log.md) |
 
 If the user only asks for a lightweight answer, produce the smallest useful subset, but always say which appendices were omitted. For Chinese users, make `01-chinese-systematic-dd.md` the primary deliverable and keep internal coverage details in appendices.
 
+When the derived verdict is `Need more evidence`, do not write a final recommendation memo. If a full durable package was explicitly requested, `05-ic-memo.md` may exist only as a prominently labeled **Conditional IC Pre-read — Not decision-ready**. It must preserve the `Need more evidence` verdict, list blocking P0 gates, and contain no investment recommendation beyond the next diligence action.
+
 Then pick the smallest useful output first:
 
-1. **Chinese Systematic DD** — for Chinese-facing investor/founder discussion where the user needs a coherent decision narrative instead of internal module sprawl. Template: [templates/chinese-systematic-dd.md](templates/chinese-systematic-dd.md)
-2. **OnePage** — for quick investment conversation. Template: [templates/onepage.md](templates/onepage.md)
-3. **Q&A List** — for founder follow-up and data room requests. Template: [templates/qa-gap-list.md](templates/qa-gap-list.md)
-4. **Data Room Request** — when risk-onion layers or P0 gates require source documents before a verdict can improve. Template: [templates/data-room-request.md](templates/data-room-request.md)
-5. **IC Memo** — for decision-making. Template: [templates/ic-memo.md](templates/ic-memo.md)
-6. **Risk Register** — for legal/technical/commercial red flags. Template: [templates/risk-register.md](templates/risk-register.md)
-7. **Competitor Landscape** — for investment decisions where differentiation, moat, valuation, or market entry matters. Template: [templates/competitor-landscape.md](templates/competitor-landscape.md)
-8. **External Research Log** — evidence of what was actively searched and what remained inaccessible. Template: [templates/external-research-log.md](templates/external-research-log.md)
-9. **BP / Slide critique** — if reviewing fundraising materials.
+1. **Chinese Systematic DD** — for Chinese-facing investor/founder discussion where the user needs a coherent decision narrative instead of internal module sprawl. Template: [templates/decisions/chinese-systematic-dd.md](templates/decisions/chinese-systematic-dd.md)
+2. **OnePage** — for quick investment conversation. Template: [templates/decisions/onepage.md](templates/decisions/onepage.md)
+3. **Q&A List** — for founder follow-up and data room requests. Template: [templates/decisions/qa-gap-list.md](templates/decisions/qa-gap-list.md)
+4. **Data Room Request** — when risk-onion layers or P0 gates require source documents before a verdict can improve. Template: [templates/decisions/data-room-request.md](templates/decisions/data-room-request.md)
+5. **IC Memo** — for decision-making. Template: [templates/decisions/ic-memo.md](templates/decisions/ic-memo.md)
+6. **Risk Register** — for legal/technical/commercial red flags. Template: [templates/decisions/risk-register.md](templates/decisions/risk-register.md)
+7. **Competitor Landscape** — for investment decisions where differentiation, moat, valuation, or market entry matters. Template: [templates/appendices/competitor-landscape.md](templates/appendices/competitor-landscape.md)
+8. **AI Product Strategy** — for a dated, same-dimension analysis of the target's and competitors' AI functionality and strategic position. Template: [templates/appendices/ai-product-strategy.md](templates/appendices/ai-product-strategy.md)
+9. **External Research Log** — evidence of what was actively searched, which fallback routes were used, and what remained inaccessible. Template: [templates/appendices/external-research-log.md](templates/appendices/external-research-log.md)
+10. **BP / Slide critique** — if reviewing fundraising materials.
 
 For follow-up data requests, group asks by owner: Founder/CEO, CTO/product lead, Finance, Customers, Legal/compliance, Public research. Risk-onion output should point to the next evidence request, interview, or external verification action, not just list abstract risks.
 
 ## Multi-agent execution (optional)
 
-If the host environment supports subagents or parallel tasks, follow the topology in [references/orchestration.md](references/orchestration.md): fan out module research to parallel agents (each producing only evidence-ledger entries), run red-teaming in an independent context that sees the ledger but never the draft narrative, and keep the verdict single-threaded in the orchestrator. If subagents are unavailable, run the workflow above sequentially — the artifacts and rules are identical.
+If the host environment supports subagents or parallel tasks, follow the topology in [references/research/orchestration.md](references/research/orchestration.md): fan out module research to parallel agents (each producing only evidence-ledger entries), run red-teaming in an independent context that sees the ledger but never the draft narrative, and keep the verdict single-threaded in the orchestrator. If subagents are unavailable, run the workflow above sequentially — the artifacts and rules are identical.
 
 ## Quality bar
 
@@ -204,12 +184,14 @@ A good answer must:
 - show missing questions, not hide them;
 - use weighted coverage and surface unresolved P0 gates;
 - include AI-specific moat and dependency analysis;
+- keep AI product/capability strategy as a dedicated module and appendix rather than burying it in general product prose;
 - include VC-fit, the four-dimensional stage map, capital path, and risk-onion analysis when the context is investment or fundraising;
 - separate good-business potential from venture-scale potential;
 - include both why it can work and why it may fail;
 - derive the verdict from the decision rules and state what evidence would reverse it;
 - give next verification actions, not just a narrative.
 - show that external research was actively attempted when the target is identifiable;
+- route around blocked/paywalled sources and avoid treating Crunchbase or any single database as required;
 - keep a source-dated competitor matrix with comparable evidence dimensions;
 - retain competitor evidence in a dedicated appendix even when the IC memo summarizes it;
 

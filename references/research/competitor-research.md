@@ -1,3 +1,10 @@
+<!--
+[INPUT]: 依赖目标工作流、买方、竞品、替代方案与来源证据
+[OUTPUT]: 对外提供六层竞争地图、同维度比较、胜负条件与估值反证
+[POS]: references/research 的竞争研究协议，与 AI 战略协议共同支撑差异化判断
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # Competitor and Substitute Research Protocol
 
 Use this protocol whenever competition affects differentiation, market entry, pricing, moat, valuation, or exit outcomes.
@@ -123,3 +130,14 @@ If evidence is sparse:
 - lower confidence;
 - request same-task benchmarks and customer references;
 - do not replace missing evidence with market narrative.
+
+## 10. Gate — pass only when
+
+- at least three competitor/substitute layers (§2) are covered, or it is explained why fewer apply;
+- 4–8 priority comparables (§3) are selected, including at least one incumbent/platform and one substitute where applicable;
+- each priority competitor has at least two evidence points (§4), ideally one product/technical and one traction/deployment/commercial;
+- the same dimensions (§6) are used for target and competitors, with product/version/date recorded;
+- at least one valuation counterexample is included, or it is explained why no valid comparable exists;
+- the conclusion (§8) states what evidence would prove the target wins or loses.
+
+If public evidence is sparse, keep cells `Unknown`; never replace the matrix with generic prose.

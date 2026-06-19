@@ -1,6 +1,13 @@
+<!--
+[INPUT]: 依赖 SKILL.md、references/、templates/ 与安装方式
+[OUTPUT]: 对外提供项目定位、能力、结构、安装、使用与验证说明
+[POS]: 项目公开入口，面向技能使用者与贡献者解释稳定能力
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+-->
+
 # AI Startup Due Diligence Skill
 
-An open-source [Agent Skill](https://agentskills.io) for AI startup due diligence. It turns scattered evidence — decks, interviews, demos, public research — into a structured evidence ledger and, when requested, a durable multi-file output package: Chinese Systematic DD, OnePage, Q&A gap list, IC memo, risk register, data-room request, competitor landscape, and external research log.
+An open-source [Agent Skill](https://agentskills.io) for AI startup due diligence. It turns scattered evidence — decks, interviews, demos, public research — into a structured evidence ledger and, when requested, a durable multi-file output package: Chinese Systematic DD, OnePage, Q&A gap list, IC memo, risk register, data-room request, competitor landscape, standalone AI product strategy, and external research log.
 
 Works with any agent that supports the Agent Skills standard (Claude Code, Claude API, Cursor, Codex, and others).
 
@@ -19,7 +26,7 @@ Target company
   → outputs: Chinese Systematic DD, Q&A List, OnePage, IC memo, risk register, data-room request
 ```
 
-Diligence is question coverage management, not summarization. The skill is designed to prevent six common mistakes:
+Diligence is question coverage management, not summarization. The skill is designed to prevent eight common mistakes:
 
 1. Treating a polished deck as verified evidence.
 2. Treating an AI demo or wrapper as durable moat.
@@ -27,6 +34,8 @@ Diligence is question coverage management, not summarization. The skill is desig
 4. Treating fundraising as an accomplishment by itself.
 5. Forcing a good non-VC business into a venture-scale narrative.
 6. Ignoring repeated investor no's instead of diagnosing the underlying risk layer.
+7. Depending on Crunchbase or another blocked/paywalled database as a single point of research failure.
+8. Burying a company's AI products and strategic choices inside generic product prose.
 
 ## What's inside
 
@@ -34,29 +43,18 @@ Diligence is question coverage management, not summarization. The skill is desig
 ai-startup-due-diligence/
 ├── SKILL.md                      # Agent-facing entry point (metadata + workflow)
 ├── references/
-│   ├── module-questions.md       # Full key-question bank for 7 diligence modules
-│   ├── coverage-stage-model.md   # Weighted coverage + four-dimensional stage model
-│   ├── red-team-checks.md        # Nine contradiction checks, risk onion, post-raise risks
-│   ├── competitor-research.md    # Mandatory competitor/substitute research protocol
-│   ├── mega-round-sanity-check.md # Pre-revenue / stealth / mega-round valuation sanity checks
-│   ├── confidence-downgrade-rules.md # Caps verdict confidence when P0 evidence is missing
-│   ├── pattern-library.md        # Calibration patterns: false/true PMF, wrapper deaths, founder & funding red flags
-│   ├── decision-rules.md         # Verdict eligibility, deal-breakers, red-flag caps, Watch triggers
-│   └── orchestration.md          # Optional multi-agent topology: parallel research, independent red-team
+│   ├── diligence/                # Questions, scoring, red-team, decision and confidence rules
+│   └── research/                 # Source fallbacks, AI strategy, competitors, orchestration
 ├── templates/
-│   ├── evidence-ledger.yaml      # Per-claim evidence schema
-│   ├── external-research-log.md  # Active web/source research log
-│   ├── competitor-landscape.md   # Same-dimension competitor/substitute matrix
-│   ├── chinese-systematic-dd.md  # Chinese-facing narrative output: one question + five gates
-│   ├── data-room-request.md      # Source-document request list from risk-onion gaps
-│   ├── qa-gap-list.md            # Coverage table + answered/unanswered questions
-│   ├── onepage.md                # One-page investment summary
-│   ├── ic-memo.md                # Full IC memo skeleton
-│   └── risk-register.md          # Risk register with AI-specific categories
+│   ├── decisions/                # Chinese DD, OnePage, Q&A, data room, IC memo, risks
+│   └── appendices/               # Evidence ledger, research log, competitors, AI strategy
 ├── examples/
 │   └── sample-ai-company/        # Fictional example for orientation
-└── scripts/
-    └── validate_skill.py         # Deterministic package checks (run in CI)
+├── scripts/
+│   ├── validate_skill.py         # Deterministic package checks (run in CI)
+│   └── validate_test_run.py      # End-to-end assertions for a real-company test run
+└── test-runs/
+    └── <company>-<date>/         # Real-company forward tests and regression evidence
 ```
 
 ## Installation
@@ -121,11 +119,12 @@ Recommended sequence (the skill enforces this):
 
 1. Intake provided materials; gather external evidence when the company is identifiable.
 2. Separate provided materials from externally verified evidence.
-3. Build weighted module coverage across 7 modules using P0/P1/P2 priority, evidence credit, and gating questions.
-4. Separately map product maturity, PMF status, GTM maturity, and financing stage; then assess VC-fit, capital path, and the risk onion.
-5. Produce the Q&A gap list.
-6. Red-team the thesis with nine contradiction checks.
-7. Only then generate Chinese Systematic DD, OnePage, risk register, IC memo, data-room request, or follow-up request list.
+3. Route each material claim through primary and fallback sources; log blocked/paywalled sources instead of repeatedly retrying them.
+4. Build weighted module coverage across 8 modules using P0/P1/P2 priority, evidence credit, and gating questions.
+5. Produce a standalone AI product and capability strategy for the target and priority competitors.
+6. Separately map product maturity, PMF status, GTM maturity, and financing stage; then assess VC-fit, capital path, and the risk onion.
+7. Produce the Q&A gap list and red-team the thesis.
+8. Only then generate Chinese Systematic DD, OnePage, risk register, IC memo, data-room request, or follow-up request list.
 
 ## Output package
 
@@ -140,7 +139,8 @@ For a full diligence run or project-folder workflow, the skill should create a d
 | `05-ic-memo.md` | Full IC memo when deeper committee decision-making is needed |
 | `06-risk-register.md` | Risk register with mitigation and next checks |
 | `07-competitor-landscape.md` | Competitor/substitute appendix with same-dimension evidence |
-| `08-external-research-log.md` | Auditable research log and failed-source/access notes |
+| `08-ai-product-strategy.md` | Standalone target-and-competitor AI product, adoption, monetization, moat, and dependency analysis |
+| `09-external-research-log.md` | Auditable research log, blocked-source failures, fallback routes, and source-diversity notes |
 
 For lightweight usage, generate the smallest useful subset and explicitly say which appendices were omitted.
 
