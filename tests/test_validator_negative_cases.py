@@ -66,21 +66,33 @@ class ValidatorNegativeCases(unittest.TestCase):
             "AI strategy missing status row: beta/pilot",
         )
 
+    def test_noncanonical_verdict_label_is_rejected(self) -> None:
+        self.assert_rejected(
+            "scenario.yaml",
+            "label: Need more evidence",
+            "label: Bogus verdict",
+            "verdict.label not in controlled vocab",
+        )
+
     def test_template_vocab_alignment_catches_drift(self) -> None:
         # Extraction keeps an internal slash ("beta/pilot") as one token,
-        # and any option outside the controlled vocab is detectable.
+        # and any option outside the controlled vocab is detectable (extra direction).
         tokens = validate_skill.option_tokens(
             "| Agent workflow | live / beta/pilot / bogus-status |", "beta/pilot"
         )
         self.assertIn("beta/pilot", tokens)
-        outside = [t for t in tokens if t not in vocab.AI_STATUS]
-        self.assertEqual(outside, ["bogus-status"])
-        # The live template stays within the controlled vocab (no drift today).
+        self.assertEqual(sorted(tokens - vocab.AI_STATUS), ["bogus-status"])
+        # Omission is caught too: a vocab value missing from the option list.
+        partial = validate_skill.option_tokens(
+            "| x | live / beta/pilot / announced / unknown |", "beta/pilot"
+        )
+        self.assertEqual(sorted(vocab.AI_STATUS - partial), ["retired"])
+        # The live template equals the controlled vocab today (no drift either way).
         real = validate_skill.option_tokens(
             (ROOT / "templates/appendices/ai-product-strategy.md").read_text(encoding="utf-8"),
             "beta/pilot / announced",
         )
-        self.assertTrue(real and real <= vocab.AI_STATUS)
+        self.assertEqual(real, set(vocab.AI_STATUS))
 
 
 if __name__ == "__main__":

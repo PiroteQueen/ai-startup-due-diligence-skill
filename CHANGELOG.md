@@ -27,6 +27,7 @@ All notable changes to this skill are documented here. The format follows [Keep 
 - Expanded worked-example leak checks beyond URLs to email addresses, exact calendar dates, and currency amounts.
 - Unified the AI lifecycle status as `beta/pilot`, rejected fake blocked-source recoveries with invalid failure types, and stopped treating `Applicable? = no` competitor layers as covered.
 - Centralized every controlled vocabulary (failure types, AI status, evidence status, stage dimensions, verdicts, weights/credits) in a single `scripts/vocab.py`; both validators import it instead of hardcoding their own copies, and a new `validate_skill` check fails if any template's spelled-out option list drifts outside the vocab.
+- Closed two single-source gaps: the scenario validator now rejects a `verdict.label` or `ai_strategy.required_statuses`/`Status` value outside the vocab (scenario inputs are validated, not just trusted), and the template alignment check is bidirectional — it fails on both extra and missing options, so adding a vocab value without updating its template is also caught.
 - Gitignored `test-runs/` as a private scratch area so real-company runs are never committed; de-identify into `worked-examples/` before sharing.
 
 ### Fixed

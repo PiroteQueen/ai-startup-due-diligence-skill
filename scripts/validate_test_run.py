@@ -15,10 +15,12 @@ from typing import Optional
 import yaml
 
 from vocab import (
+    AI_STATUS,
     APPLICABLE as APPLICABLE_VALUES,
     COVERAGE_CREDIT as CREDITS,
     EVIDENCE_STATUS as EVIDENCE_STATUSES,
     FAILURE_TYPES,
+    VERDICTS,
     WEIGHTS,
 )
 
@@ -182,6 +184,8 @@ def validate_outputs(root: Path, outputs: dict, errors: list[str]) -> None:
 def validate_verdict(root: Path, verdict: dict, errors: list[str]) -> str:
     require_keys(verdict, ["label", "primary_file"], "verdict")
     expected = verdict["label"]
+    if expected not in VERDICTS:
+        raise ValidationInputError(f"verdict.label not in controlled vocab: {expected!r}")
     primary = read(root, verdict["primary_file"])
     require(field(primary, "Verdict") == expected, f"primary output has wrong verdict: {expected}", errors)
     if verdict.get("require_falsifiability"):
@@ -273,7 +277,11 @@ def validate_ai_strategy(root: Path, ai: Optional[dict], errors: list[str]) -> N
         text = read(root, ai["file"])
         rows = table_with(text, {"Product / feature", "Status"}, "AI strategy")
         statuses = {row["Status"] for row in rows}
+        bad = sorted(s for s in statuses if s and s not in AI_STATUS)
+        require(not bad, f"AI strategy has status values outside the controlled vocab: {bad}", errors)
         for status in string_list(ai, "required_statuses", "ai_strategy"):
+            if status not in AI_STATUS:
+                raise ValidationInputError(f"ai_strategy.required_statuses has non-vocab value: {status!r}")
             require(status in statuses, f"AI strategy missing status row: {status}", errors)
 
 

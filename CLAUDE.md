@@ -55,3 +55,4 @@ README.md - 面向使用者的能力说明与安装入口。
 - 2026-06-19：消除 validator/fixtures 与 templates 的结构分叉——validator 改读模板真实结构（竞品层级表、Product/feature 列、Failed-or-blocked 表、Readiness 列、可选 bullet 的反转条件），模板补 Verdict/falsifiability/Omitted 锚点；minimal 主决策输出改用 OnePage。负向自检证明 validator 非空过。
 - 2026-06-19：统一 `beta/pilot` 状态词，严格验证来源失败类型与竞争层适用性，并将三类假绿灯固化为 CI 反向回归测试。
 - 2026-06-19：受控词表收敛到单一事实源 `scripts/vocab.py`，两验证器 import 取代各自硬编码；新增模板选项 ⊆ vocab 的对齐检查与对应负向测试，根治词表多处重复。
+- 2026-06-19：补齐 vocab 双向钉死——scenario 的 verdict.label/AI 状态也按 vocab 校验（消费端不再被信任），模板对齐改为双向（多出/缺失都报错）。

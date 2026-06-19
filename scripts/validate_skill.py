@@ -238,17 +238,21 @@ def option_tokens(text: str, marker: str) -> set[str]:
 
 
 def check_template_vocab_alignment() -> None:
-    """Every option list spelled out in a template must be a subset of the controlled
-    vocabulary in vocab.py — so the two can never drift apart silently."""
+    """Every option list spelled out in a template must equal the controlled
+    vocabulary in vocab.py — neither extra nor missing values — so the two can
+    never drift apart silently in either direction."""
     for rel, marker, allowed, label in TEMPLATE_VOCAB_CHECKS:
         tokens = option_tokens((ROOT / rel).read_text(encoding="utf-8"), marker)
         if not tokens:
             error(f"{rel}: {label} option line (marker '{marker}') not found")
             continue
         allowed_str = {str(a) for a in allowed}
-        extra = sorted(t for t in tokens if t not in allowed_str)
+        extra = sorted(tokens - allowed_str)
+        missing = sorted(allowed_str - tokens)
         if extra:
             error(f"{rel}: {label} options not in controlled vocab: {extra}")
+        if missing:
+            error(f"{rel}: {label} omits controlled-vocab options: {missing}")
 
 
 def check_no_obvious_secrets() -> None:
