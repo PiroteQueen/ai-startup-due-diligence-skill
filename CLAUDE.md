@@ -57,3 +57,4 @@ README.md - 面向使用者的能力说明与安装入口。
 - 2026-06-19：受控词表收敛到单一事实源 `scripts/vocab.py`，两验证器 import 取代各自硬编码；新增模板选项 ⊆ vocab 的对齐检查与对应负向测试，根治词表多处重复。
 - 2026-06-19：补齐 vocab 双向钉死——scenario 的 verdict.label/AI 状态也按 vocab 校验（消费端不再被信任），模板对齐改为双向（多出/缺失都报错）。
 - 2026-06-19：reference 规则文档纳入 vocab 对齐——coverage-stage-model 四维阶段定义与 ai-product-strategy 的 AI 状态行强制等于 vocab，封死"权威文档另写一份词表"的最后一条边（失败类型散文按设计保留）。
+- 2026-06-19：发布 v1.8.0——progressive disclosure、data-driven 场景验证、worked-example 脱敏拆分、受控词表单一事实源（四条边全钉死）收敛为正式版本。

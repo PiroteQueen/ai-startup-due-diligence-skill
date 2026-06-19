@@ -4,7 +4,7 @@ description: "Evidence-driven due diligence for AI startups: turns decks, interv
 license: MIT
 metadata:
   author: PiroteQueen
-  version: "1.4.0"
+  version: "1.8.0"
 ---
 
 <!--
