@@ -27,6 +27,11 @@
 - 置信度：high / medium / low
 - 结论必须说明“为什么现在是这个动作”。
 
+机器可校验锚点（ASCII 冒号，勿改字段名）：
+
+- Verdict: Proceed / Watch / Pass / Need more evidence
+- This verdict reverses if:
+
 示例：
 > 当前建议为 Watch / Need more evidence：方向和团队值得继续跟踪，但交易条款、PMF 证据和竞品替代优势尚未达到投资承诺门槛。
 

@@ -52,3 +52,4 @@ README.md - 面向使用者的能力说明与安装入口。
 - 2026-06-19：默认产出最小集、全包改 explicit opt-in；mental-model 块去枚举，重申 examples/ 纯输入边界。
 - 2026-06-19：拆分匿名 worked example 与数据驱动 tests；验证器移除公司、日期、固定分数和固定九文件硬编码。
 - 2026-06-19：场景验证器统一畸形输入为干净错误（缺 key/文件/coverage 不再抛 traceback）；test-runs/ 设为 gitignored 本地草稿区。
+- 2026-06-19：消除 validator/fixtures 与 templates 的结构分叉——validator 改读模板真实结构（竞品层级表、Product/feature 列、Failed-or-blocked 表、Readiness 列、可选 bullet 的反转条件），模板补 Verdict/falsifiability/Omitted 锚点；minimal 主决策输出改用 OnePage。负向自检证明 validator 非空过。

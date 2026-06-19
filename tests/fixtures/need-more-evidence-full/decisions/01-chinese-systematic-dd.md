@@ -7,7 +7,8 @@
 
 # Company Alpha — Systematic DD
 
+## 1. 一句话结论
+
 - Verdict: Need more evidence
 - Blocking P0: retention evidence
-
-This verdict reverses if: the blocking P0 is verified with direct evidence.
+- This verdict reverses if: the blocking P0 is verified with direct evidence.

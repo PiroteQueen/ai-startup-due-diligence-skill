@@ -20,6 +20,11 @@ All notable changes to this skill are documented here. The format follows [Keep 
 - Replaced the company/date/score-specific test validator with a data-driven `scenario.yaml` contract.
 - Added separate regression scenarios for the default minimal output and a full `Need more evidence` package.
 - Hardened the scenario validator: a malformed `scenario.yaml` (missing required key, missing referenced file, or `modules` without `coverage`) now fails with a single clean error instead of a traceback.
+- Added ledger schema validation for priority, coverage credit, and evidence status; malformed ledgers now also fail with one clean error.
+- Replaced keyword-presence assertions with structured Markdown field, table, and bullet-row validation for verdicts, coverage, modules, source fallback, AI status, and competitor layers.
+- Aligned the structured validator with the real template output contract so it verifies what the skill actually produces: it now reads the competitor "Competition layers" table, the `Product / feature` AI inventory column, the "Failed or blocked research" table, and the coverage `Readiness` column, and accepts a bulleted `- This verdict reverses if:` line. Added `- Verdict:` / falsifiability anchors to the Chinese DD and IC memo templates and an `Omitted appendices:` line to OnePage.
+- Made OnePage the default minimal decision output (it carries verdict, falsifiability, and the omitted-appendices notice); the Q&A gap list is the accompanying coverage/gap inventory.
+- Expanded worked-example leak checks beyond URLs to email addresses, exact calendar dates, and currency amounts.
 - Gitignored `test-runs/` as a private scratch area so real-company runs are never committed; de-identify into `worked-examples/` before sharing.
 
 ### Fixed

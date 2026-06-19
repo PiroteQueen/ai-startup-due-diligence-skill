@@ -7,7 +7,7 @@
 
 # Company Alpha — AI Product and Capability Strategy
 
-- Evidence date：2026-06-19
+- Evidence date：redacted
 - Role：operating layer / control point
 - Confidence：medium
 

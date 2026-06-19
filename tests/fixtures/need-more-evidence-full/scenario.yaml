@@ -44,7 +44,7 @@ ai_strategy:
   file: appendices/08-ai-product-strategy.md
   required_statuses:
     - live
-    - beta/pilot
+    - beta-pilot
     - announced
     - unknown
 competition:

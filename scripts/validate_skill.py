@@ -279,14 +279,24 @@ def check_protocol_headers() -> None:
             error(f"Missing L3 protocol header: {path.relative_to(ROOT)}")
 
 
-def check_worked_examples_are_deidentified() -> None:
+def check_worked_examples_for_identifier_leaks() -> None:
     root = ROOT / "worked-examples"
+    leak_patterns = {
+        "external URL": re.compile(r"https?://"),
+        "email address": re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.I),
+        "calendar date": re.compile(r"\b(?:19|20)\d{2}[-/]\d{1,2}[-/]\d{1,2}\b"),
+        "currency amount": re.compile(
+            r"(?:[$€£¥]\s?\d[\d,.]*|\b(?:USD|EUR|GBP|CNY|RMB)\s?\d[\d,.]*)",
+            re.I,
+        ),
+    }
     for path in root.rglob("*"):
         if path.is_dir():
             continue
         text = path.read_text(encoding="utf-8", errors="ignore")
-        if re.search(r"https?://", text):
-            error(f"Worked example contains an external URL: {path.relative_to(ROOT)}")
+        for label, pattern in leak_patterns.items():
+            if pattern.search(text):
+                error(f"Worked example contains a possible {label}: {path.relative_to(ROOT)}")
 
 
 def main() -> None:
@@ -298,7 +308,7 @@ def main() -> None:
     check_templates()
     check_no_obvious_secrets()
     check_protocol_headers()
-    check_worked_examples_are_deidentified()
+    check_worked_examples_for_identifier_leaks()
     if ERRORS:
         for message in ERRORS:
             print(f"ERROR: {message}", file=sys.stderr)

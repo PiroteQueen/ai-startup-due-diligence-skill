@@ -7,16 +7,20 @@
 
 # Company Alpha — Q&A Gap List
 
+## Overall readiness
+
 - Weighted points earned / possible: 6 / 10
 - Weighted coverage: 60%
 
-| Module | Status |
-|---|---|
-| Basic Info / Thesis | directional |
-| Team | directional |
-| Product / Technology | directional |
-| AI Product & Capability Strategy | incomplete |
-| Traction / Market | not decision-ready |
-| Financials / Business Model | incomplete |
-| Legal / Compliance / Data Risk | incomplete |
-| Capital Path / VC Fit / Fundability | incomplete |
+## Coverage summary
+
+| Module | Weighted coverage | Unresolved P0 gates | Readiness | Confidence |
+|---|---|---|---|---|
+| Basic Info / Thesis | 70% |  | directional | medium |
+| Team | 70% |  | directional | medium |
+| Product / Technology | 60% |  | directional | medium |
+| AI Product & Capability Strategy | 50% | adoption evidence | incomplete | low |
+| Traction / Market | 30% | retention proof | not decision-ready | low |
+| Financials / Business Model | 40% |  | incomplete | low |
+| Legal / Compliance / Data Risk | 40% |  | incomplete | low |
+| Capital Path / VC Fit / Fundability | 40% |  | incomplete | low |

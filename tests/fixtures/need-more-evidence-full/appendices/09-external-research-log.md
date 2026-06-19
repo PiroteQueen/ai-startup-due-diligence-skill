@@ -7,6 +7,9 @@
 
 # External Research Log
 
-| Source | Access | Fallback | Status |
-|---|---|---|---|
-| Commercial database | blocked | official filing | recovered |
+## Failed or blocked research
+
+| Source / query | Claim sought | Failure type | Impact on DD | Fallback route attempted | Recovery status |
+|---|---|---|---|---|---|
+| Commercial database | funding history | robots.txt blocked | medium | official filing | recovered |
+| Paywalled reporting | revenue corroboration | paywall | low | accessible reporting | partial |

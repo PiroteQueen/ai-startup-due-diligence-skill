@@ -52,6 +52,7 @@
 - Weighted coverage:
 - Unresolved P0 gates:
 - Decision readiness:
+- Omitted appendices: none / list appendices not produced when this is a lightweight output
 
 ## Main risks
 

@@ -9,11 +9,12 @@
 
 > Memo status: Final IC memo / Conditional IC Pre-read — Not decision-ready
 >
-> If the verdict is `Need more evidence`, use the conditional label and do not recommend investing.
+> If the verdict is `Need more evidence`, use the conditional label, add the line `- No investment recommendation is made.`, and do not recommend investing.
 
 ## 1. Executive view
 
 - Recommendation: Proceed / Watch / Pass / Need more evidence (per `references/diligence/decision-rules.md`)
+- Verdict: Proceed / Watch / Pass / Need more evidence
 - Verdict basis: eligibility conditions met; verdict caps triggered (if any)
 - Confidence:
 - Weighted diligence coverage:

@@ -7,9 +7,11 @@
 
 # AI Product Strategy
 
-| Feature | Status |
-|---|---|
-| Assistant | live |
-| Agent workflow | beta/pilot |
-| Model route | announced |
-| Unit economics | unknown |
+## Target AI product inventory
+
+| Product / feature | User + workflow | Status | Version / date | Source + limitation |
+|---|---|---|---|---|
+| Assistant | analyst Q&A | live |  | product docs |
+| Agent workflow | task automation | beta-pilot |  | pilot note |
+| Model route | multi-model | announced |  | roadmap post |
+| Unit economics | inference cost | unknown |  | not disclosed |

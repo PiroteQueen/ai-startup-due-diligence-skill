@@ -7,9 +7,13 @@
 
 # Competitor Landscape
 
-- Direct: Rival A
-- Adjacent: Alternative B
-- Platform/model: Provider C
-- Incumbent: Platform D
-- Customer-built: internal stack
-- Manual: existing workflow
+## Competition layers
+
+| Layer | Applicable? | Competitors / substitutes | Why they matter |
+|---|---|---|---|
+| Direct product | yes | Rival A | head-to-head on the same workflow |
+| Adjacent technical approach | yes | Alternative B | different form factor, same job |
+| Platform/model/infrastructure | yes | Provider C | can bundle the core capability |
+| Workflow/distribution incumbent | yes | Platform D | owns the channel and trust |
+| Customer-built alternative | yes | internal stack | build-vs-buy pressure |
+| Manual/non-consumption | yes | existing workflow | status-quo inertia |
