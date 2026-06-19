@@ -39,6 +39,10 @@ REQUIRED = [
     "templates/decisions/risk-register.md",
     "templates/appendices/ai-product-strategy.md",
     "examples/sample-ai-company/brief.md",
+    "scripts/validate_test_run.py",
+    "tests/fixtures/minimal-output/scenario.yaml",
+    "tests/fixtures/need-more-evidence-full/scenario.yaml",
+    "worked-examples/anonymized-regulated-ai-platform/decisions/01-chinese-systematic-dd.md",
 ]
 # Spec: lowercase alphanumerics and hyphens, no leading/trailing/double hyphen.
 NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
@@ -263,14 +267,26 @@ def check_protocol_headers() -> None:
         *sorted((ROOT / "templates").rglob("*.yaml")),
         *sorted((ROOT / "scripts").glob("*.py")),
         *sorted((ROOT / "examples").rglob("*.md")),
-        *sorted((ROOT / "test-runs").rglob("*.md")),
-        *sorted((ROOT / "test-runs").rglob("*.yaml")),
+        *sorted((ROOT / "tests").rglob("*.md")),
+        *sorted((ROOT / "tests").rglob("*.yaml")),
+        *sorted((ROOT / "worked-examples").rglob("*.md")),
+        *sorted((ROOT / "worked-examples").rglob("*.yaml")),
     ]
     for path in scoped:
         if path.name == "CLAUDE.md":
             continue
         if protocol not in path.read_text(encoding="utf-8"):
             error(f"Missing L3 protocol header: {path.relative_to(ROOT)}")
+
+
+def check_worked_examples_are_deidentified() -> None:
+    root = ROOT / "worked-examples"
+    for path in root.rglob("*"):
+        if path.is_dir():
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        if re.search(r"https?://", text):
+            error(f"Worked example contains an external URL: {path.relative_to(ROOT)}")
 
 
 def main() -> None:
@@ -282,6 +298,7 @@ def main() -> None:
     check_templates()
     check_no_obvious_secrets()
     check_protocol_headers()
+    check_worked_examples_are_deidentified()
     if ERRORS:
         for message in ERRORS:
             print(f"ERROR: {message}", file=sys.stderr)

@@ -1,0 +1,20 @@
+# [INPUT]: 依赖 minimal-output 场景的合成证据
+# [OUTPUT]: 对外提供公司无关的 coverage 与 P0 测试数据
+# [POS]: internal 的测试事实源，不代表真实公司
+# [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+
+- claim: product exists
+  question_priority: P0
+  coverage_credit: 1.0
+  evidence_status: known
+  fallback_source: ""
+- claim: retention is verified
+  question_priority: P0
+  coverage_credit: 0.0
+  evidence_status: unknown
+  fallback_source: ""
+- claim: team roles are known
+  question_priority: P1
+  coverage_credit: 1.0
+  evidence_status: known
+  fallback_source: ""

@@ -10,7 +10,7 @@ templates/ - 可复用交付契约（2 个子目录：decisions、appendices）
 </directory>
 
 <directory>
-scripts/ - 结构与契约验证（1 个验证器）
+scripts/ - 结构与契约验证（2 个验证器）
 </directory>
 
 <directory>
@@ -18,7 +18,11 @@ examples/ - 最小示例输入（1 个示例项目）
 </directory>
 
 <directory>
-test-runs/ - 真实公司前向测试与回归证据（按公司和日期隔离）
+tests/ - 公司无关的数据驱动回归场景
+</directory>
+
+<directory>
+worked-examples/ - 去标识化的完整输出示例，不参与测试判定
 </directory>
 
 <config>
@@ -43,6 +47,8 @@ README.md - 面向使用者的能力说明与安装入口。
 
 变更日志：
 - 2026-06-18：新增来源替代路由与独立 AI 产品战略模块；尽调由七模块升级为八模块。
-- 2026-06-19：Harvey 真实公司前向测试；修复 NME/IC memo 冲突和不可复算覆盖率。
+- 2026-06-19：真实公司前向测试发现并修复 NME/IC memo 冲突和不可复算覆盖率。
 - 2026-06-19：SKILL.md 三个 gate 收敛为触发+判据+链接，完整判据下沉至 reference（单一事实源）；压缩 description；修复 README 计数与目录树。
-- 2026-06-19：默认产出最小集、全包改 explicit opt-in；mental-model 块去枚举（交付清单单源于 output package 表）；README 增 test-runs worked-run 指针，重申 examples/ 纯输入边界。
+- 2026-06-19：默认产出最小集、全包改 explicit opt-in；mental-model 块去枚举，重申 examples/ 纯输入边界。
+- 2026-06-19：拆分匿名 worked example 与数据驱动 tests；验证器移除公司、日期、固定分数和固定九文件硬编码。
+- 2026-06-19：场景验证器统一畸形输入为干净错误（缺 key/文件/coverage 不再抛 traceback）；test-runs/ 设为 gitignored 本地草稿区。

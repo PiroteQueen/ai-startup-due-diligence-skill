@@ -2,7 +2,7 @@
 > L2 | 父级: ../CLAUDE.md
 
 成员清单
-01-chinese-systematic-dd.md: 中文主判断，给出 Need more evidence 与可执行下一步。
+01-chinese-systematic-dd.md: 匿名中文主判断，给出 Need more evidence 与可执行下一步。
 02-onepage.md: 一页式阶段、竞争、风险与门禁摘要。
 03-qa-gap-list.md: 八模块加权覆盖与 P0 缺口。
 04-data-room-request.md: 能改变结论的资料室请求。

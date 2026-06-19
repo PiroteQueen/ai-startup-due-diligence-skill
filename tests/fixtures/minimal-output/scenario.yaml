@@ -1,0 +1,30 @@
+# [INPUT]: 依赖 minimal-output 场景的输出与内部证据台账
+# [OUTPUT]: 对外提供默认最小输出行为的声明式测试契约
+# [POS]: tests/fixtures 的轻量输出场景，不绑定公司或日期
+# [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+
+name: minimal-output
+outputs:
+  required:
+    - outputs/03-qa-gap-list.md
+  forbidden:
+    - outputs/01-chinese-systematic-dd.md
+    - outputs/02-onepage.md
+    - outputs/04-data-room-request.md
+    - outputs/05-ic-memo.md
+    - outputs/06-risk-register.md
+    - outputs/07-competitor-landscape.md
+    - outputs/08-ai-product-strategy.md
+    - outputs/09-external-research-log.md
+  omitted_notice_file: outputs/03-qa-gap-list.md
+verdict:
+  label: Need more evidence
+  primary_file: outputs/03-qa-gap-list.md
+  require_falsifiability: true
+coverage:
+  file: outputs/03-qa-gap-list.md
+ledger:
+  file: internal/evidence-ledger.yaml
+  min_entries: 3
+  require_unknown_p0: true
+  require_fallback: false

@@ -1,11 +1,11 @@
 <!--
-[INPUT]: 依赖 Harvey 与优先竞品的公开 AI 产品、采用和模型证据
-[OUTPUT]: 对外提供独立的 Harvey AI 产品与能力战略
+[INPUT]: 依赖 Company Alpha 与匿名优先竞品的 AI 产品、采用和模型证据
+[OUTPUT]: 对外提供独立的 Company Alpha AI 产品与能力战略
 [POS]: appendices 的 AI 战略附录
 [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
 -->
 
-# Harvey — AI Product and Capability Strategy
+# Company Alpha — AI Product and Capability Strategy
 
 - Evidence date：2026-06-19
 - Role：operating layer / control point
@@ -15,13 +15,13 @@
 
 | Product | Workflow | Status/date | Model/data route | Adoption/outcome | Limitation |
 |---|---|---|---|---|---|
-| Assistant | 研究、问答、起草、review tables | live，2026-06 | 多来源检索；模型路由未完整公开 | 官方案例称节时和高采用 | 公司自报 |
-| Vault | 文档存储与批量分析 | live | 客户文档 + 模型 | 企业产品组合一部分 | 使用/attach 未公开 |
-| Knowledge | 法律、监管、税务研究 | live | premium databases + public/internal sources | 工作流相关 | 内容许可与覆盖未知 |
-| Agents | 端到端多步骤法律任务 | live，2026-03 | multi-model + legal engineering | 公司称 25,000+ custom agents | 成功率/人工介入未知 |
-| Command Center | AI 采用、benchmark、治理 | live | 平台遥测 | 支持企业 rollout | 商业化与采用未知 |
-| Contract Intelligence | 合同洞察与谈判 | live | Harvey + 合作生态 | 与 Docusign 等合作 | 相对竞品效果未知 |
-| Mistral models | EU 模型选择 | beta/early access，2026-05-26 | Mistral，多模型路由 | eligible EU customers opt-in | 尚非全球 GA |
+| Assistant | 研究、问答、起草、review tables | live | 多来源检索；模型路由未完整公开 | 匿名案例称节时和高采用 | 公司自报 |
+| Document Workspace | 文档存储与批量分析 | live | 客户文档 + 模型 | 企业产品组合一部分 | 使用/attach 未公开 |
+| Knowledge Layer | 专业与监管研究 | live | premium databases + public/internal sources | 工作流相关 | 内容许可与覆盖未知 |
+| Agents | 端到端多步骤专业任务 | live | multi-model + domain engineering | 公司称已有大量 custom agents | 成功率/人工介入未知 |
+| Governance Console | AI 采用、benchmark、治理 | live | 平台遥测 | 支持企业 rollout | 商业化与采用未知 |
+| Workflow Intelligence | 文档洞察与谈判 | live | Company Alpha + 合作生态 | 已有生态合作 | 相对竞品效果未知 |
+| Secondary model route | 地区模型选择 | beta/early access | Model Provider 2，多模型路由 | eligible regional customers opt-in | 尚非全球 GA |
 
 ## Strategy choices
 
@@ -39,24 +39,24 @@
 | Signal | Evidence | Strength | Implication |
 |---|---|---|---|
 | Availability | 多产品公开上线 | strong | 已过 demo 阶段 |
-| Usage | 100,000+ 律师、25,000+ agents（公司自报） | limited | 规模信号强 |
-| Outcomes | Repsol 96% adoption、每周节时 4–6 小时等案例 | limited | 价值存在，需独立验证 |
+| Usage | 数万名专业用户、大量 agents（公司自报） | limited | 规模信号强 |
+| Outcomes | 匿名客户案例披露高采用与显著节时 | limited | 价值存在，需独立验证 |
 | Paid expansion | firmwide 部署与客户扩张公告 | limited | 有扩张迹象 |
 | Inference cost | 未公开 | none | P0 |
 | Gross margin | 未公开 | none | P0 |
-| Human review/legal engineering | embedded legal engineers 支持 agents | limited | 可能压低可扩张性 |
+| Human review/domain engineering | embedded domain engineers 支持 agents | limited | 可能压低可扩张性 |
 | Liability | 未公开事故与保险 | none | P0 |
 
 ## Company comparison
 
-| Dimension | Harvey | Legora | CoCounsel/Westlaw | Verdict |
+| Dimension | Company Alpha | Direct Rival A | Content Incumbent B | Verdict |
 |---|---|---|---|---|
 | Live portfolio | broad | broad | broad, content-led | 功能差距缩小 |
-| Agent execution | 大规模 custom agents（自报） | Agent live | agentic 产品推进 | Harvey 当前信号最强 |
-| Content | 连接 premium sources | 连接数据/知识 | 控制 Westlaw/Practical Law | incumbent 领先 |
+| Agent execution | 大规模 custom agents（自报） | Agent live | agentic 产品推进 | Company Alpha 当前信号最强 |
+| Content | 连接 premium sources | 连接数据/知识 | 控制专有内容 | incumbent 领先 |
 | Adoption | 公司自报规模大 | 官方客户增长 | 巨大既有客户基座 | 各有优势 |
 | Economics | unknown | unknown | 可捆绑 | 无法判断 |
-| Dependency | model/content partners | model/content partners | 模型依赖但内容自有 | Harvey 风险更高 |
+| Dependency | model/content partners | model/content partners | 模型依赖但内容自有 | Company Alpha 风险更高 |
 
 ## Strategic verdict
 

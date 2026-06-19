@@ -16,11 +16,16 @@ All notable changes to this skill are documented here. The format follows [Keep 
 - Slimmed `SKILL.md` toward progressive disclosure: the external-research, competitor, and AI-strategy gates now state only their trigger, a one-line pass criterion, and a link, with the full pass checklists living solely in their reference files (`source-access-strategy.md` §6, `competitor-research.md` §10, `ai-product-strategy.md` §8). Numeric thresholds are no longer duplicated between `SKILL.md` and the references.
 - Tightened the skill `description` to a what-plus-when trigger, removing internal jargon while preserving the use-case cues.
 - Made the smallest useful output the default and the full multi-file package an explicit opt-in, and de-enumerated the deliverable list in both mental-model blocks so the output-package table is its single source of truth.
-- Added a README pointer to `test-runs/harvey-2026-06-19/` as a worked run, clarifying that `examples/` holds input-only briefs while worked outputs live under `test-runs/`.
+- Split human-readable outputs into `worked-examples/` and machine checks into company-agnostic `tests/fixtures/`.
+- Replaced the company/date/score-specific test validator with a data-driven `scenario.yaml` contract.
+- Added separate regression scenarios for the default minimal output and a full `Need more evidence` package.
+- Hardened the scenario validator: a malformed `scenario.yaml` (missing required key, missing referenced file, or `modules` without `coverage`) now fails with a single clean error instead of a traceback.
+- Gitignored `test-runs/` as a private scratch area so real-company runs are never committed; de-identify into `worked-examples/` before sharing.
 
 ### Fixed
 
-- Corrected the README to say it prevents "eight" common mistakes (the list already had eight) and updated the project tree to include `scripts/validate_test_run.py` and `test-runs/`.
+- Corrected the README to say it prevents "eight" common mistakes and updated the project tree for the behavioral validator, fixtures, and worked examples.
+- De-identified the full worked example by removing real entity, customer, product, competitor, financing, scale and URL identifiers.
 
 ## [1.4.0] - 2026-06-18
 
@@ -37,7 +42,7 @@ All notable changes to this skill are documented here. The format follows [Keep 
 - Expanded the output package with `08-ai-product-strategy.md` and renumbered the external research log to `09-external-research-log.md`.
 - Upgraded the research log and evidence ledger to retain access failures, fallback sources, shared evidence origins, and source-diversity limits.
 - Updated the OnePage, IC memo, Chinese systematic DD, competitor landscape, Q&A list, data-room request, risk register, orchestration, and public README to preserve the new module boundaries.
-- Forward-tested on Harvey and fixed two discovered rule gaps: `Need more evidence` now permits only a conditional, non-recommendation IC pre-read, and coverage tables must expose weighted points earned / possible.
+- Forward-tested on a real company and fixed two discovered rule gaps: `Need more evidence` now permits only a conditional, non-recommendation IC pre-read, and coverage tables must expose weighted points earned / possible.
 
 ## [1.3.1] - 2026-06-10
 

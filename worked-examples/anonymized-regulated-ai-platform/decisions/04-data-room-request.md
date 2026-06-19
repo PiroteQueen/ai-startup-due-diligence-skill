@@ -1,15 +1,15 @@
 <!--
-[INPUT]: 依赖 Harvey 未解决 P0、风险和 AI 战略缺口
+[INPUT]: 依赖 Company Alpha 未解决 P0、风险和 AI 战略缺口
 [OUTPUT]: 对外提供能改变投资结论的资料室请求
 [POS]: decisions 的证据补全入口
 [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
 -->
 
-# Harvey — Data Room Request
+# Company Alpha — Data Room Request
 
 | Priority | Request | Decision question | If unavailable |
 |---|---|---|---|
-| P0 | Term sheet, cap table, preference stack, allocation | 110 亿美元价格下是否有合理权利与回报 | 停止投资推进 |
+| P0 | Term sheet, cap table, preference stack, allocation | 高位后期价格下是否有合理权利与回报 | 停止投资推进 |
 | P0 | ARR bridge, GRR/NRR, cohort retention, expansion | expanding PMF 是否真实 | 维持 Need more evidence |
 | P0 | Customer concentration and top-20 contract summary | 增长是否脆弱 | 下调估值 |
 | P0 | Gross margin, model/inference cost, legal-engineering cost | 是否具备软件经济性 | 不使用 SaaS 倍数 |

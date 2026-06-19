@@ -1,0 +1,25 @@
+# [INPUT]: 依赖完整包场景的合成证据
+# [OUTPUT]: 对外提供动态 coverage、未知 P0 和来源回退测试数据
+# [POS]: internal 的测试事实源，不代表真实公司
+# [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+
+- claim: product exists
+  question_priority: P0
+  coverage_credit: 1.0
+  evidence_status: known
+  fallback_source: official documentation
+- claim: retention is verified
+  question_priority: P0
+  coverage_credit: 0.0
+  evidence_status: unknown
+  fallback_source: customer call required
+- claim: team roles are known
+  question_priority: P1
+  coverage_credit: 1.0
+  evidence_status: known
+  fallback_source: ""
+- claim: model route is partially evidenced
+  question_priority: P1
+  coverage_credit: 0.5
+  evidence_status: inferred
+  fallback_source: provider announcement

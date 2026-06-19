@@ -1,11 +1,11 @@
 <!--
-[INPUT]: 依赖 Harvey 八模块证据评分和 P0 门禁
+[INPUT]: 依赖 Company Alpha 八模块证据评分和 P0 门禁
 [OUTPUT]: 对外提供覆盖率、已知项和后续核验问题
 [POS]: decisions 的证据缺口清单
 [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
 -->
 
-# Harvey — Q&A Gap List
+# Company Alpha — Q&A Gap List
 
 | Module | Weighted points earned / possible | Weighted coverage | P0 resolved / total | Unresolved P0 | Readiness | Confidence |
 |---|---:|---:|---:|---|---|---|
@@ -28,8 +28,8 @@
 ## 已回答
 
 - 产品真实进入工作流：官方产品和多家客户案例支持，但采用指标主要为公司自报。
-- 公开融资存在：Harvey 于 2026-03-25 宣布融资 2 亿美元、估值 110 亿美元；具体条款未知。
-- AI 是战略核心：产品组合和 agents 方向表明 Harvey 试图成为法律工作流操作层。
+- 公开融资存在：公司宣布一笔大型后期融资和高位估值；具体条款未知。
+- AI 是战略核心：产品组合和 agents 方向表明 Company Alpha 试图成为受监管专业工作流操作层。
 
 ## P0 follow-ups
 

@@ -5,6 +5,7 @@
 ## Validation
 
 - [ ] `python3 scripts/validate_skill.py`
+- [ ] `for scenario in tests/fixtures/*/; do python3 scripts/validate_test_run.py "$scenario"; done`
 
 ## Diligence quality checklist
 

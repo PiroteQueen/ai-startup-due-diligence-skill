@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 """
-[INPUT]: 依赖真实公司测试目录中的决策文档、附录和 evidence ledger
-[OUTPUT]: 对外提供端到端技能行为断言的确定性验证结果
-[POS]: scripts 的前向测试门禁，验证规则是否在真实产物中落地
+[INPUT]: 依赖 tests/fixtures 下的 scenario.yaml、输出文件和内部 evidence ledger
+[OUTPUT]: 对外提供公司无关、数据驱动的技能场景验证结果
+[POS]: scripts 的行为回归门禁，不包含公司名、日期、固定分数或固定文件包假设
 [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
 """
 from __future__ import annotations
 
-import re
 import sys
 from pathlib import Path
 
 import yaml
+
+WEIGHTS = {"P0": 3, "P1": 2, "P2": 1}
+
+
+def load_yaml(path: Path):
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
 def require(condition: bool, message: str, errors: list[str]) -> None:
@@ -19,86 +24,145 @@ def require(condition: bool, message: str, errors: list[str]) -> None:
         errors.append(message)
 
 
+def require_keys(mapping: dict, keys: list[str], where: str) -> None:
+    missing = [k for k in keys if k not in mapping]
+    if missing:
+        raise SystemExit(f"scenario.yaml: {where} missing keys: {missing}")
+
+
+def read(root: Path, relative: str) -> str:
+    path = root / relative
+    if not path.is_file():
+        raise SystemExit(f"scenario.yaml references missing file: {relative}")
+    return path.read_text(encoding="utf-8")
+
+
+def score(ledger: list[dict]) -> tuple[float, float, int]:
+    earned = 0.0
+    possible = 0.0
+    for item in ledger:
+        weight = WEIGHTS[item["question_priority"]]
+        possible += weight
+        earned += weight * float(item["coverage_credit"])
+    percent = 0 if possible == 0 else earned / possible * 100
+    rounded = int((percent + 2.5) // 5 * 5)
+    return earned, possible, rounded
+
+
+def format_points(value: float) -> str:
+    return str(int(value)) if value.is_integer() else str(value)
+
+
 def main() -> None:
     if len(sys.argv) != 2:
-        raise SystemExit("usage: validate_test_run.py <test-run-directory>")
+        raise SystemExit("usage: validate_test_run.py <scenario-directory>")
 
     root = Path(sys.argv[1]).resolve()
+    scenario_path = root / "scenario.yaml"
+    if not scenario_path.is_file():
+        raise SystemExit(f"missing scenario.yaml: {root}")
+
+    scenario = load_yaml(scenario_path)
+    require_keys(scenario, ["name", "verdict", "ledger"], "top level")
+    require_keys(scenario["verdict"], ["label", "primary_file"], "verdict")
+    require_keys(scenario["ledger"], ["file"], "ledger")
     errors: list[str] = []
-    required = [
-        "decisions/01-chinese-systematic-dd.md",
-        "decisions/02-onepage.md",
-        "decisions/03-qa-gap-list.md",
-        "decisions/04-data-room-request.md",
-        "decisions/05-ic-memo.md",
-        "decisions/06-risk-register.md",
-        "appendices/07-competitor-landscape.md",
-        "appendices/08-ai-product-strategy.md",
-        "appendices/09-external-research-log.md",
-        "appendices/evidence-ledger.yaml",
-        "test-assertions.md",
-    ]
-    for relative in required:
-        require((root / relative).is_file(), f"missing {relative}", errors)
 
-    if errors:
-        for error in errors:
-            print(f"ERROR: {error}", file=sys.stderr)
-        raise SystemExit(1)
+    outputs = scenario.get("outputs", {})
+    for relative in outputs.get("required", []):
+        require((root / relative).is_file(), f"missing required output: {relative}", errors)
+    for relative in outputs.get("forbidden", []):
+        require(not (root / relative).exists(), f"forbidden output exists: {relative}", errors)
 
-    primary = (root / required[0]).read_text(encoding="utf-8")
-    onepage = (root / required[1]).read_text(encoding="utf-8")
-    qa = (root / required[2]).read_text(encoding="utf-8")
-    ic = (root / required[4]).read_text(encoding="utf-8")
-    competitor = (root / required[6]).read_text(encoding="utf-8")
-    ai_strategy = (root / required[7]).read_text(encoding="utf-8")
-    research = (root / required[8]).read_text(encoding="utf-8")
-    ledger = yaml.safe_load((root / required[9]).read_text(encoding="utf-8"))
+    ledger_path = scenario["ledger"]["file"]
+    ledger_file = root / ledger_path
+    if not ledger_file.is_file():
+        raise SystemExit(f"scenario.yaml references missing ledger: {ledger_path}")
+    ledger = load_yaml(ledger_file)
+    require(isinstance(ledger, list), "ledger must be a list", errors)
+    if not isinstance(ledger, list):
+        ledger = []
 
-    require("Need more evidence" in primary, "primary verdict is not Need more evidence", errors)
-    require("This verdict reverses if:" in primary, "missing falsifiability statement", errors)
-    require("Conditional IC Pre-read — Not decision-ready" in ic, "IC file is not conditional", errors)
-    require("95 / 160" in qa and "60%" in qa, "coverage is not reproducible", errors)
-    require("Crunchbase" in research and "robots.txt" in research, "blocked source not logged", errors)
-    require("recovered" in research, "fallback recovery status missing", errors)
+    expected_verdict = scenario["verdict"]["label"]
+    primary_file = scenario["verdict"]["primary_file"]
+    primary = read(root, primary_file)
+    require(expected_verdict in primary, f"primary output missing verdict: {expected_verdict}", errors)
 
-    modules = [
-        "Basic Info / Thesis",
-        "Team",
-        "Product / Technology",
-        "AI Product & Capability Strategy",
-        "Traction / Market",
-        "Financials / Business Model",
-        "Legal / Compliance / Data Risk",
-        "Capital Path / VC Fit / Fundability",
-    ]
-    for module in modules:
-        require(module in qa, f"missing module in coverage: {module}", errors)
+    if scenario["verdict"].get("require_falsifiability"):
+        require("This verdict reverses if:" in primary, "missing falsifiability statement", errors)
 
-    for status in ["live", "beta/early access"]:
-        require(status in ai_strategy, f"AI product status missing: {status}", errors)
-    for layer in ["Direct", "Platform/model", "Incumbent", "Customer-built", "Manual"]:
-        require(layer in competitor, f"competitor layer missing: {layer}", errors)
+    conditional_file = scenario["verdict"].get("conditional_ic_file")
+    if conditional_file:
+        conditional = read(root, conditional_file)
+        require(
+            "Conditional IC Pre-read — Not decision-ready" in conditional,
+            "Need more evidence scenario produced a non-conditional IC memo",
+            errors,
+        )
 
-    require(isinstance(ledger, list) and len(ledger) >= 8, "evidence ledger is too sparse", errors)
-    if isinstance(ledger, list):
-        unknown_p0 = [
-            item
-            for item in ledger
-            if item.get("question_priority") == "P0"
+    omitted_file = outputs.get("omitted_notice_file")
+    if omitted_file:
+        omitted = read(root, omitted_file)
+        require("Omitted appendices:" in omitted, "minimal output does not list omitted appendices", errors)
+
+    minimum = int(scenario["ledger"].get("min_entries", 1))
+    require(len(ledger) >= minimum, f"ledger has fewer than {minimum} entries", errors)
+
+    if scenario["ledger"].get("require_unknown_p0"):
+        unknown_p0 = any(
+            item.get("question_priority") == "P0"
             and item.get("evidence_status") in {"unknown", "contradiction"}
-        ]
-        require(bool(unknown_p0), "test lacks a reversible unknown P0 gate", errors)
-        fallback_entries = [item for item in ledger if item.get("fallback_source")]
-        require(bool(fallback_entries), "ledger does not retain fallback sources", errors)
+            for item in ledger
+        )
+        require(unknown_p0, "scenario lacks an unresolved P0 gate", errors)
+        require(
+            expected_verdict == "Need more evidence",
+            "an unresolved reversible P0 must derive Need more evidence",
+            errors,
+        )
 
-    require(re.search(r"研究日期：2026-06-19", onepage) is not None, "research date missing", errors)
+    if scenario["ledger"].get("require_fallback"):
+        require(any(item.get("fallback_source") for item in ledger), "ledger lacks fallback source", errors)
+
+    coverage = scenario.get("coverage")
+    if coverage:
+        earned, possible, rounded = score(ledger)
+        coverage_text = read(root, coverage["file"])
+        points = f"{format_points(earned)} / {format_points(possible)}"
+        require(points in coverage_text, f"coverage output missing computed points: {points}", errors)
+        require(f"{rounded}%" in coverage_text, f"coverage output missing rounded score: {rounded}%", errors)
+
+    modules = scenario.get("modules", [])
+    if modules:
+        if not (coverage and coverage.get("file")):
+            raise SystemExit("scenario.yaml: 'modules' requires 'coverage.file'")
+        module_text = read(root, coverage["file"])
+        for module in modules:
+            require(module in module_text, f"missing module: {module}", errors)
+
+    research = scenario.get("research")
+    if research and research.get("require_blocked_fallback"):
+        log = read(root, research["file"])
+        require("blocked" in log.lower(), "research log lacks blocked source", errors)
+        require("recovered" in log.lower(), "research log lacks recovery status", errors)
+
+    ai = scenario.get("ai_strategy")
+    if ai:
+        text = read(root, ai["file"])
+        for status in ai.get("required_statuses", []):
+            require(status in text, f"AI strategy missing status: {status}", errors)
+
+    competition = scenario.get("competition")
+    if competition:
+        text = read(root, competition["file"])
+        for layer in competition.get("required_layers", []):
+            require(layer in text, f"competitor landscape missing layer: {layer}", errors)
 
     if errors:
-        for error in errors:
-            print(f"ERROR: {error}", file=sys.stderr)
+        for message in errors:
+            print(f"ERROR: {message}", file=sys.stderr)
         raise SystemExit(1)
-    print("Real-company end-to-end test passed.")
+    print(f"Scenario passed: {scenario['name']}")
 
 
 if __name__ == "__main__":

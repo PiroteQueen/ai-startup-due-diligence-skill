@@ -52,12 +52,14 @@ ai-startup-due-diligence/
 │   └── sample-ai-company/        # Fictional example for orientation
 ├── scripts/
 │   ├── validate_skill.py         # Deterministic package checks (run in CI)
-│   └── validate_test_run.py      # End-to-end assertions for a real-company test run
-└── test-runs/
-    └── <company>-<date>/         # Real-company forward tests and regression evidence
+│   └── validate_test_run.py      # Data-driven behavioral scenario validator
+├── tests/
+│   └── fixtures/                 # Company-agnostic regression scenarios
+└── worked-examples/
+    └── anonymized-regulated-ai-platform/ # De-identified full output example
 ```
 
-By design, `examples/` holds input-only briefs while complete worked outputs live under `test-runs/`. To see what a full run produces, browse [`test-runs/harvey-2026-06-19/`](test-runs/harvey-2026-06-19/) — a real-company package with all nine files and the assertions a test run must satisfy.
+By design, `examples/` holds input-only briefs, `worked-examples/` holds human-readable de-identified outputs, and `tests/fixtures/` holds company-agnostic machine checks. To see a full package, browse [`worked-examples/anonymized-regulated-ai-platform/`](worked-examples/anonymized-regulated-ai-platform/).
 
 ## Installation
 
@@ -138,7 +140,7 @@ For a full diligence run or project-folder workflow, the skill should create a d
 | `02-onepage.md` | One-page summary for quick investment discussion |
 | `03-qa-gap-list.md` | Answered/unanswered questions and evidence gaps |
 | `04-data-room-request.md` | Source-document request list tied to unresolved P0 gates |
-| `05-ic-memo.md` | Full IC memo when deeper committee decision-making is needed |
+| `05-ic-memo.md` | Full IC memo for Proceed/Watch/Pass; conditional pre-read for Need more evidence |
 | `06-risk-register.md` | Risk register with mitigation and next checks |
 | `07-competitor-landscape.md` | Competitor/substitute appendix with same-dimension evidence |
 | `08-ai-product-strategy.md` | Standalone target-and-competitor AI product, adoption, monetization, moat, and dependency analysis |
@@ -151,9 +153,10 @@ For lightweight usage, generate the smallest useful subset and explicitly say wh
 ```bash
 python3 -m pip install pyyaml
 python3 scripts/validate_skill.py
+for scenario in tests/fixtures/*/; do python3 scripts/validate_test_run.py "$scenario"; done
 ```
 
-This checks frontmatter against the [Agent Skills spec](https://agentskills.io/specification) (name format, description length), required files, template sections, relative file references, and obvious secret-like strings. CI runs the same checks on every push and PR.
+This checks package structure plus every declared behavioral scenario. CI runs the same checks on every push and PR.
 
 ## Contributing
 

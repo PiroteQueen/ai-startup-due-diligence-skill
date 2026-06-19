@@ -7,3 +7,6 @@ __pycache__/
 !.env.example
 reports/
 .tmp/
+
+# Local real-company diligence runs — keep private; de-identify into worked-examples/ before committing
+test-runs/

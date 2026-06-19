@@ -1,0 +1,57 @@
+# [INPUT]: 依赖完整包场景的输出与内部 evidence ledger
+# [OUTPUT]: 对外提供 Need more evidence 全包行为的声明式测试契约
+# [POS]: tests/fixtures 的完整包场景，不绑定公司、日期、分数或来源名称
+# [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+
+name: need-more-evidence-full
+outputs:
+  required:
+    - decisions/01-chinese-systematic-dd.md
+    - decisions/02-onepage.md
+    - decisions/03-qa-gap-list.md
+    - decisions/04-data-room-request.md
+    - decisions/05-ic-memo.md
+    - decisions/06-risk-register.md
+    - appendices/07-competitor-landscape.md
+    - appendices/08-ai-product-strategy.md
+    - appendices/09-external-research-log.md
+  forbidden: []
+verdict:
+  label: Need more evidence
+  primary_file: decisions/01-chinese-systematic-dd.md
+  require_falsifiability: true
+  conditional_ic_file: decisions/05-ic-memo.md
+coverage:
+  file: decisions/03-qa-gap-list.md
+ledger:
+  file: internal/evidence-ledger.yaml
+  min_entries: 4
+  require_unknown_p0: true
+  require_fallback: true
+modules:
+  - Basic Info / Thesis
+  - Team
+  - Product / Technology
+  - AI Product & Capability Strategy
+  - Traction / Market
+  - Financials / Business Model
+  - Legal / Compliance / Data Risk
+  - Capital Path / VC Fit / Fundability
+research:
+  file: appendices/09-external-research-log.md
+  require_blocked_fallback: true
+ai_strategy:
+  file: appendices/08-ai-product-strategy.md
+  required_statuses:
+    - live
+    - beta/pilot
+    - announced
+    - unknown
+competition:
+  file: appendices/07-competitor-landscape.md
+  required_layers:
+    - Direct
+    - Platform/model
+    - Incumbent
+    - Customer-built
+    - Manual
